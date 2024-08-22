@@ -22,68 +22,54 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        DgvDatos = New DataGridView()
-        ComboBox1 = New ComboBox()
-        ComboBox2 = New ComboBox()
-        Btnxls = New Button()
-        CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
+        DgvJugadores = New DataGridView()
+        DgvEquipos = New DataGridView()
+        CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
+        CType(DgvEquipos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' DgvDatos
+        ' DgvJugadores
         ' 
-        DgvDatos.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        DgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvDatos.Location = New Point(12, 72)
-        DgvDatos.Name = "DgvDatos"
-        DgvDatos.RowTemplate.Height = 25
-        DgvDatos.Size = New Size(722, 309)
-        DgvDatos.TabIndex = 0
+        DgvJugadores.AllowUserToAddRows = False
+        DgvJugadores.AllowUserToDeleteRows = False
+        DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvJugadores.Location = New Point(217, 12)
+        DgvJugadores.Name = "DgvJugadores"
+        DgvJugadores.RowTemplate.Height = 25
+        DgvJugadores.Size = New Size(540, 472)
+        DgvJugadores.TabIndex = 0
         ' 
-        ' ComboBox1
+        ' DgvEquipos
         ' 
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(12, 25)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(191, 23)
-        ComboBox1.TabIndex = 1
-        ' 
-        ' ComboBox2
-        ' 
-        ComboBox2.FormattingEnabled = True
-        ComboBox2.Location = New Point(209, 25)
-        ComboBox2.Name = "ComboBox2"
-        ComboBox2.Size = New Size(191, 23)
-        ComboBox2.TabIndex = 2
-        ' 
-        ' Btnxls
-        ' 
-        Btnxls.Location = New Point(659, 25)
-        Btnxls.Name = "Btnxls"
-        Btnxls.Size = New Size(75, 23)
-        Btnxls.TabIndex = 3
-        Btnxls.Text = "Xls"
-        Btnxls.UseVisualStyleBackColor = True
+        DgvEquipos.AllowUserToAddRows = False
+        DgvEquipos.AllowUserToDeleteRows = False
+        DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        DgvEquipos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvEquipos.Location = New Point(12, 12)
+        DgvEquipos.Name = "DgvEquipos"
+        DgvEquipos.ReadOnly = True
+        DgvEquipos.RowTemplate.Height = 25
+        DgvEquipos.Size = New Size(199, 472)
+        DgvEquipos.TabIndex = 1
         ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.SlateGray
-        ClientSize = New Size(746, 393)
-        Controls.Add(Btnxls)
-        Controls.Add(ComboBox2)
-        Controls.Add(ComboBox1)
-        Controls.Add(DgvDatos)
+        ClientSize = New Size(782, 496)
+        Controls.Add(DgvEquipos)
+        Controls.Add(DgvJugadores)
         FormBorderStyle = FormBorderStyle.FixedDialog
         Name = "Form1"
         Text = "Control de ligas"
-        CType(DgvDatos, ComponentModel.ISupportInitialize).EndInit()
+        CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
+        CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents DgvDatos As DataGridView
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents Btnxls As Button
+    Friend WithEvents DgvJugadores As DataGridView
+    Friend WithEvents DgvEquipos As DataGridView
 
 End Class
