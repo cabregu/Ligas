@@ -9,10 +9,7 @@ Public Class FrmPpal
     Dim numero As Integer = 0
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DtEquipos = ObtenerEquipos()
-        DgvEquipos.DataSource = DtEquipos
-        DgvEquipos.Columns("idequipo").Visible = False
-        DgvEquipos.Columns("idliga").Visible = False
+
         cargarcmb(CmbFechas)
 
     End Sub
@@ -86,18 +83,29 @@ Public Class FrmPpal
     Private Sub cargarcmb(ByVal cmb As ComboBox)
         Dim CantidadFechas As Integer = ObtenerDatoFechas()
         cmb.Items.Clear()
+        cmb.Items.Add("")
         For i As Integer = 1 To CantidadFechas
             cmb.Items.Add("Fecha " & i)
         Next
         If cmb.Items.Count > 0 Then
             cmb.SelectedIndex = 0
         End If
+
     End Sub
 
     Private Sub cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbFechas.SelectedIndexChanged
-        Dim selectedText As String = CmbFechas.SelectedItem.ToString()
-        numero = Integer.Parse(selectedText.Replace("Fecha ", ""))
-        MessageBox.Show("Número seleccionado: " & numero.ToString())
+
+        If Len(CmbFechas.Text) > 0 Then
+            Dim selectedText As String = CmbFechas.SelectedItem.ToString()
+            numero = Integer.Parse(selectedText.Replace("Fecha ", ""))
+
+            DtEquipos = ObtenerEquipos()
+            DgvEquipos.DataSource = DtEquipos
+            DgvEquipos.Columns("idequipo").Visible = False
+            DgvEquipos.Columns("idliga").Visible = False
+        End If
+
+
     End Sub
 
 
