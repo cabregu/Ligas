@@ -6,6 +6,7 @@ Public Class FrmPpal
     Dim DtEquipos As New DataTable
     Dim DtJugadores As New DataTable
     Dim JugadoresModificados As New List(Of JugadorModificado)
+    Dim numero As Integer = 0
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DtEquipos = ObtenerEquipos()
@@ -91,6 +92,12 @@ Public Class FrmPpal
         If cmb.Items.Count > 0 Then
             cmb.SelectedIndex = 0
         End If
+    End Sub
+
+    Private Sub cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbFechas.SelectedIndexChanged
+        Dim selectedText As String = CmbFechas.SelectedItem.ToString()
+        numero = Integer.Parse(selectedText.Replace("Fecha ", ""))
+        MessageBox.Show("Número seleccionado: " & numero.ToString())
     End Sub
 
 

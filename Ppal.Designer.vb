@@ -25,6 +25,7 @@ Partial Class FrmPpal
         DgvJugadores = New DataGridView()
         DgvEquipos = New DataGridView()
         CmbFechas = New ComboBox()
+        BtnConfirmar = New Button()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -35,10 +36,10 @@ Partial Class FrmPpal
         DgvJugadores.AllowUserToDeleteRows = False
         DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvJugadores.Location = New Point(180, 89)
+        DgvJugadores.Location = New Point(187, 59)
         DgvJugadores.Name = "DgvJugadores"
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(281, 444)
+        DgvJugadores.Size = New Size(395, 480)
         DgvJugadores.TabIndex = 0
         ' 
         ' DgvEquipos
@@ -47,31 +48,43 @@ Partial Class FrmPpal
         DgvEquipos.AllowUserToDeleteRows = False
         DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvEquipos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvEquipos.Location = New Point(12, 89)
+        DgvEquipos.Location = New Point(12, 59)
         DgvEquipos.Name = "DgvEquipos"
         DgvEquipos.ReadOnly = True
         DgvEquipos.RowTemplate.Height = 25
-        DgvEquipos.Size = New Size(162, 444)
+        DgvEquipos.Size = New Size(169, 480)
         DgvEquipos.TabIndex = 1
         ' 
         ' CmbFechas
         ' 
         CmbFechas.FormattingEnabled = True
-        CmbFechas.Location = New Point(12, 33)
+        CmbFechas.Location = New Point(12, 21)
         CmbFechas.Name = "CmbFechas"
         CmbFechas.Size = New Size(121, 23)
         CmbFechas.TabIndex = 2
+        ' 
+        ' BtnConfirmar
+        ' 
+        BtnConfirmar.BackColor = Color.SlateGray
+        BtnConfirmar.FlatStyle = FlatStyle.Flat
+        BtnConfirmar.Image = My.Resources.Resources.inicial
+        BtnConfirmar.Location = New Point(519, 545)
+        BtnConfirmar.Name = "BtnConfirmar"
+        BtnConfirmar.Size = New Size(63, 61)
+        BtnConfirmar.TabIndex = 3
+        BtnConfirmar.UseVisualStyleBackColor = False
         ' 
         ' FrmPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.SlateGray
-        ClientSize = New Size(657, 545)
+        ClientSize = New Size(599, 616)
+        Controls.Add(BtnConfirmar)
         Controls.Add(CmbFechas)
         Controls.Add(DgvEquipos)
         Controls.Add(DgvJugadores)
-        FormBorderStyle = FormBorderStyle.FixedDialog
+        FormBorderStyle = FormBorderStyle.FixedToolWindow
         Name = "FrmPpal"
         Text = "Control de ligas"
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
@@ -82,5 +95,6 @@ Partial Class FrmPpal
     Friend WithEvents DgvJugadores As DataGridView
     Friend WithEvents DgvEquipos As DataGridView
     Friend WithEvents CmbFechas As ComboBox
+    Friend WithEvents BtnConfirmar As Button
 
 End Class
