@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class FrmPpal
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         DgvJugadores = New DataGridView()
         DgvEquipos = New DataGridView()
+        CmbFechas = New ComboBox()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -34,10 +35,10 @@ Partial Class Form1
         DgvJugadores.AllowUserToDeleteRows = False
         DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvJugadores.Location = New Point(217, 12)
+        DgvJugadores.Location = New Point(180, 89)
         DgvJugadores.Name = "DgvJugadores"
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(540, 472)
+        DgvJugadores.Size = New Size(281, 444)
         DgvJugadores.TabIndex = 0
         ' 
         ' DgvEquipos
@@ -46,23 +47,32 @@ Partial Class Form1
         DgvEquipos.AllowUserToDeleteRows = False
         DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvEquipos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvEquipos.Location = New Point(12, 12)
+        DgvEquipos.Location = New Point(12, 89)
         DgvEquipos.Name = "DgvEquipos"
         DgvEquipos.ReadOnly = True
         DgvEquipos.RowTemplate.Height = 25
-        DgvEquipos.Size = New Size(199, 472)
+        DgvEquipos.Size = New Size(162, 444)
         DgvEquipos.TabIndex = 1
         ' 
-        ' Form1
+        ' CmbFechas
+        ' 
+        CmbFechas.FormattingEnabled = True
+        CmbFechas.Location = New Point(12, 33)
+        CmbFechas.Name = "CmbFechas"
+        CmbFechas.Size = New Size(121, 23)
+        CmbFechas.TabIndex = 2
+        ' 
+        ' FrmPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.SlateGray
-        ClientSize = New Size(782, 496)
+        ClientSize = New Size(657, 545)
+        Controls.Add(CmbFechas)
         Controls.Add(DgvEquipos)
         Controls.Add(DgvJugadores)
         FormBorderStyle = FormBorderStyle.FixedDialog
-        Name = "Form1"
+        Name = "FrmPpal"
         Text = "Control de ligas"
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
@@ -71,5 +81,6 @@ Partial Class Form1
 
     Friend WithEvents DgvJugadores As DataGridView
     Friend WithEvents DgvEquipos As DataGridView
+    Friend WithEvents CmbFechas As ComboBox
 
 End Class

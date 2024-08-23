@@ -21,8 +21,6 @@ Public Class ConexionSqlite
         End Using
         Return dt
     End Function
-
-
     Public Shared Function ObtenerJugadoresConEquipos(idEquipo As Long) As DataTable
         Dim dt As New DataTable()
 
@@ -46,6 +44,24 @@ Public Class ConexionSqlite
         Return dt
     End Function
 
+    Public Shared Function ObtenerDatoFechas() As Integer
+        Dim resultado As Integer = 0
+        Dim query As String = "SELECT datoint FROM configuracion WHERE tipo = 'fechas' LIMIT 1"
+
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+
+            Using cmd As New SQLiteCommand(query, conn)
+                Dim result = cmd.ExecuteScalar()
+
+                If result IsNot Nothing AndAlso Integer.TryParse(result.ToString(), resultado) Then
+                    Return resultado
+                Else
+                    Throw New InvalidOperationException("No se encontró un valor válido para el tipo 'fechas'.")
+                End If
+            End Using
+        End Using
+    End Function
 
 
 
