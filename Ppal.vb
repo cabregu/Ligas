@@ -55,6 +55,14 @@ Public Class FrmPpal
 
             ' Ajustar las columnas al contenido
             DgvJugadores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+
+
+            If e.RowIndex >= 0 Then
+                Dim nrofecha As Integer = numero
+                MarcarRegistrosExistentes(idequipo, nrofecha)
+            End If
+
+
         End If
     End Sub
 
@@ -89,7 +97,6 @@ Public Class FrmPpal
     End Sub
 
 
-    'permite solo numeros en la columna puntos
     Private Sub DgvJugadores_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DgvJugadores.EditingControlShowing
         Dim nombreColumna As String = DgvJugadores.Columns(DgvJugadores.CurrentCell.ColumnIndex).Name
 
@@ -143,6 +150,56 @@ Public Class FrmPpal
         End If
 
 
+    End Sub
+
+    Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
+
+        Dim idequipo As Integer = Convert.ToInt64(lblIdequipo.Text)
+        Dim nrofecha As Integer = numero
+
+        For Each row As DataGridViewRow In DgvJugadores.Rows
+            Dim idjugador As Integer = Convert.ToInt32(row.Cells("idjugadores").Value)
+
+            ' Verificar si la celda "Puntos" está vacía o es nula antes de convertir
+            Dim puntosfecha As Decimal = If(IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()), 0D, Convert.ToDecimal(row.Cells("Puntos").Value))
+
+            ' Verificar los valores de los CheckBox para manejar nulos o vacíos
+            Dim b As Integer = If(IsDBNull(row.Cells("B").Value) OrElse Not Convert.ToBoolean(row.Cells("B").Value), 0, 1)
+            Dim t As Integer = If(IsDBNull(row.Cells("T").Value) OrElse Not Convert.ToBoolean(row.Cells("T").Value), 0, 1)
+            Dim s As Integer = If(IsDBNull(row.Cells("S").Value) OrElse Not Convert.ToBoolean(row.Cells("S").Value), 0, 1)
+            Dim l As Integer = If(IsDBNull(row.Cells("L").Value) OrElse Not Convert.ToBoolean(row.Cells("L").Value), 0, 1)
+
+            ' Llamar a la función para guardar el registro
+            GuardarRegistro(idequipo, idjugador, nrofecha, puntosfecha, b, t, s, l)
+        Next
+
+        MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+
+
+    Private Sub MarcarRegistrosExistentes(idequipo As Long, nrofecha As Integer)
+
+        Dim DtRegistros As DataTable
+        DtRegistros = ObtenerRegistrosExistentes(idequipo, nrofecha)
+
+        For Each row As DataGridViewRow In DgvJugadores.Rows
+            Dim idjugador As Long = Convert.ToInt64(row.Cells("idjugadores").Value)
+
+
+            Dim registro As DataRow = DtRegistros.AsEnumerable().FirstOrDefault(Function(r) Convert.ToInt64(r("idjugador")) = idjugador)
+
+            If registro IsNot Nothing Then
+
+                row.Cells("B").Value = Convert.ToBoolean(registro("b"))
+                row.Cells("T").Value = Convert.ToBoolean(registro("t"))
+                row.Cells("S").Value = Convert.ToBoolean(registro("s"))
+                row.Cells("L").Value = Convert.ToBoolean(registro("l"))
+
+                row.Cells("Puntos").Value = registro("puntosfecha")
+                row.Cells("Puntos").Style.BackColor = Color.Green
+            End If
+        Next
     End Sub
 
 
