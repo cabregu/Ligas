@@ -118,10 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="inicial" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inicial.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Lookup&amp;Reference_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lookup&amp;Reference_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="confirma" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\confirma.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LongDate_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LongDate_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inicial" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inicial.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SendXLS_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SendXLS_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PageSetup_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PageSetup_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResetModelDifferences_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ResetModelDifferences_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SavePageSetup_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SavePageSetup_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IDE_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IDE_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddNewDataSource_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddNewDataSource_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Properties_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Properties_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditDataSource_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditDataSource_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExportModelDifferences_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExportModelDifferences_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSetFlags3_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconSetFlags3_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Reviewers_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reviewers_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

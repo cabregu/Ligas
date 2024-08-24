@@ -91,7 +91,7 @@ Public Class FrmPpal
                     JugadoresModificados.Add(jugadorModificado)
                 End If
 
-                DgvJugadores.Rows(e.RowIndex).Cells(e.ColumnIndex).Style.BackColor = Color.Red
+                DgvJugadores.Rows(e.RowIndex).Cells(e.ColumnIndex).Style.BackColor = Color.BlueViolet
             End If
         End If
     End Sub
@@ -148,23 +148,32 @@ Public Class FrmPpal
             DgvEquipos.DataSource = DtEquipos
             DgvEquipos.Columns("idequipo").Visible = False
             DgvEquipos.Columns("idliga").Visible = False
+            DgvJugadores.DataSource = Nothing
+            DgvJugadores.Rows.Clear()
+            DgvJugadores.Columns.Clear()
         End If
 
 
     End Sub
 
     Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
+        ' Verificar si hay filas en el DataGridView
+        If DgvJugadores.Rows.Count = 0 Then
+            MessageBox.Show("No hay datos en el DataGridView para guardar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
 
         Dim idequipo As Integer = Convert.ToInt32(lblIdequipo.Text)
         Dim nrofecha As Integer = numero
 
+        ' Iterar sobre cada fila en el DataGridView
         For Each row As DataGridViewRow In DgvJugadores.Rows
-            Dim idjugador As Integer = Convert.ToInt32(row.Cells("idjugadores").Value)
+            ' Evitar procesar la última fila si es una fila en blanco agregada automáticamente por el DataGridView
+            If row.IsNewRow Then Continue For
 
-            ' Verificar si la celda "Puntos" está vacía o es nula antes de convertir
+            Dim idjugador As Integer = Convert.ToInt32(row.Cells("idjugadores").Value)
             Dim puntosfecha As Decimal? = If(IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()), CType(Nothing, Decimal?), Convert.ToDecimal(row.Cells("Puntos").Value))
 
-            ' Verificar los valores de los CheckBox para manejar nulos o vacíos
             Dim b As Integer = If(IsDBNull(row.Cells("B").Value) OrElse Not Convert.ToBoolean(row.Cells("B").Value), 0, 1)
             Dim t As Integer = If(IsDBNull(row.Cells("T").Value) OrElse Not Convert.ToBoolean(row.Cells("T").Value), 0, 1)
             Dim s As Integer = If(IsDBNull(row.Cells("S").Value) OrElse Not Convert.ToBoolean(row.Cells("S").Value), 0, 1)
@@ -174,10 +183,14 @@ Public Class FrmPpal
             GuardarRegistro(idequipo, idjugador, nrofecha, puntosfecha, b, t, s, l)
         Next
 
+        ' Limpiar el DataGridView después de guardar los registros
+        DgvJugadores.DataSource = Nothing
+        DgvJugadores.Rows.Clear()
+        DgvJugadores.Columns.Clear()
+
+        ' Mostrar mensaje de confirmación
         MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
-
-
 
 
     Private Sub MarcarRegistrosExistentes(idequipo As Long, nrofecha As Integer)
