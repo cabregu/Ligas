@@ -113,13 +113,14 @@ Public Class FrmPpal
     End Sub
 
     Private Sub TxtEdit_KeyPress(sender As Object, e As KeyPressEventArgs)
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> "." Then
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> "," Then
             e.Handled = True
         End If
 
-        ' Permitir solo un punto decimal
         Dim txt As TextBox = CType(sender, TextBox)
-        If e.KeyChar = "." AndAlso txt.Text.IndexOf(".") > -1 Then
+
+        ' Permitir solo una coma
+        If e.KeyChar = "," AndAlso txt.Text.Contains(",") Then
             e.Handled = True
         End If
     End Sub
@@ -154,14 +155,14 @@ Public Class FrmPpal
 
     Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
 
-        Dim idequipo As Integer = Convert.ToInt64(lblIdequipo.Text)
+        Dim idequipo As Integer = Convert.ToInt32(lblIdequipo.Text)
         Dim nrofecha As Integer = numero
 
         For Each row As DataGridViewRow In DgvJugadores.Rows
             Dim idjugador As Integer = Convert.ToInt32(row.Cells("idjugadores").Value)
 
             ' Verificar si la celda "Puntos" está vacía o es nula antes de convertir
-            Dim puntosfecha As Decimal = If(IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()), 0D, Convert.ToDecimal(row.Cells("Puntos").Value))
+            Dim puntosfecha As Decimal? = If(IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()), CType(Nothing, Decimal?), Convert.ToDecimal(row.Cells("Puntos").Value))
 
             ' Verificar los valores de los CheckBox para manejar nulos o vacíos
             Dim b As Integer = If(IsDBNull(row.Cells("B").Value) OrElse Not Convert.ToBoolean(row.Cells("B").Value), 0, 1)
@@ -175,6 +176,7 @@ Public Class FrmPpal
 
         MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
+
 
 
 

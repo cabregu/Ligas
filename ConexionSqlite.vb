@@ -62,9 +62,11 @@ Public Class ConexionSqlite
             End Using
         End Using
     End Function
+
+
     Public Shared Sub GuardarRegistro(idequipo As Integer, idjugador As Integer, nrofecha As Integer, puntosfecha As Decimal?, b As Integer, t As Integer, s As Integer, l As Integer)
         Dim queryExistencia As String = "SELECT COUNT(*) FROM registro WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
-        Dim queryObtenerPuntos As String = "SELECT puntosfecha FROM registro WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
+        Dim queryObtenerValores As String = "SELECT puntosfecha, b, t, s, l FROM registro WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
         Dim queryInsertar As String = "INSERT INTO registro (idequipo, idjugador, nrofecha, puntosfecha, b, t, s, l) VALUES (@idequipo, @idjugador, @nrofecha, @puntosfecha, @b, @t, @s, @l)"
         Dim queryActualizar As String = "UPDATE registro SET puntosfecha = @puntosfecha, b = @b, t = @t, s = @s, l = @l WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
 
@@ -80,24 +82,39 @@ Public Class ConexionSqlite
                 Dim existeRegistro As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
                 If existeRegistro > 0 Then
-                    ' Si el registro existe, obtener el valor actual de puntosfecha
-                    cmd.CommandText = queryObtenerPuntos
-                    Dim puntosActuales As Decimal? = If(cmd.ExecuteScalar() IsNot DBNull.Value, Convert.ToDecimal(cmd.ExecuteScalar()), CType(Nothing, Decimal?))
+                    ' Si el registro existe, obtener los valores actuales
+                    cmd.CommandText = queryObtenerValores
+                    Dim reader As SQLiteDataReader = cmd.ExecuteReader()
 
-                    ' Si puntosfecha es diferente, actualizar el registro
-                    If puntosfecha.HasValue AndAlso puntosfecha <> puntosActuales Then
+                    Dim puntosActuales As Decimal? = Nothing
+                    Dim bActual As Integer = 0
+                    Dim tActual As Integer = 0
+                    Dim sActual As Integer = 0
+                    Dim lActual As Integer = 0
+
+                    If reader.Read() Then
+                        puntosActuales = If(reader("puntosfecha") IsNot DBNull.Value, Convert.ToDecimal(reader("puntosfecha")), CType(Nothing, Decimal?))
+                        bActual = If(reader("b") IsNot DBNull.Value, Convert.ToInt32(reader("b")), 0)
+                        tActual = If(reader("t") IsNot DBNull.Value, Convert.ToInt32(reader("t")), 0)
+                        sActual = If(reader("s") IsNot DBNull.Value, Convert.ToInt32(reader("s")), 0)
+                        lActual = If(reader("l") IsNot DBNull.Value, Convert.ToInt32(reader("l")), 0)
+                    End If
+                    reader.Close()
+
+                    ' Comprobar si puntosfecha o cualquier otro valor es diferente
+                    If puntosfecha <> puntosActuales OrElse b <> bActual OrElse t <> tActual OrElse s <> sActual OrElse l <> lActual Then
                         cmd.CommandText = queryActualizar
 
-                        If puntosfecha.HasValue Then
-                            cmd.Parameters.AddWithValue("@puntosfecha", puntosfecha.Value)
-                        Else
-                            cmd.Parameters.AddWithValue("@puntosfecha", DBNull.Value)
-                        End If
-
+                        ' Asegurarse de que los valores se pasen correctamente
+                        cmd.Parameters.Clear()
+                        cmd.Parameters.AddWithValue("@puntosfecha", If(puntosfecha.HasValue, puntosfecha.Value, DBNull.Value))
                         cmd.Parameters.AddWithValue("@b", b)
                         cmd.Parameters.AddWithValue("@t", t)
                         cmd.Parameters.AddWithValue("@s", s)
                         cmd.Parameters.AddWithValue("@l", l)
+                        cmd.Parameters.AddWithValue("@idequipo", idequipo)
+                        cmd.Parameters.AddWithValue("@idjugador", idjugador)
+                        cmd.Parameters.AddWithValue("@nrofecha", nrofecha)
 
                         cmd.ExecuteNonQuery()
                     End If
@@ -105,16 +122,15 @@ Public Class ConexionSqlite
                     ' Si el registro no existe, insertar un nuevo registro
                     cmd.CommandText = queryInsertar
 
-                    If puntosfecha.HasValue Then
-                        cmd.Parameters.AddWithValue("@puntosfecha", puntosfecha.Value)
-                    Else
-                        cmd.Parameters.AddWithValue("@puntosfecha", DBNull.Value)
-                    End If
-
+                    cmd.Parameters.Clear()
+                    cmd.Parameters.AddWithValue("@puntosfecha", If(puntosfecha.HasValue, puntosfecha.Value, DBNull.Value))
                     cmd.Parameters.AddWithValue("@b", b)
                     cmd.Parameters.AddWithValue("@t", t)
                     cmd.Parameters.AddWithValue("@s", s)
                     cmd.Parameters.AddWithValue("@l", l)
+                    cmd.Parameters.AddWithValue("@idequipo", idequipo)
+                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
+                    cmd.Parameters.AddWithValue("@nrofecha", nrofecha)
 
                     cmd.ExecuteNonQuery()
                 End If
