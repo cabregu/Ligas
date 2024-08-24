@@ -16,14 +16,47 @@ Public Class FrmPpal
 
     Private Sub DgvEquipos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvEquipos.CellClick
         If e.RowIndex >= 0 Then
+            ' Limpiar todas las columnas y filas del DataGridView
+            DgvJugadores.DataSource = Nothing
+            DgvJugadores.Rows.Clear()
+            DgvJugadores.Columns.Clear()
+
+            ' Obtener los datos según el equipo seleccionado
             Dim idequipo As Long = Convert.ToInt64(DgvEquipos.Rows(e.RowIndex).Cells("idequipo").Value)
             DtJugadores = ObtenerJugadoresConEquipos(idequipo)
             DtJugadores.Columns.Add("Puntos")
-            DgvJugadores.DataSource = Nothing
+
+            ' Establecer la nueva fuente de datos
             DgvJugadores.DataSource = DtJugadores
             DgvJugadores.Columns("idjugadores").Visible = False
+
+            ' Crear y agregar las columnas de CheckBox manualmente
+            Dim checkBoxColumn1 As New DataGridViewCheckBoxColumn()
+            checkBoxColumn1.HeaderText = "B"
+            checkBoxColumn1.Name = "B"
+            DgvJugadores.Columns.Add(checkBoxColumn1)
+
+            Dim checkBoxColumn2 As New DataGridViewCheckBoxColumn()
+            checkBoxColumn2.HeaderText = "T"
+            checkBoxColumn2.Name = "T"
+            DgvJugadores.Columns.Add(checkBoxColumn2)
+
+            Dim checkBoxColumn3 As New DataGridViewCheckBoxColumn()
+            checkBoxColumn3.HeaderText = "S"
+            checkBoxColumn3.Name = "S"
+            DgvJugadores.Columns.Add(checkBoxColumn3)
+
+            Dim checkBoxColumn4 As New DataGridViewCheckBoxColumn()
+            checkBoxColumn4.HeaderText = "L"
+            checkBoxColumn4.Name = "L"
+            DgvJugadores.Columns.Add(checkBoxColumn4)
+
+            ' Ajustar las columnas al contenido
+            DgvJugadores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         End If
     End Sub
+
+
 
     Private Sub DgvJugadores_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DgvJugadores.CellValueChanged
         If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
@@ -108,7 +141,9 @@ Public Class FrmPpal
 
     End Sub
 
+    Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
 
+    End Sub
 End Class
 
 Public Class JugadorModificado

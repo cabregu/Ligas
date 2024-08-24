@@ -36,10 +36,10 @@ Partial Class FrmPpal
         DgvJugadores.AllowUserToDeleteRows = False
         DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvJugadores.Location = New Point(187, 59)
+        DgvJugadores.Location = New Point(198, 59)
         DgvJugadores.Name = "DgvJugadores"
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(395, 480)
+        DgvJugadores.Size = New Size(522, 483)
         DgvJugadores.TabIndex = 0
         ' 
         ' DgvEquipos
@@ -52,7 +52,7 @@ Partial Class FrmPpal
         DgvEquipos.Name = "DgvEquipos"
         DgvEquipos.ReadOnly = True
         DgvEquipos.RowTemplate.Height = 25
-        DgvEquipos.Size = New Size(169, 480)
+        DgvEquipos.Size = New Size(180, 483)
         DgvEquipos.TabIndex = 1
         ' 
         ' CmbFechas
@@ -68,7 +68,7 @@ Partial Class FrmPpal
         BtnConfirmar.BackColor = Color.SlateGray
         BtnConfirmar.FlatStyle = FlatStyle.Flat
         BtnConfirmar.Image = My.Resources.Resources.inicial
-        BtnConfirmar.Location = New Point(519, 545)
+        BtnConfirmar.Location = New Point(651, 546)
         BtnConfirmar.Name = "BtnConfirmar"
         BtnConfirmar.Size = New Size(63, 61)
         BtnConfirmar.TabIndex = 3
@@ -79,7 +79,7 @@ Partial Class FrmPpal
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.SlateGray
-        ClientSize = New Size(599, 616)
+        ClientSize = New Size(726, 619)
         Controls.Add(BtnConfirmar)
         Controls.Add(CmbFechas)
         Controls.Add(DgvEquipos)

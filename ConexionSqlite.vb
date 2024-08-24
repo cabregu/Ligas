@@ -63,6 +63,28 @@ Public Class ConexionSqlite
         End Using
     End Function
 
+    Public Shared Sub GuardarRegistro(idequipo As Integer, idjugador As Integer, nrofecha As Integer, puntosfecha As Decimal, b As Integer, t As Integer, s As Integer, l As Integer)
+        Dim query As String = "INSERT INTO registros (idequipo, idjugador, nrofecha, puntosfecha, b, t, s, l) VALUES (@idequipo, @idjugador, @nrofecha, @puntosfecha, @b, @t, @s, @l)"
+
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+
+            Using cmd As New SQLiteCommand(query, conn)
+                ' Asignar los valores a los parámetros de la consulta
+                cmd.Parameters.AddWithValue("@idequipo", idequipo)
+                cmd.Parameters.AddWithValue("@idjugador", idjugador)
+                cmd.Parameters.AddWithValue("@nrofecha", nrofecha)
+                cmd.Parameters.AddWithValue("@puntosfecha", puntosfecha)
+                cmd.Parameters.AddWithValue("@b", b)
+                cmd.Parameters.AddWithValue("@t", t)
+                cmd.Parameters.AddWithValue("@s", s)
+                cmd.Parameters.AddWithValue("@l", l)
+
+                ' Ejecutar la consulta de inserción
+                cmd.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
 
 
 End Class
