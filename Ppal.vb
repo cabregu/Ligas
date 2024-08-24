@@ -26,6 +26,8 @@ Public Class FrmPpal
             DtJugadores = ObtenerJugadoresConEquipos(idequipo)
             DtJugadores.Columns.Add("Puntos")
 
+            lblIdequipo.Text = idequipo
+
             ' Establecer la nueva fuente de datos
             DgvJugadores.DataSource = DtJugadores
             DgvJugadores.Columns("idjugadores").Visible = False
@@ -86,6 +88,8 @@ Public Class FrmPpal
         End If
     End Sub
 
+
+    'permite solo numeros en la columna puntos
     Private Sub DgvJugadores_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DgvJugadores.EditingControlShowing
         Dim nombreColumna As String = DgvJugadores.Columns(DgvJugadores.CurrentCell.ColumnIndex).Name
 
@@ -141,9 +145,7 @@ Public Class FrmPpal
 
     End Sub
 
-    Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
 
-    End Sub
 End Class
 
 Public Class JugadorModificado

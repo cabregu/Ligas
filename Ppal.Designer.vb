@@ -26,6 +26,7 @@ Partial Class FrmPpal
         DgvEquipos = New DataGridView()
         CmbFechas = New ComboBox()
         BtnConfirmar = New Button()
+        lblIdequipo = New Label()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -58,7 +59,7 @@ Partial Class FrmPpal
         ' CmbFechas
         ' 
         CmbFechas.FormattingEnabled = True
-        CmbFechas.Location = New Point(12, 21)
+        CmbFechas.Location = New Point(12, 12)
         CmbFechas.Name = "CmbFechas"
         CmbFechas.Size = New Size(121, 23)
         CmbFechas.TabIndex = 2
@@ -74,12 +75,22 @@ Partial Class FrmPpal
         BtnConfirmar.TabIndex = 3
         BtnConfirmar.UseVisualStyleBackColor = False
         ' 
+        ' lblIdequipo
+        ' 
+        lblIdequipo.AutoSize = True
+        lblIdequipo.Location = New Point(12, 41)
+        lblIdequipo.Name = "lblIdequipo"
+        lblIdequipo.Size = New Size(13, 15)
+        lblIdequipo.TabIndex = 4
+        lblIdequipo.Text = "0"
+        ' 
         ' FrmPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.SlateGray
         ClientSize = New Size(726, 619)
+        Controls.Add(lblIdequipo)
         Controls.Add(BtnConfirmar)
         Controls.Add(CmbFechas)
         Controls.Add(DgvEquipos)
@@ -90,11 +101,13 @@ Partial Class FrmPpal
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents DgvJugadores As DataGridView
     Friend WithEvents DgvEquipos As DataGridView
     Friend WithEvents CmbFechas As ComboBox
     Friend WithEvents BtnConfirmar As Button
+    Friend WithEvents lblIdequipo As Label
 
 End Class
