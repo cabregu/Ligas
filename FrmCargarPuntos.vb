@@ -34,8 +34,8 @@ Public Class FrmCargarPuntos
 
             ' Crear y agregar las columnas de CheckBox manualmente
             Dim checkBoxColumn1 As New DataGridViewCheckBoxColumn()
-            checkBoxColumn1.HeaderText = "B"
-            checkBoxColumn1.Name = "B"
+            checkBoxColumn1.HeaderText = "S"
+            checkBoxColumn1.Name = "S"
             DgvJugadores.Columns.Add(checkBoxColumn1)
 
             Dim checkBoxColumn2 As New DataGridViewCheckBoxColumn()
@@ -44,8 +44,8 @@ Public Class FrmCargarPuntos
             DgvJugadores.Columns.Add(checkBoxColumn2)
 
             Dim checkBoxColumn3 As New DataGridViewCheckBoxColumn()
-            checkBoxColumn3.HeaderText = "S"
-            checkBoxColumn3.Name = "S"
+            checkBoxColumn3.HeaderText = "B"
+            checkBoxColumn3.Name = "B"
             DgvJugadores.Columns.Add(checkBoxColumn3)
 
             Dim checkBoxColumn4 As New DataGridViewCheckBoxColumn()
@@ -157,7 +157,7 @@ Public Class FrmCargarPuntos
     End Sub
 
     Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
-        ' Verificar si hay filas en el DataGridView
+
         If DgvJugadores.Rows.Count = 0 Then
             MessageBox.Show("No hay datos en el DataGridView para guardar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
@@ -166,9 +166,11 @@ Public Class FrmCargarPuntos
         Dim idequipo As Integer = Convert.ToInt32(lblIdequipo.Text)
         Dim nrofecha As Integer = numero
 
-        ' Iterar sobre cada fila en el DataGridView
+        Dim necesitaVerificacion As Boolean = False
+        Dim mensaje As String = "Para los puntos cargados, debes seleccionar al menos una opción de los 'Check'."
+
         For Each row As DataGridViewRow In DgvJugadores.Rows
-            ' Evitar procesar la última fila si es una fila en blanco agregada automáticamente por el DataGridView
+
             If row.IsNewRow Then Continue For
 
             Dim idjugador As Integer = Convert.ToInt32(row.Cells("idjugadores").Value)
@@ -179,19 +181,28 @@ Public Class FrmCargarPuntos
             Dim s As Integer = If(IsDBNull(row.Cells("S").Value) OrElse Not Convert.ToBoolean(row.Cells("S").Value), 0, 1)
             Dim l As Integer = If(IsDBNull(row.Cells("L").Value) OrElse Not Convert.ToBoolean(row.Cells("L").Value), 0, 1)
 
-            ' Llamar a la función para guardar el registro
+            ' Verificar si hay puntos cargados y ninguna opción seleccionada
+            If puntosfecha.HasValue AndAlso (b = 0 AndAlso t = 0 AndAlso s = 0 AndAlso l = 0) Then
+                necesitaVerificacion = True
+                Exit For
+            End If
+
+            ' Guardar el registro
             GuardarRegistro(idequipo, idjugador, nrofecha, puntosfecha, b, t, s, l)
         Next
 
-        ' Limpiar el DataGridView después de guardar los registros
+        If necesitaVerificacion Then
+            MessageBox.Show(mensaje, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' Limpiar el DataGridView después de guardar
         DgvJugadores.DataSource = Nothing
         DgvJugadores.Rows.Clear()
         DgvJugadores.Columns.Clear()
 
-        ' Mostrar mensaje de confirmación
-        'MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
     End Sub
+
 
 
     Private Sub MarcarRegistrosExistentes(idequipo As Long, nrofecha As Integer)
@@ -212,11 +223,19 @@ Public Class FrmCargarPuntos
                 row.Cells("S").Value = Convert.ToBoolean(registro("s"))
                 row.Cells("L").Value = Convert.ToBoolean(registro("l"))
 
+
                 row.Cells("Puntos").Value = registro("puntosfecha")
-                row.Cells("Puntos").Style.BackColor = Color.Green
+
+                If row.Cells("Puntos").Value <> "" Then
+                    row.Cells("Puntos").Style.BackColor = Color.Green
+                End If
+
+
+
             End If
         Next
     End Sub
+
 
 
 End Class

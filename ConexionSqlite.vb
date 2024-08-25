@@ -28,7 +28,13 @@ Public Class ConexionSqlite
         Dim query As String = "SELECT jugadores.idjugadores, jugadores.jugador, jugadores.posicion " &
                           "FROM jugadores " &
                           "INNER JOIN equipos ON jugadores.idequipo = equipos.idequipo " &
-                          "WHERE equipos.idequipo = @IdEquipo "
+                          "WHERE equipos.idequipo = @IdEquipo " &
+                          "ORDER BY CASE jugadores.posicion " &
+                          "    WHEN 'Por' THEN 1 " &
+                          "    WHEN 'Def' THEN 2 " &
+                          "    WHEN 'Med' THEN 3 " &
+                          "    WHEN 'Del' THEN 4 " &
+                          "END"
 
         Using conn As New SQLiteConnection(ObtenerConexion())
             conn.Open()
@@ -44,6 +50,7 @@ Public Class ConexionSqlite
 
         Return dt
     End Function
+
     Public Shared Function ObtenerDatoFechas() As Integer
         Dim resultado As Integer = 0
         Dim query As String = "SELECT datoint FROM configuracion WHERE tipo = 'fechas' LIMIT 1"
@@ -274,6 +281,69 @@ Public Class ConexionSqlite
                 Return False
             End Try
         End Using
+    End Function
+
+    Public Shared Function TransferirJugadoraequipo(idJugador As Integer, nuevoIdequipo As Integer) As Boolean
+        Dim queryRegistro As String = "UPDATE registro SET idequipo = @nuevoIdequipo WHERE idjugador = @idJugador"
+        Dim queryJugadores As String = "UPDATE jugadores SET idequipo = @nuevoIdequipo WHERE idjugadores = @idJugador"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                ' Actualizar tabla 'registro'
+                Using cmdRegistro As New SQLiteCommand(queryRegistro, conn)
+                    cmdRegistro.Parameters.AddWithValue("@nuevoIdequipo", nuevoIdequipo)
+                    cmdRegistro.Parameters.AddWithValue("@idJugador", idJugador)
+                    cmdRegistro.ExecuteNonQuery()
+                End Using
+
+                ' Actualizar tabla 'jugadores'
+                Using cmdJugadores As New SQLiteCommand(queryJugadores, conn)
+                    cmdJugadores.Parameters.AddWithValue("@nuevoIdequipo", nuevoIdequipo)
+                    cmdJugadores.Parameters.AddWithValue("@idJugador", idJugador)
+                    cmdJugadores.ExecuteNonQuery()
+                End Using
+            End Using
+
+            ' Si todo fue exitoso, devolver True
+            Return True
+
+        Catch ex As Exception
+            ' Si ocurrió un error, devolver False
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function EliminarRegistrosPorJugador(idJugador As Integer, idequipo As Integer) As Boolean
+        Dim queryEliminarRegistro As String = "DELETE FROM registro WHERE idjugador = @idJugador AND idequipo = @idequipo"
+        Dim queryEliminarJugadores As String = "DELETE FROM jugadores WHERE idjugadores = @idJugador"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                ' Eliminar de la tabla 'registro'
+                Using cmdEliminarRegistro As New SQLiteCommand(queryEliminarRegistro, conn)
+                    cmdEliminarRegistro.Parameters.AddWithValue("@idJugador", idJugador)
+                    cmdEliminarRegistro.Parameters.AddWithValue("@idequipo", idequipo)
+                    cmdEliminarRegistro.ExecuteNonQuery()
+                End Using
+
+                ' Eliminar de la tabla 'jugadores'
+                Using cmdEliminarJugadores As New SQLiteCommand(queryEliminarJugadores, conn)
+                    cmdEliminarJugadores.Parameters.AddWithValue("@idJugador", idJugador)
+                    cmdEliminarJugadores.ExecuteNonQuery()
+                End Using
+            End Using
+
+            ' Si todo fue exitoso, devolver True
+            Return True
+
+        Catch ex As Exception
+            ' Si ocurrió un error, devolver False
+            Return False
+        End Try
     End Function
 
 
