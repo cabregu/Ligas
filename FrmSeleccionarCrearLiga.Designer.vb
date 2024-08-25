@@ -108,6 +108,7 @@ Partial Class FrmSeleccionarCrearLiga
         Controls.Add(BtnSeleccionar)
         Controls.Add(BtnCrearLinea)
         Name = "FrmSeleccionarCrearLiga"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Seleccionar Crear Liga"
         ResumeLayout(False)
         PerformLayout()

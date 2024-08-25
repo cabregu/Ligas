@@ -1,7 +1,7 @@
 ﻿Imports Ligas.ConexionSqlite
 
 
-Public Class FrmPpal
+Public Class FrmCargarPuntos
 
     Dim DtEquipos As New DataTable
     Dim DtJugadores As New DataTable
@@ -144,7 +144,7 @@ Public Class FrmPpal
             Dim selectedText As String = CmbFechas.SelectedItem.ToString()
             numero = Integer.Parse(selectedText.Replace("Fecha ", ""))
 
-            DtEquipos = ObtenerEquipos()
+            DtEquipos = ObtenerEquiposPorLiga(LblIdLiga.Text)
             DgvEquipos.DataSource = DtEquipos
             DgvEquipos.Columns("idequipo").Visible = False
             DgvEquipos.Columns("idliga").Visible = False
@@ -189,7 +189,8 @@ Public Class FrmPpal
         DgvJugadores.Columns.Clear()
 
         ' Mostrar mensaje de confirmación
-        MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        'MessageBox.Show("Los registros se han guardado correctamente.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
     End Sub
 
 
