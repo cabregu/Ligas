@@ -220,5 +220,8 @@ Public Class FrmLigaPpal
 
     End Sub
 
+    Private Sub BtnReporte_Click(sender As Object, e As EventArgs) Handles BtnReporte.Click
+        FrmReporte.Show()
 
+    End Sub
 End Class

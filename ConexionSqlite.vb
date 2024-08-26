@@ -347,4 +347,113 @@ Public Class ConexionSqlite
     End Function
 
 
+
+
+    Public Shared Function ObtenerRegistrosDeTodosLosEquipos() As DataTable
+        Dim dt As New DataTable()
+
+        Dim queryJugadores As String = "SELECT jugadores.idequipo, equipos.nombre AS nombreEquipo, jugadores.idjugadores, jugadores.jugador, jugadores.posicion " &
+                                   "FROM jugadores " &
+                                   "INNER JOIN equipos ON jugadores.idequipo = equipos.idequipo"
+
+        Dim queryMaxFechas As String = "SELECT idequipo, MAX(nrofecha) AS maxFecha FROM registro GROUP BY idequipo"
+
+        Dim maxFechasPorEquipo As New Dictionary(Of Integer, Integer)()
+
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+
+            Using cmdMaxFechas As New SQLiteCommand(queryMaxFechas, conn)
+                Using reader As SQLiteDataReader = cmdMaxFechas.ExecuteReader()
+                    While reader.Read()
+                        maxFechasPorEquipo.Add(reader.GetInt32(0), reader.GetInt32(1))
+                    End While
+                End Using
+            End Using
+
+            dt.Columns.Add("Equipo")
+            dt.Columns.Add("Nombre del Equipo")
+            dt.Columns.Add("ID Jugador")
+            dt.Columns.Add("Jugador")
+            dt.Columns.Add("Posición")
+
+            Dim maxFechasGlobal As Integer = maxFechasPorEquipo.Values.Max()
+
+            For i As Integer = 1 To maxFechasGlobal
+                dt.Columns.Add($"Fecha {i}", GetType(Decimal))
+            Next
+
+            dt.Columns.Add("S", GetType(Integer))
+            dt.Columns.Add("T", GetType(Integer))
+            dt.Columns.Add("B", GetType(Integer))
+            dt.Columns.Add("L", GetType(Integer))
+
+            Using cmdJugadores As New SQLiteCommand(queryJugadores, conn)
+                Using readerJugadores As SQLiteDataReader = cmdJugadores.ExecuteReader()
+                    While readerJugadores.Read()
+                        Dim idequipo As Integer = readerJugadores.GetInt32(0)
+                        Dim nombreEquipo As String = readerJugadores.GetString(1)
+                        Dim idjugador As Integer = readerJugadores.GetInt32(2)
+                        Dim jugador As String = readerJugadores.GetString(3)
+                        Dim posicion As String = readerJugadores.GetString(4)
+
+                        Dim nuevaFila As DataRow = dt.NewRow()
+                        nuevaFila("Equipo") = idequipo
+                        nuevaFila("Nombre del Equipo") = nombreEquipo
+                        nuevaFila("ID Jugador") = idjugador
+                        nuevaFila("Jugador") = jugador
+                        nuevaFila("Posición") = posicion
+
+                        Dim puntosFecha As New Dictionary(Of Integer, Decimal)()
+                        Dim conteoS As Integer = 0
+                        Dim conteoT As Integer = 0
+                        Dim conteoB As Integer = 0
+                        Dim conteoL As Integer = 0
+
+                        Dim queryRegistros As String = "SELECT nrofecha, puntosfecha, b, t, s, l FROM registro " &
+                                                   "WHERE idequipo = @idequipo AND idjugador = @idjugador"
+
+                        Using cmdRegistros As New SQLiteCommand(queryRegistros, conn)
+                            cmdRegistros.Parameters.AddWithValue("@idequipo", idequipo)
+                            cmdRegistros.Parameters.AddWithValue("@idjugador", idjugador)
+
+                            Using readerRegistros As SQLiteDataReader = cmdRegistros.ExecuteReader()
+                                While readerRegistros.Read()
+                                    Dim nroFecha As Integer = readerRegistros.GetInt32(0)
+                                    Dim puntosFechaValor As Decimal = If(IsDBNull(readerRegistros(1)), 0D, Convert.ToDecimal(readerRegistros(1)))
+                                    Dim b As Integer = If(IsDBNull(readerRegistros(2)), 0, readerRegistros.GetInt32(2))
+                                    Dim t As Integer = If(IsDBNull(readerRegistros(3)), 0, readerRegistros.GetInt32(3))
+                                    Dim s As Integer = If(IsDBNull(readerRegistros(4)), 0, readerRegistros.GetInt32(4))
+                                    Dim l As Integer = If(IsDBNull(readerRegistros(5)), 0, readerRegistros.GetInt32(5))
+
+                                    ' Asignar los puntos a la columna correspondiente
+                                    nuevaFila($"Fecha {nroFecha}") = puntosFechaValor
+
+                                    ' Contar las ocurrencias de S, T, B, L
+                                    conteoS += s
+                                    conteoT += t
+                                    conteoB += b
+                                    conteoL += l
+                                End While
+                            End Using
+                        End Using
+
+                        ' Asignar los conteos a las columnas correspondientes
+                        nuevaFila("S") = conteoS
+                        nuevaFila("T") = conteoT
+                        nuevaFila("B") = conteoB
+                        nuevaFila("L") = conteoL
+
+                        dt.Rows.Add(nuevaFila)
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return dt
+    End Function
+
+
+
+
 End Class
