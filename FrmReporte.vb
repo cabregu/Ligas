@@ -1,6 +1,8 @@
-﻿Imports Ligas.ConexionSqlite
-Imports OfficeOpenXml
+﻿Imports OfficeOpenXml
 Imports System.IO
+Imports System.Windows.Forms
+Imports Ligas.ConexionSqlite
+
 
 Public Class FrmReporte
     Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
@@ -12,53 +14,58 @@ Public Class FrmReporte
         DgvDatos.Columns("Equipo").Visible = False
         DgvDatos.Columns("ID Jugador").Visible = False
         DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-
-    End Sub
-    Private Sub Btnxls_Click(sender As Object, e As EventArgs) Handles Btnxls.Click
-        ' Establece el contexto de la licencia de EPPlus
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial
-
-        ' Llama a la función que exporta el DataGridView a Excel
-        Dim filePath As String = ExportarAExcel(DgvDatos, "Reporte.xlsx") ' Cambia "DgvDatos" al nombre real de tu DataGridView
-
-        ' Intenta abrir el archivo Excel
-        If Not String.IsNullOrEmpty(filePath) AndAlso System.IO.File.Exists(filePath) Then
-            Process.Start(New ProcessStartInfo(filePath) With {.UseShellExecute = True})
-        Else
-            MessageBox.Show("El archivo no se pudo crear o no se encuentra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
     End Sub
 
-    Private Function ExportarAExcel(dataGrid As DataGridView, fileName As String) As String
+
+
+
+    Public Sub ExportarDataGridViewAExcel(dgv As DataGridView)
         Try
-            ' Crear el paquete Excel
-            Using package As New ExcelPackage()
-                Dim worksheet As ExcelWorksheet = package.Workbook.Worksheets.Add("Datos")
+            ' Crear una instancia del cuadro de diálogo para guardar archivos
+            Dim saveFileDialog As New SaveFileDialog()
+            saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx"
+            saveFileDialog.Title = "Guardar archivo Excel"
+            saveFileDialog.FileName = "Datos.xlsx" ' Nombre predeterminado del archivo
 
-                ' Exportar encabezados
-                For col As Integer = 1 To dataGrid.Columns.Count
-                    worksheet.Cells(1, col).Value = dataGrid.Columns(col - 1).HeaderText
-                Next
+            ' Mostrar el cuadro de diálogo y verificar si el usuario hace clic en "Guardar"
+            If saveFileDialog.ShowDialog() = DialogResult.OK Then
+                Dim filePath As String = saveFileDialog.FileName
 
-                ' Exportar datos
-                For row As Integer = 1 To dataGrid.Rows.Count
-                    For col As Integer = 1 To dataGrid.Columns.Count
-                        worksheet.Cells(row + 1, col).Value = dataGrid.Rows(row - 1).Cells(col - 1).Value
+                ' Crear un nuevo paquete Excel
+                Using package As New ExcelPackage()
+                    ' Crear una nueva hoja en el paquete
+                    Dim worksheet As ExcelWorksheet = package.Workbook.Worksheets.Add("Sheet1")
+
+                    ' Agregar encabezados de columna
+                    For colIndex As Integer = 0 To dgv.Columns.Count - 1
+                        worksheet.Cells(1, colIndex + 1).Value = dgv.Columns(colIndex).HeaderText
                     Next
-                Next
 
-                ' Guardar el archivo en la ubicación deseada
-                Dim filePath As String = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName)
-                package.SaveAs(New System.IO.FileInfo(filePath))
+                    ' Agregar datos de filas
+                    For rowIndex As Integer = 0 To dgv.Rows.Count - 1
+                        Dim row As DataGridViewRow = dgv.Rows(rowIndex)
+                        For colIndex As Integer = 0 To dgv.Columns.Count - 1
+                            Dim cellValue As Object = row.Cells(colIndex).Value
+                            worksheet.Cells(rowIndex + 2, colIndex + 1).Value = If(cellValue IsNot Nothing, cellValue.ToString(), String.Empty)
+                        Next
+                    Next
 
-                ' Retornar la ruta del archivo
-                Return filePath
-            End Using
+                    ' Guardar el archivo Excel
+                    Using stream As New FileStream(filePath, FileMode.Create, FileAccess.Write)
+                        package.SaveAs(stream)
+                    End Using
+
+                    MsgBox("Datos exportados exitosamente a Excel.", MsgBoxStyle.Information, "Exportar a Excel")
+                End Using
+            End If
+
         Catch ex As Exception
-            MessageBox.Show("Ocurrió un error al exportar a Excel: " & ex.Message)
-            Return String.Empty
+            MsgBox("Error al exportar a Excel: " & ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
-    End Function
+    End Sub
 
-
+    Private Sub Btnxls_Click(sender As Object, e As EventArgs) Handles Btnxls.Click
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial
+        ExportarDataGridViewAExcel(DgvDatos)
+    End Sub
 End Class

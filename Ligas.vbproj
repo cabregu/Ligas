@@ -6,12 +6,17 @@
     <StartupObject>Ligas.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <ApplicationIcon>liga.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Base\**" />
     <EmbeddedResource Remove="Base\**" />
     <None Remove="Base\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="liga.ico" />
   </ItemGroup>
 
   <ItemGroup>
