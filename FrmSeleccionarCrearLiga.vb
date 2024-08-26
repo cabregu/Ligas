@@ -28,9 +28,9 @@ Public Class FrmSeleccionarCrearLiga
 
     Private Sub BtnSeleccionar_Click(sender As Object, e As EventArgs) Handles BtnSeleccionar.Click
         Me.Visible = False
-        FrmInicio.LblIdLiga.Text = CmbSeleccionarLiga.SelectedValue
-        FrmInicio.LblNombreLiga.Text = CmbSeleccionarLiga.Text
-        FrmInicio.Show()
+        FrmLigaPpal.LblIdLiga.Text = CmbSeleccionarLiga.SelectedValue
+        FrmLigaPpal.LblNombreLiga.Text = CmbSeleccionarLiga.Text
+        FrmLigaPpal.Show()
 
     End Sub
 

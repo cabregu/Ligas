@@ -1,7 +1,7 @@
 ﻿Imports Ligas.ConexionSqlite
 
 
-Public Class FrmInicio
+Public Class FrmLigaPpal
     Private Sub BtnCargarPuntos_Click(sender As Object, e As EventArgs) Handles BtnCargarPuntos.Click
 
         FrmCargarPuntos.LblIdLiga.Text = LblIdLiga.Text

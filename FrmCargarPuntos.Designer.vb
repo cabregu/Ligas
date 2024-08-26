@@ -123,6 +123,7 @@ Partial Class FrmCargarPuntos
         Controls.Add(DgvJugadores)
         FormBorderStyle = FormBorderStyle.FixedToolWindow
         Name = "FrmCargarPuntos"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Control de ligas"
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
