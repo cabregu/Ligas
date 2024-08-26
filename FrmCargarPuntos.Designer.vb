@@ -112,7 +112,7 @@ Partial Class FrmCargarPuntos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.SlateGray
+        BackColor = Color.Teal
         ClientSize = New Size(710, 647)
         Controls.Add(LblNombreLiga)
         Controls.Add(LblIdLiga)

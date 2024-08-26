@@ -34,9 +34,9 @@ Partial Class FrmSeleccionarCrearLiga
         ' 
         BtnCrearLinea.BackColor = Color.SlateGray
         BtnCrearLinea.FlatStyle = FlatStyle.Flat
-        BtnCrearLinea.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnCrearLinea.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnCrearLinea.ForeColor = Color.MidnightBlue
-        BtnCrearLinea.Location = New Point(320, 27)
+        BtnCrearLinea.Location = New Point(320, 37)
         BtnCrearLinea.Name = "BtnCrearLinea"
         BtnCrearLinea.Size = New Size(113, 50)
         BtnCrearLinea.TabIndex = 12
@@ -47,9 +47,9 @@ Partial Class FrmSeleccionarCrearLiga
         ' 
         BtnSeleccionar.BackColor = Color.SlateGray
         BtnSeleccionar.FlatStyle = FlatStyle.Flat
-        BtnSeleccionar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnSeleccionar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnSeleccionar.ForeColor = Color.MidnightBlue
-        BtnSeleccionar.Location = New Point(320, 108)
+        BtnSeleccionar.Location = New Point(320, 115)
         BtnSeleccionar.Name = "BtnSeleccionar"
         BtnSeleccionar.Size = New Size(113, 50)
         BtnSeleccionar.TabIndex = 13
@@ -86,9 +86,9 @@ Partial Class FrmSeleccionarCrearLiga
         ' 
         BtnEliminarLiga.BackColor = Color.SlateGray
         BtnEliminarLiga.FlatStyle = FlatStyle.Flat
-        BtnEliminarLiga.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnEliminarLiga.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnEliminarLiga.ForeColor = Color.MidnightBlue
-        BtnEliminarLiga.Location = New Point(320, 187)
+        BtnEliminarLiga.Location = New Point(320, 194)
         BtnEliminarLiga.Name = "BtnEliminarLiga"
         BtnEliminarLiga.Size = New Size(113, 50)
         BtnEliminarLiga.TabIndex = 17
@@ -99,7 +99,7 @@ Partial Class FrmSeleccionarCrearLiga
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.SlateGray
+        BackColor = Color.Teal
         ClientSize = New Size(464, 279)
         Controls.Add(BtnEliminarLiga)
         Controls.Add(CmbEliminarLiga)
