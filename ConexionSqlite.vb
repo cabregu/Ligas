@@ -346,23 +346,24 @@ Public Class ConexionSqlite
         End Try
     End Function
 
-
-
-
     Public Shared Function ObtenerRegistrosDeTodosLosEquipos() As DataTable
         Dim dt As New DataTable()
 
+        ' Consulta para obtener jugadores junto con el nombre del equipo
         Dim queryJugadores As String = "SELECT jugadores.idequipo, equipos.nombre AS nombreEquipo, jugadores.idjugadores, jugadores.jugador, jugadores.posicion " &
                                    "FROM jugadores " &
                                    "INNER JOIN equipos ON jugadores.idequipo = equipos.idequipo"
 
+        ' Consulta para obtener el número máximo de fechas por equipo
         Dim queryMaxFechas As String = "SELECT idequipo, MAX(nrofecha) AS maxFecha FROM registro GROUP BY idequipo"
 
+        ' Diccionario para almacenar el número máximo de fechas por equipo
         Dim maxFechasPorEquipo As New Dictionary(Of Integer, Integer)()
 
         Using conn As New SQLiteConnection(ObtenerConexion())
             conn.Open()
 
+            ' Ejecutar consulta para obtener el máximo de fechas por equipo
             Using cmdMaxFechas As New SQLiteCommand(queryMaxFechas, conn)
                 Using reader As SQLiteDataReader = cmdMaxFechas.ExecuteReader()
                     While reader.Read()
@@ -371,6 +372,7 @@ Public Class ConexionSqlite
                 End Using
             End Using
 
+            ' Definir columnas del DataTable
             dt.Columns.Add("Equipo")
             dt.Columns.Add("Nombre del Equipo")
             dt.Columns.Add("ID Jugador")
@@ -379,15 +381,22 @@ Public Class ConexionSqlite
 
             Dim maxFechasGlobal As Integer = maxFechasPorEquipo.Values.Max()
 
+            ' Añadir columnas para las fechas
             For i As Integer = 1 To maxFechasGlobal
                 dt.Columns.Add($"Fecha {i}", GetType(Decimal))
             Next
 
+            ' Añadir columnas para S, T, B, L
             dt.Columns.Add("S", GetType(Integer))
             dt.Columns.Add("T", GetType(Integer))
             dt.Columns.Add("B", GetType(Integer))
             dt.Columns.Add("L", GetType(Integer))
 
+            ' Añadir columnas para la suma total de puntos y el promedio
+            dt.Columns.Add("Total Puntos", GetType(Decimal))
+            dt.Columns.Add("Promedio", GetType(Decimal))
+
+            ' Ejecutar consulta para obtener jugadores
             Using cmdJugadores As New SQLiteCommand(queryJugadores, conn)
                 Using readerJugadores As SQLiteDataReader = cmdJugadores.ExecuteReader()
                     While readerJugadores.Read()
@@ -397,6 +406,7 @@ Public Class ConexionSqlite
                         Dim jugador As String = readerJugadores.GetString(3)
                         Dim posicion As String = readerJugadores.GetString(4)
 
+                        ' Crear una nueva fila en el DataTable
                         Dim nuevaFila As DataRow = dt.NewRow()
                         nuevaFila("Equipo") = idequipo
                         nuevaFila("Nombre del Equipo") = nombreEquipo
@@ -404,12 +414,14 @@ Public Class ConexionSqlite
                         nuevaFila("Jugador") = jugador
                         nuevaFila("Posición") = posicion
 
-                        Dim puntosFecha As New Dictionary(Of Integer, Decimal)()
+                        Dim totalPuntos As Decimal = 0D
+                        Dim conteoFechasConPuntos As Integer = 0
                         Dim conteoS As Integer = 0
                         Dim conteoT As Integer = 0
                         Dim conteoB As Integer = 0
                         Dim conteoL As Integer = 0
 
+                        ' Consulta para obtener los registros de puntos, S, T, B, L
                         Dim queryRegistros As String = "SELECT nrofecha, puntosfecha, b, t, s, l FROM registro " &
                                                    "WHERE idequipo = @idequipo AND idjugador = @idjugador"
 
@@ -429,6 +441,10 @@ Public Class ConexionSqlite
                                     ' Asignar los puntos a la columna correspondiente
                                     nuevaFila($"Fecha {nroFecha}") = puntosFechaValor
 
+                                    ' Sumar los puntos y contar las fechas en las que el jugador obtuvo puntos
+                                    totalPuntos += puntosFechaValor
+                                    If puntosFechaValor > 0 Then conteoFechasConPuntos += 1
+
                                     ' Contar las ocurrencias de S, T, B, L
                                     conteoS += s
                                     conteoT += t
@@ -438,12 +454,18 @@ Public Class ConexionSqlite
                             End Using
                         End Using
 
-                        ' Asignar los conteos a las columnas correspondientes
+                        ' Asignar los conteos de S, T, B, L a las columnas correspondientes
                         nuevaFila("S") = conteoS
                         nuevaFila("T") = conteoT
                         nuevaFila("B") = conteoB
                         nuevaFila("L") = conteoL
 
+                        ' Asignar la suma total de puntos y calcular el promedio
+                        nuevaFila("Total Puntos") = totalPuntos
+                        nuevaFila("Promedio") = If(conteoFechasConPuntos > 0, Math.Round(totalPuntos / conteoFechasConPuntos, 2), 0D)
+
+
+                        ' Añadir la fila al DataTable
                         dt.Rows.Add(nuevaFila)
                     End While
                 End Using
@@ -453,6 +475,48 @@ Public Class ConexionSqlite
         Return dt
     End Function
 
+
+    Public Shared Function ObtenerValorEnteroConfiguracion() As Integer
+        Dim valor As Integer = 0
+
+        Dim query As String = "SELECT datoint FROM configuracion WHERE tipo = 'fechas'"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    valor = Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            End Using
+
+            Return valor
+        Catch ex As Exception
+            ' Manejar excepciones según sea necesario
+            Return -1
+        End Try
+    End Function
+
+
+    Public Shared Function ActualizarValorEnteroConfiguracion(nuevoValor As Integer) As Boolean
+        Dim query As String = "UPDATE configuracion SET datoint = @valor WHERE tipo = 'fechas'"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@valor", nuevoValor)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Manejar excepciones según sea necesario
+            Return False
+        End Try
+    End Function
 
 
 

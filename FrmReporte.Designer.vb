@@ -73,6 +73,7 @@ Partial Class FrmReporte
         Controls.Add(DgvDatos)
         FormBorderStyle = FormBorderStyle.FixedToolWindow
         Name = "FrmReporte"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Reporte"
         CType(DgvDatos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)

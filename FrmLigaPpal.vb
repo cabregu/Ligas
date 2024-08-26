@@ -224,4 +224,9 @@ Public Class FrmLigaPpal
         FrmReporte.Show()
 
     End Sub
+
+    Private Sub BtnConfiguracion_Click(sender As Object, e As EventArgs) Handles BtnConfiguracion.Click
+        FrmConfiguracion.Show()
+
+    End Sub
 End Class
