@@ -24,7 +24,7 @@ Partial Class FrmReporte
     Private Sub InitializeComponent()
         DgvDatos = New DataGridView()
         BtnObtenerDatos = New Button()
-        Button1 = New Button()
+        Btnxls = New Button()
         CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -51,16 +51,16 @@ Partial Class FrmReporte
         BtnObtenerDatos.TabIndex = 7
         BtnObtenerDatos.UseVisualStyleBackColor = False
         ' 
-        ' Button1
+        ' Btnxls
         ' 
-        Button1.BackColor = Color.SlateGray
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.Image = My.Resources.Resources.SendXLS_32x32
-        Button1.Location = New Point(725, 29)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(63, 61)
-        Button1.TabIndex = 8
-        Button1.UseVisualStyleBackColor = False
+        Btnxls.BackColor = Color.SlateGray
+        Btnxls.FlatStyle = FlatStyle.Flat
+        Btnxls.Image = My.Resources.Resources.SendXLS_32x32
+        Btnxls.Location = New Point(725, 29)
+        Btnxls.Name = "Btnxls"
+        Btnxls.Size = New Size(63, 61)
+        Btnxls.TabIndex = 8
+        Btnxls.UseVisualStyleBackColor = False
         ' 
         ' FrmReporte
         ' 
@@ -68,7 +68,7 @@ Partial Class FrmReporte
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(800, 450)
-        Controls.Add(Button1)
+        Controls.Add(Btnxls)
         Controls.Add(BtnObtenerDatos)
         Controls.Add(DgvDatos)
         FormBorderStyle = FormBorderStyle.FixedToolWindow
@@ -80,5 +80,5 @@ Partial Class FrmReporte
 
     Friend WithEvents DgvDatos As DataGridView
     Friend WithEvents BtnObtenerDatos As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Btnxls As Button
 End Class
