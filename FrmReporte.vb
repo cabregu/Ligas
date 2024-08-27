@@ -6,14 +6,33 @@ Imports Ligas.ConexionSqlite
 
 Public Class FrmReporte
     Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
-        Dim dt As New DataTable
-        dt = ObtenerRegistrosDeTodosLosEquipos()
+        Dim idEquipo As Integer = Convert.ToInt32(CmbEquipos.SelectedValue)
 
-        DgvDatos.DataSource = Nothing
-        DgvDatos.DataSource = dt
-        DgvDatos.Columns("Equipo").Visible = False
-        DgvDatos.Columns("ID Jugador").Visible = False
-        DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+        If CmbEquipos.Text = "Todos los equipos" Then
+            Dim dt As New DataTable
+            dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text)
+            DgvDatos.DataSource = Nothing
+            DgvDatos.DataSource = dt
+            DgvDatos.Columns("Equipo").Visible = False
+            DgvDatos.Columns("ID Jugador").Visible = False
+            DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+        Else
+
+            Dim dt As DataTable = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                ' Solo asigna la fuente de datos y configura el DataGridView si hay datos
+                DgvDatos.DataSource = Nothing
+                DgvDatos.DataSource = dt
+                DgvDatos.Columns("Equipo").Visible = False
+                DgvDatos.Columns("ID Jugador").Visible = False
+                DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            Else
+                dt = Nothing
+                DgvDatos.DataSource = dt
+            End If
+
+        End If
+
     End Sub
 
 
@@ -68,4 +87,30 @@ Public Class FrmReporte
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial
         ExportarDataGridViewAExcel(DgvDatos)
     End Sub
+
+    Private Sub FrmReporte_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cargarcmb(CmbEquipos)
+    End Sub
+    Private Sub cargarcmb(ByVal cmb As ComboBox)
+
+        Dim DtNuevo As DataTable = ObtenerEquiposPorLiga(Convert.ToInt64(LblIdLiga.Text))
+
+        cmb.DataSource = Nothing
+        cmb.Items.Clear()
+
+
+        Dim newRow As DataRow = DtNuevo.NewRow()
+        newRow("idEquipo") = 0
+        newRow("nombre") = "Todos los equipos"
+        DtNuevo.Rows.InsertAt(newRow, 0)
+
+        cmb.DataSource = DtNuevo
+        cmb.DisplayMember = "nombre"
+        cmb.ValueMember = "idEquipo"
+
+        If cmb.Items.Count > 0 Then
+            cmb.SelectedIndex = 0
+        End If
+    End Sub
+
 End Class

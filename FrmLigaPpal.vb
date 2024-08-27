@@ -221,6 +221,8 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnReporte_Click(sender As Object, e As EventArgs) Handles BtnReporte.Click
+        FrmReporte.LblIdLiga.Text = LblIdLiga.Text
+        FrmReporte.LblNombreLiga.Text = LblNombreLiga.Text
         FrmReporte.Show()
 
     End Sub
@@ -229,4 +231,5 @@ Public Class FrmLigaPpal
         FrmConfiguracion.Show()
 
     End Sub
+
 End Class

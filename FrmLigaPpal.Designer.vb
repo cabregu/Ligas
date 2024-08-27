@@ -168,6 +168,7 @@ Partial Class FrmLigaPpal
         ' 
         ' GpbJugadores
         ' 
+        GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
         GpbJugadores.Controls.Add(Label6)
         GpbJugadores.Controls.Add(Label5)
@@ -241,6 +242,7 @@ Partial Class FrmLigaPpal
         ' 
         ' Label1
         ' 
+        Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         Label1.AutoSize = True
         Label1.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label1.ForeColor = Color.Indigo
@@ -252,6 +254,7 @@ Partial Class FrmLigaPpal
         ' 
         ' BtnTransferirAl
         ' 
+        BtnTransferirAl.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         BtnTransferirAl.AutoSize = True
         BtnTransferirAl.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnTransferirAl.ForeColor = Color.Indigo
@@ -271,6 +274,7 @@ Partial Class FrmLigaPpal
         ' 
         ' LblJugadorSeleccionado
         ' 
+        LblJugadorSeleccionado.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         LblJugadorSeleccionado.AutoSize = True
         LblJugadorSeleccionado.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblJugadorSeleccionado.ForeColor = Color.Indigo
@@ -305,6 +309,7 @@ Partial Class FrmLigaPpal
         ' 
         ' BtnEliminar
         ' 
+        BtnEliminar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         BtnEliminar.BackColor = Color.SlateGray
         BtnEliminar.FlatStyle = FlatStyle.Flat
         BtnEliminar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
@@ -328,6 +333,7 @@ Partial Class FrmLigaPpal
         ' 
         DgvEditarJugadores.AllowUserToAddRows = False
         DgvEditarJugadores.AllowUserToDeleteRows = False
+        DgvEditarJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         DgvEditarJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvEditarJugadores.Location = New Point(444, 118)
         DgvEditarJugadores.Name = "DgvEditarJugadores"
@@ -375,6 +381,7 @@ Partial Class FrmLigaPpal
         ' 
         ' BtnGuardarJugadores
         ' 
+        BtnGuardarJugadores.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         BtnGuardarJugadores.BackColor = Color.SlateGray
         BtnGuardarJugadores.FlatStyle = FlatStyle.Flat
         BtnGuardarJugadores.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
@@ -390,6 +397,7 @@ Partial Class FrmLigaPpal
         ' 
         DgvJugadores.AllowUserToAddRows = False
         DgvJugadores.AllowUserToDeleteRows = False
+        DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvJugadores.Columns.AddRange(New DataGridViewColumn() {Equipo, Jugador, Pos})
         DgvJugadores.Location = New Point(6, 159)
@@ -518,6 +526,7 @@ Partial Class FrmLigaPpal
         Name = "FrmLigaPpal"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Inicio"
+        WindowState = FormWindowState.Maximized
         GpbEquipos.ResumeLayout(False)
         GpbEquipos.PerformLayout()
         GpbJugadores.ResumeLayout(False)

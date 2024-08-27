@@ -39,7 +39,7 @@ Partial Class FrmCargarPuntos
         DgvJugadores.AllowUserToDeleteRows = False
         DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvJugadores.Location = New Point(216, 59)
+        DgvJugadores.Location = New Point(222, 59)
         DgvJugadores.Name = "DgvJugadores"
         DgvJugadores.RowTemplate.Height = 25
         DgvJugadores.Size = New Size(476, 511)
@@ -49,7 +49,7 @@ Partial Class FrmCargarPuntos
         ' 
         DgvEquipos.AllowUserToAddRows = False
         DgvEquipos.AllowUserToDeleteRows = False
-        DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         DgvEquipos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvEquipos.Location = New Point(12, 59)
         DgvEquipos.Name = "DgvEquipos"
@@ -63,11 +63,12 @@ Partial Class FrmCargarPuntos
         CmbFechas.FormattingEnabled = True
         CmbFechas.Location = New Point(12, 30)
         CmbFechas.Name = "CmbFechas"
-        CmbFechas.Size = New Size(121, 23)
+        CmbFechas.Size = New Size(198, 23)
         CmbFechas.TabIndex = 2
         ' 
         ' BtnConfirmar
         ' 
+        BtnConfirmar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         BtnConfirmar.BackColor = Color.SlateGray
         BtnConfirmar.FlatStyle = FlatStyle.Flat
         BtnConfirmar.Image = My.Resources.Resources.ExportModelDifferences_32x32
@@ -102,7 +103,7 @@ Partial Class FrmCargarPuntos
         LblNombreLiga.AutoSize = True
         LblNombreLiga.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point)
         LblNombreLiga.ForeColor = Color.Maroon
-        LblNombreLiga.Location = New Point(289, 5)
+        LblNombreLiga.Location = New Point(297, 9)
         LblNombreLiga.Name = "LblNombreLiga"
         LblNombreLiga.Size = New Size(127, 30)
         LblNombreLiga.TabIndex = 6
@@ -121,10 +122,11 @@ Partial Class FrmCargarPuntos
         Controls.Add(CmbFechas)
         Controls.Add(DgvEquipos)
         Controls.Add(DgvJugadores)
-        FormBorderStyle = FormBorderStyle.FixedToolWindow
+        FormBorderStyle = FormBorderStyle.FixedSingle
         Name = "FrmCargarPuntos"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Control de ligas"
+        WindowState = FormWindowState.Maximized
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
