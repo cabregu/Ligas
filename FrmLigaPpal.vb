@@ -68,7 +68,7 @@ Public Class FrmLigaPpal
         nuevaFila.Cells("Pos").Value = CmbPosicionParaAgregar.Text
 
 
-        CmbEquipoParaAgregar.SelectedIndex = -1
+
         TxtJugadorParaAgregar.Clear()
         CmbPosicionParaAgregar.SelectedIndex = -1
 
@@ -210,6 +210,8 @@ Public Class FrmLigaPpal
             ' Si el usuario selecciona "Sí", llamar a la función para eliminar los registros
             If EliminarRegistrosPorJugador(idJugador, idequipo) Then
                 MessageBox.Show("El registro fue eliminado correctamente.", "Eliminación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                DgvEditarJugadores.DataSource = Nothing
+
             Else
                 MessageBox.Show("Ocurrió un error al eliminar el registro.", "Error de Eliminación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -228,8 +230,11 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnConfiguracion_Click(sender As Object, e As EventArgs) Handles BtnConfiguracion.Click
+        FrmConfiguracion.LblIdliga.Text = LblIdLiga.Text
+        FrmConfiguracion.LblNombreLiga.Text = LblNombreLiga.Text
         FrmConfiguracion.Show()
 
     End Sub
+
 
 End Class

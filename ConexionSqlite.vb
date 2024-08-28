@@ -3,10 +3,11 @@
 Public Class ConexionSqlite
     Private Shared Function ObtenerConexion() As String
         Dim connectionString As String
-        connectionString = $"Data Source={System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "liga.db")};Version=3;"
+        ' Configura la ruta directamente a C:\baseligas\liga.db
+        connectionString = "Data Source=C:\baseligas\liga.db;Version=3;"
         Return connectionString
-
     End Function
+
     Public Shared Function ObtenerEquiposPorLiga(idLiga As Integer) As DataTable
         Dim dt As New DataTable()
         Dim query As String = "SELECT * FROM Equipos WHERE idliga = @idLiga"
@@ -627,7 +628,6 @@ Public Class ConexionSqlite
 
     End Function
 
-
     Public Shared Function ObtenerValorEnteroConfiguracion() As Integer
         Dim valor As Integer = 0
 
@@ -649,7 +649,6 @@ Public Class ConexionSqlite
         End Try
     End Function
 
-
     Public Shared Function ActualizarValorEnteroConfiguracion(nuevoValor As Integer) As Boolean
         Dim query As String = "UPDATE configuracion SET datoint = @valor WHERE tipo = 'fechas'"
 
@@ -669,6 +668,66 @@ Public Class ConexionSqlite
             Return False
         End Try
     End Function
+
+    Public Shared Function EditarNombreEquipo(idequipo As Integer, nuevoNombre As String) As Boolean
+        Dim query As String = "UPDATE Equipos SET nombre = @nuevoNombre WHERE idequipo = @idequipo"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@nuevoNombre", nuevoNombre)
+                cmd.Parameters.AddWithValue("@idequipo", idequipo)
+                Dim result As Integer = cmd.ExecuteNonQuery()
+                ' Retorna true si se afectó al menos una fila, es decir, si la actualización fue exitosa
+                Return result > 0
+            End Using
+        End Using
+    End Function
+
+    Public Shared Function EliminarEquipoYRegistros(idequipo As Integer) As Boolean
+        Dim queryEliminarEquipo As String = "DELETE FROM Equipos WHERE idequipo = @idequipo"
+        Dim queryEliminarRegistros As String = "DELETE FROM Registro WHERE idequipo = @idequipo"
+        Dim queryEliminarJugadores As String = "DELETE FROM Jugadores WHERE idequipo = @idequipo"
+
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+
+            Using transaction = conn.BeginTransaction()
+                Try
+                    ' Eliminar registros de la tabla Registro
+                    Using cmdEliminarRegistros As New SQLiteCommand(queryEliminarRegistros, conn)
+                        cmdEliminarRegistros.Parameters.AddWithValue("@idequipo", idequipo)
+                        cmdEliminarRegistros.ExecuteNonQuery()
+                    End Using
+
+                    ' Eliminar registros de la tabla Jugadores
+                    Using cmdEliminarJugadores As New SQLiteCommand(queryEliminarJugadores, conn)
+                        cmdEliminarJugadores.Parameters.AddWithValue("@idequipo", idequipo)
+                        cmdEliminarJugadores.ExecuteNonQuery()
+                    End Using
+
+                    ' Eliminar el equipo
+                    Using cmdEliminarEquipo As New SQLiteCommand(queryEliminarEquipo, conn)
+                        cmdEliminarEquipo.Parameters.AddWithValue("@idequipo", idequipo)
+                        Dim result As Integer = cmdEliminarEquipo.ExecuteNonQuery()
+
+                        If result = 0 Then
+                            Throw New Exception("No se encontró el equipo a eliminar.")
+                        End If
+                    End Using
+
+                    ' Confirmar la transacción si todo ha salido bien
+                    transaction.Commit()
+                    Return True
+                Catch ex As Exception
+                    ' Deshacer la transacción en caso de error
+                    transaction.Rollback()
+                    MessageBox.Show("Error al eliminar equipo y registros: " & ex.Message)
+                    Return False
+                End Try
+            End Using
+        End Using
+    End Function
+
 
 
 

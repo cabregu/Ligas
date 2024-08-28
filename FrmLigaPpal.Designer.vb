@@ -131,7 +131,7 @@ Partial Class FrmLigaPpal
         GpbEquipos.Enabled = False
         GpbEquipos.Location = New Point(670, 87)
         GpbEquipos.Name = "GpbEquipos"
-        GpbEquipos.Size = New Size(197, 112)
+        GpbEquipos.Size = New Size(287, 112)
         GpbEquipos.TabIndex = 9
         GpbEquipos.TabStop = False
         ' 
@@ -152,7 +152,7 @@ Partial Class FrmLigaPpal
         BtnCrearNuevoEquipo.FlatStyle = FlatStyle.Flat
         BtnCrearNuevoEquipo.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         BtnCrearNuevoEquipo.ForeColor = Color.MidnightBlue
-        BtnCrearNuevoEquipo.Location = New Point(102, 83)
+        BtnCrearNuevoEquipo.Location = New Point(175, 83)
         BtnCrearNuevoEquipo.Name = "BtnCrearNuevoEquipo"
         BtnCrearNuevoEquipo.Size = New Size(89, 23)
         BtnCrearNuevoEquipo.TabIndex = 16
@@ -163,7 +163,7 @@ Partial Class FrmLigaPpal
         ' 
         TxtEquipoingresar.Location = New Point(6, 54)
         TxtEquipoingresar.Name = "TxtEquipoingresar"
-        TxtEquipoingresar.Size = New Size(185, 23)
+        TxtEquipoingresar.Size = New Size(258, 23)
         TxtEquipoingresar.TabIndex = 0
         ' 
         ' GpbJugadores
@@ -192,7 +192,7 @@ Partial Class FrmLigaPpal
         GpbJugadores.Enabled = False
         GpbJugadores.Location = New Point(25, 205)
         GpbJugadores.Name = "GpbJugadores"
-        GpbJugadores.Size = New Size(842, 402)
+        GpbJugadores.Size = New Size(932, 402)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
         ' 
@@ -507,7 +507,7 @@ Partial Class FrmLigaPpal
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(879, 619)
+        ClientSize = New Size(969, 619)
         Controls.Add(Label11)
         Controls.Add(Label10)
         Controls.Add(Label9)
