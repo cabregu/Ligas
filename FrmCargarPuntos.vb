@@ -8,6 +8,7 @@ Public Class FrmCargarPuntos
     Dim JugadoresModificados As New List(Of JugadorModificado)
     Dim numero As Integer = 0
 
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         cargarcmb(CmbFechas)
@@ -131,6 +132,7 @@ Public Class FrmCargarPuntos
         cmb.Items.Add("")
         For i As Integer = 1 To CantidadFechas
             cmb.Items.Add("Fecha " & i)
+
         Next
         If cmb.Items.Count > 0 Then
             cmb.SelectedIndex = 0
@@ -203,10 +205,7 @@ Public Class FrmCargarPuntos
 
     End Sub
 
-
-
     Private Sub MarcarRegistrosExistentes(idequipo As Long, nrofecha As Integer)
-
         Dim DtRegistros As DataTable
         DtRegistros = ObtenerRegistrosExistentes(idequipo, nrofecha)
 
@@ -236,8 +235,14 @@ Public Class FrmCargarPuntos
         Next
     End Sub
 
+    Private Sub DgvJugadores_Sorted(sender As Object, e As EventArgs) Handles DgvJugadores.Sorted
+        Dim idequipo As Long = Convert.ToInt64(lblIdequipo.Text)
+        Dim nrofecha As Integer = Convert.ToInt64(CmbFechas.SelectedValue)
+        MarcarRegistrosExistentes(idequipo, numero)
 
 
+
+    End Sub
 End Class
 
 Public Class JugadorModificado
