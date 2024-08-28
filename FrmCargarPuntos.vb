@@ -25,7 +25,8 @@ Public Class FrmCargarPuntos
             ' Obtener los datos según el equipo seleccionado
             Dim idequipo As Long = Convert.ToInt64(DgvEquipos.Rows(e.RowIndex).Cells("idequipo").Value)
             DtJugadores = ObtenerJugadoresConEquipos(idequipo)
-            DtJugadores.Columns.Add("Puntos")
+            DtJugadores.Columns.Add("Puntos", GetType(Integer))
+
 
             lblIdequipo.Text = idequipo
 
@@ -209,40 +210,53 @@ Public Class FrmCargarPuntos
         Dim DtRegistros As DataTable
         DtRegistros = ObtenerRegistrosExistentes(idequipo, nrofecha)
 
+        ' Configurar la columna "Puntos" como numérica y formato
+        DgvJugadores.Columns("Puntos").ValueType = GetType(Integer)
+        DgvJugadores.Columns("Puntos").DefaultCellStyle.Format = "N0"
+
         For Each row As DataGridViewRow In DgvJugadores.Rows
             Dim idjugador As Long = Convert.ToInt64(row.Cells("idjugadores").Value)
-
 
             Dim registro As DataRow = DtRegistros.AsEnumerable().FirstOrDefault(Function(r) Convert.ToInt64(r("idjugador")) = idjugador)
 
             If registro IsNot Nothing Then
-
                 row.Cells("B").Value = Convert.ToBoolean(registro("b"))
                 row.Cells("T").Value = Convert.ToBoolean(registro("t"))
                 row.Cells("S").Value = Convert.ToBoolean(registro("s"))
                 row.Cells("L").Value = Convert.ToBoolean(registro("l"))
 
+                row.Cells("Puntos").Value = Convert.ToInt32(registro("puntosfecha"))
 
-                row.Cells("Puntos").Value = registro("puntosfecha")
 
-                If row.Cells("Puntos").Value <> "" Then
+
+                If row.Cells("Puntos").Value Is Nothing OrElse IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()) Then
+                    ' Aquí manejas el caso cuando el valor es nulo, vacío, o no es un número
+                    row.Cells("Puntos").Style.BackColor = Color.Red ' Por ejemplo, lo pintas de rojo
+                Else
+                    ' Aquí manejas el caso cuando el valor no es nulo o vacío
                     row.Cells("Puntos").Style.BackColor = Color.Green
                 End If
-
-
 
             End If
         Next
     End Sub
 
+
     Private Sub DgvJugadores_Sorted(sender As Object, e As EventArgs) Handles DgvJugadores.Sorted
+
+
         Dim idequipo As Long = Convert.ToInt64(lblIdequipo.Text)
         Dim nrofecha As Integer = Convert.ToInt64(CmbFechas.SelectedValue)
         MarcarRegistrosExistentes(idequipo, numero)
 
+        DgvJugadores.Columns("Puntos").ValueType = GetType(Integer)
+        DgvJugadores.Columns("Puntos").DefaultCellStyle.Format = "N0"
+        DgvJugadores.Columns("Puntos").SortMode = DataGridViewColumnSortMode.Automatic
 
 
     End Sub
+
+
 End Class
 
 Public Class JugadorModificado
