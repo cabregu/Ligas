@@ -62,6 +62,7 @@ Partial Class FrmLigaPpal
         Label9 = New Label()
         Label10 = New Label()
         Label11 = New Label()
+        TxtNuevoNombre = New TextBox()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvEditarJugadores, ComponentModel.ISupportInitialize).BeginInit()
@@ -171,6 +172,7 @@ Partial Class FrmLigaPpal
         ' 
         GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
+        GpbJugadores.Controls.Add(TxtNuevoNombre)
         GpbJugadores.Controls.Add(BtnModificar)
         GpbJugadores.Controls.Add(Label6)
         GpbJugadores.Controls.Add(Label5)
@@ -194,7 +196,7 @@ Partial Class FrmLigaPpal
         GpbJugadores.Enabled = False
         GpbJugadores.Location = New Point(25, 205)
         GpbJugadores.Name = "GpbJugadores"
-        GpbJugadores.Size = New Size(932, 402)
+        GpbJugadores.Size = New Size(936, 488)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
         ' 
@@ -205,7 +207,7 @@ Partial Class FrmLigaPpal
         BtnModificar.FlatStyle = FlatStyle.Flat
         BtnModificar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnModificar.ForeColor = Color.Indigo
-        BtnModificar.Location = New Point(694, 335)
+        BtnModificar.Location = New Point(694, 421)
         BtnModificar.Name = "BtnModificar"
         BtnModificar.Size = New Size(136, 60)
         BtnModificar.TabIndex = 34
@@ -354,7 +356,7 @@ Partial Class FrmLigaPpal
         DgvEditarJugadores.Name = "DgvEditarJugadores"
         DgvEditarJugadores.ReadOnly = True
         DgvEditarJugadores.RowTemplate.Height = 25
-        DgvEditarJugadores.Size = New Size(247, 278)
+        DgvEditarJugadores.Size = New Size(247, 364)
         DgvEditarJugadores.TabIndex = 21
         ' 
         ' BtnAñadir
@@ -401,7 +403,7 @@ Partial Class FrmLigaPpal
         BtnGuardarJugadores.FlatStyle = FlatStyle.Flat
         BtnGuardarJugadores.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnGuardarJugadores.ForeColor = Color.Indigo
-        BtnGuardarJugadores.Location = New Point(322, 335)
+        BtnGuardarJugadores.Location = New Point(322, 421)
         BtnGuardarJugadores.Name = "BtnGuardarJugadores"
         BtnGuardarJugadores.Size = New Size(116, 60)
         BtnGuardarJugadores.TabIndex = 14
@@ -420,7 +422,7 @@ Partial Class FrmLigaPpal
         DgvJugadores.ReadOnly = True
         DgvJugadores.RowHeadersVisible = False
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(310, 237)
+        DgvJugadores.Size = New Size(310, 323)
         DgvJugadores.TabIndex = 0
         ' 
         ' Equipo
@@ -517,12 +519,19 @@ Partial Class FrmLigaPpal
         Label11.TabIndex = 17
         Label11.Text = "Configuracion"
         ' 
+        ' TxtNuevoNombre
+        ' 
+        TxtNuevoNombre.Location = New Point(694, 392)
+        TxtNuevoNombre.Name = "TxtNuevoNombre"
+        TxtNuevoNombre.Size = New Size(136, 23)
+        TxtNuevoNombre.TabIndex = 17
+        ' 
         ' FrmLigaPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(969, 619)
+        ClientSize = New Size(973, 705)
         Controls.Add(Label11)
         Controls.Add(Label10)
         Controls.Add(Label9)
@@ -592,4 +601,5 @@ Partial Class FrmLigaPpal
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents BtnModificar As Button
+    Friend WithEvents TxtNuevoNombre As TextBox
 End Class

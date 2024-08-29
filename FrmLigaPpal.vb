@@ -152,13 +152,15 @@ Public Class FrmLigaPpal
             LblIdJugadorSeleccionado.Text = ""
             LblJugadorSeleccionado.Text = NombreJugador
             LblIdJugadorSeleccionado.Text = idJugador.ToString()
+            TxtNuevoNombre.Text = NombreJugador
+
         End If
 
     End Sub
 
     Private Sub BtnTransferir_Click(sender As Object, e As EventArgs) Handles BtnTransferir.Click
 
-        ' Obtener los valores seleccionados
+
         Dim idJugador As Integer = Convert.ToInt32(LblIdJugadorSeleccionado.Text)
         Dim nuevoIdequipo As Integer = Convert.ToInt32(CmbEquipoAtransferir.SelectedValue)
 
@@ -238,6 +240,14 @@ Public Class FrmLigaPpal
 
     Private Sub BtnModificar_Click(sender As Object, e As EventArgs) Handles BtnModificar.Click
 
+        If TxtNuevoNombre.Text <> LblJugadorSeleccionado.Text Then
+            Dim idJugador As Integer = Convert.ToInt32(LblIdJugadorSeleccionado.Text)
+            ActualizarNombreJugador(idJugador, TxtNuevoNombre.Text)
+        End If
+
+
+
     End Sub
+
 
 End Class
