@@ -225,13 +225,18 @@ Public Class FrmCargarPuntos
                 row.Cells("S").Value = Convert.ToBoolean(registro("s"))
                 row.Cells("L").Value = Convert.ToBoolean(registro("l"))
 
-                row.Cells("Puntos").Value = Convert.ToInt32(registro("puntosfecha"))
+                Try
+                    row.Cells("Puntos").Value = Convert.ToInt32(registro("puntosfecha"))
+                Catch ex As Exception
+
+                End Try
+
 
 
 
                 If row.Cells("Puntos").Value Is Nothing OrElse IsDBNull(row.Cells("Puntos").Value) OrElse String.IsNullOrEmpty(row.Cells("Puntos").Value?.ToString()) Then
                     ' Aquí manejas el caso cuando el valor es nulo, vacío, o no es un número
-                    row.Cells("Puntos").Style.BackColor = Color.Red ' Por ejemplo, lo pintas de rojo
+                    'row.Cells("Puntos").Style.BackColor = Color.Red ' Por ejemplo, lo pintas de rojo
                 Else
                     ' Aquí manejas el caso cuando el valor no es nulo o vacío
                     row.Cells("Puntos").Style.BackColor = Color.Green
