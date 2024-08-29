@@ -729,7 +729,7 @@ Public Class ConexionSqlite
     End Function
 
     Public Shared Function ActualizarNombreJugador(idJugador As Integer, nuevoNombre As String) As Boolean
-        Dim query As String = "UPDATE jugadores SET nombre = @nuevoNombre WHERE idjugadores = @idJugador"
+        Dim query As String = "UPDATE jugadores SET jugador = @nuevoNombre WHERE idjugadores = @idJugador"
 
         Try
             Using conn As New SQLiteConnection(ObtenerConexion())
@@ -747,8 +747,8 @@ Public Class ConexionSqlite
             Return True
 
         Catch ex As Exception
-            ' Si ocurrió un error, devolver False
-            Return False
+        ' Si ocurrió un error, devolver False
+        Return False
         End Try
     End Function
 

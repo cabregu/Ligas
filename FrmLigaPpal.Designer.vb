@@ -32,6 +32,7 @@ Partial Class FrmLigaPpal
         BtnCrearNuevoEquipo = New Button()
         TxtEquipoingresar = New TextBox()
         GpbJugadores = New GroupBox()
+        TxtNuevoNombre = New TextBox()
         BtnModificar = New Button()
         Label6 = New Label()
         Label5 = New Label()
@@ -62,7 +63,6 @@ Partial Class FrmLigaPpal
         Label9 = New Label()
         Label10 = New Label()
         Label11 = New Label()
-        TxtNuevoNombre = New TextBox()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvEditarJugadores, ComponentModel.ISupportInitialize).BeginInit()
@@ -199,6 +199,14 @@ Partial Class FrmLigaPpal
         GpbJugadores.Size = New Size(936, 488)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
+        ' 
+        ' TxtNuevoNombre
+        ' 
+        TxtNuevoNombre.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        TxtNuevoNombre.Location = New Point(694, 392)
+        TxtNuevoNombre.Name = "TxtNuevoNombre"
+        TxtNuevoNombre.Size = New Size(136, 23)
+        TxtNuevoNombre.TabIndex = 17
         ' 
         ' BtnModificar
         ' 
@@ -518,13 +526,6 @@ Partial Class FrmLigaPpal
         Label11.Size = New Size(84, 15)
         Label11.TabIndex = 17
         Label11.Text = "Configuracion"
-        ' 
-        ' TxtNuevoNombre
-        ' 
-        TxtNuevoNombre.Location = New Point(694, 392)
-        TxtNuevoNombre.Name = "TxtNuevoNombre"
-        TxtNuevoNombre.Size = New Size(136, 23)
-        TxtNuevoNombre.TabIndex = 17
         ' 
         ' FrmLigaPpal
         ' 

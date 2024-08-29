@@ -240,10 +240,16 @@ Public Class FrmLigaPpal
 
     Private Sub BtnModificar_Click(sender As Object, e As EventArgs) Handles BtnModificar.Click
 
-        If TxtNuevoNombre.Text <> LblJugadorSeleccionado.Text Then
-            Dim idJugador As Integer = Convert.ToInt32(LblIdJugadorSeleccionado.Text)
-            ActualizarNombreJugador(idJugador, TxtNuevoNombre.Text)
+
+        Dim idJugador As Integer = Convert.ToInt32(LblIdJugadorSeleccionado.Text)
+
+        If ActualizarNombreJugador(idJugador, TxtNuevoNombre.Text) Then
+            TxtNuevoNombre.Text = ""
+            DgvEditarJugadores.DataSource = Nothing
+            CmbEquipoSeleccionado.SelectedIndex = -1
+
         End If
+
 
 
 
