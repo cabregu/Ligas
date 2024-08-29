@@ -236,5 +236,8 @@ Public Class FrmLigaPpal
 
     End Sub
 
+    Private Sub BtnModificar_Click(sender As Object, e As EventArgs) Handles BtnModificar.Click
+
+    End Sub
 
 End Class

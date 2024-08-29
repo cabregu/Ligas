@@ -32,6 +32,7 @@ Partial Class FrmLigaPpal
         BtnCrearNuevoEquipo = New Button()
         TxtEquipoingresar = New TextBox()
         GpbJugadores = New GroupBox()
+        BtnModificar = New Button()
         Label6 = New Label()
         Label5 = New Label()
         Label4 = New Label()
@@ -170,6 +171,7 @@ Partial Class FrmLigaPpal
         ' 
         GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
+        GpbJugadores.Controls.Add(BtnModificar)
         GpbJugadores.Controls.Add(Label6)
         GpbJugadores.Controls.Add(Label5)
         GpbJugadores.Controls.Add(Label4)
@@ -195,6 +197,20 @@ Partial Class FrmLigaPpal
         GpbJugadores.Size = New Size(932, 402)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
+        ' 
+        ' BtnModificar
+        ' 
+        BtnModificar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        BtnModificar.BackColor = Color.SlateGray
+        BtnModificar.FlatStyle = FlatStyle.Flat
+        BtnModificar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnModificar.ForeColor = Color.Indigo
+        BtnModificar.Location = New Point(694, 335)
+        BtnModificar.Name = "BtnModificar"
+        BtnModificar.Size = New Size(136, 60)
+        BtnModificar.TabIndex = 34
+        BtnModificar.Text = "Modificar Jugador"
+        BtnModificar.UseVisualStyleBackColor = False
         ' 
         ' Label6
         ' 
@@ -246,7 +262,7 @@ Partial Class FrmLigaPpal
         Label1.AutoSize = True
         Label1.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label1.ForeColor = Color.Indigo
-        Label1.Location = New Point(748, 275)
+        Label1.Location = New Point(748, 264)
         Label1.Name = "Label1"
         Label1.Size = New Size(20, 25)
         Label1.TabIndex = 29
@@ -309,12 +325,11 @@ Partial Class FrmLigaPpal
         ' 
         ' BtnEliminar
         ' 
-        BtnEliminar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         BtnEliminar.BackColor = Color.SlateGray
         BtnEliminar.FlatStyle = FlatStyle.Flat
         BtnEliminar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         BtnEliminar.ForeColor = Color.Indigo
-        BtnEliminar.Location = New Point(694, 348)
+        BtnEliminar.Location = New Point(694, 292)
         BtnEliminar.Name = "BtnEliminar"
         BtnEliminar.Size = New Size(136, 48)
         BtnEliminar.TabIndex = 23
@@ -576,4 +591,5 @@ Partial Class FrmLigaPpal
     Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
+    Friend WithEvents BtnModificar As Button
 End Class
