@@ -33,7 +33,6 @@ Partial Class FrmLigaPpal
         TxtEquipoingresar = New TextBox()
         GpbJugadores = New GroupBox()
         BtnBorrarJugadorDeLigaCreada = New Button()
-        BtnBorrarJugador = New Button()
         LblNombreJugadorSubliga = New Label()
         LblIdJugadorSubliga = New Label()
         LblPosicion = New Label()
@@ -193,7 +192,6 @@ Partial Class FrmLigaPpal
         GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
         GpbJugadores.Controls.Add(BtnBorrarJugadorDeLigaCreada)
-        GpbJugadores.Controls.Add(BtnBorrarJugador)
         GpbJugadores.Controls.Add(LblNombreJugadorSubliga)
         GpbJugadores.Controls.Add(LblIdJugadorSubliga)
         GpbJugadores.Controls.Add(LblPosicion)
@@ -237,6 +235,7 @@ Partial Class FrmLigaPpal
         ' BtnBorrarJugadorDeLigaCreada
         ' 
         BtnBorrarJugadorDeLigaCreada.BackColor = Color.SlateGray
+        BtnBorrarJugadorDeLigaCreada.Enabled = False
         BtnBorrarJugadorDeLigaCreada.FlatStyle = FlatStyle.Flat
         BtnBorrarJugadorDeLigaCreada.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnBorrarJugadorDeLigaCreada.ForeColor = Color.Indigo
@@ -246,24 +245,11 @@ Partial Class FrmLigaPpal
         BtnBorrarJugadorDeLigaCreada.TabIndex = 50
         BtnBorrarJugadorDeLigaCreada.Text = "Borrar"
         BtnBorrarJugadorDeLigaCreada.UseVisualStyleBackColor = False
-        BtnBorrarJugadorDeLigaCreada.Visible = False
-        ' 
-        ' BtnBorrarJugador
-        ' 
-        BtnBorrarJugador.BackColor = Color.SlateGray
-        BtnBorrarJugador.FlatStyle = FlatStyle.Flat
-        BtnBorrarJugador.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
-        BtnBorrarJugador.ForeColor = Color.Indigo
-        BtnBorrarJugador.Location = New Point(1003, 164)
-        BtnBorrarJugador.Name = "BtnBorrarJugador"
-        BtnBorrarJugador.Size = New Size(108, 35)
-        BtnBorrarJugador.TabIndex = 49
-        BtnBorrarJugador.Text = "Borrar"
-        BtnBorrarJugador.UseVisualStyleBackColor = False
         ' 
         ' LblNombreJugadorSubliga
         ' 
         LblNombreJugadorSubliga.AutoSize = True
+        LblNombreJugadorSubliga.Enabled = False
         LblNombreJugadorSubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblNombreJugadorSubliga.ForeColor = Color.Indigo
         LblNombreJugadorSubliga.Location = New Point(1003, 128)
@@ -368,7 +354,7 @@ Partial Class FrmLigaPpal
         BtnCrearSubliga.Name = "BtnCrearSubliga"
         BtnCrearSubliga.Size = New Size(108, 48)
         BtnCrearSubliga.TabIndex = 38
-        BtnCrearSubliga.Text = "Crear Subliga"
+        BtnCrearSubliga.Text = "Confirmar Subliga"
         BtnCrearSubliga.UseVisualStyleBackColor = False
         ' 
         ' DgvSubliga
@@ -872,6 +858,5 @@ Partial Class FrmLigaPpal
     Friend WithEvents LblPosicion As Label
     Friend WithEvents LblNombreJugadorSubliga As Label
     Friend WithEvents LblIdJugadorSubliga As Label
-    Friend WithEvents BtnBorrarJugador As Button
     Friend WithEvents BtnBorrarJugadorDeLigaCreada As Button
 End Class

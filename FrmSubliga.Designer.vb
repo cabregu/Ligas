@@ -24,6 +24,10 @@ Partial Class FrmSubliga
     Private Sub InitializeComponent()
         LblNombreLiga = New Label()
         LblIdLiga = New Label()
+        CmbSubliga = New ComboBox()
+        DgvDatos = New DataGridView()
+        BtnSeleccionar = New Button()
+        CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' LblNombreLiga
@@ -47,22 +51,59 @@ Partial Class FrmSubliga
         LblIdLiga.Text = "0"
         LblIdLiga.Visible = False
         ' 
+        ' CmbSubliga
+        ' 
+        CmbSubliga.FormattingEnabled = True
+        CmbSubliga.Location = New Point(12, 39)
+        CmbSubliga.Name = "CmbSubliga"
+        CmbSubliga.Size = New Size(201, 23)
+        CmbSubliga.TabIndex = 15
+        ' 
+        ' DgvDatos
+        ' 
+        DgvDatos.AllowUserToAddRows = False
+        DgvDatos.AllowUserToDeleteRows = False
+        DgvDatos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        DgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvDatos.Location = New Point(12, 68)
+        DgvDatos.Name = "DgvDatos"
+        DgvDatos.ReadOnly = True
+        DgvDatos.RowTemplate.Height = 25
+        DgvDatos.Size = New Size(797, 471)
+        DgvDatos.TabIndex = 16
+        ' 
+        ' BtnSeleccionar
+        ' 
+        BtnSeleccionar.Location = New Point(219, 38)
+        BtnSeleccionar.Name = "BtnSeleccionar"
+        BtnSeleccionar.Size = New Size(75, 23)
+        BtnSeleccionar.TabIndex = 17
+        BtnSeleccionar.Text = "Seleccionar"
+        BtnSeleccionar.UseVisualStyleBackColor = True
+        ' 
         ' FrmSubliga
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(821, 551)
+        Controls.Add(BtnSeleccionar)
+        Controls.Add(DgvDatos)
+        Controls.Add(CmbSubliga)
         Controls.Add(LblNombreLiga)
         Controls.Add(LblIdLiga)
         Name = "FrmSubliga"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Sub liga"
         WindowState = FormWindowState.Maximized
+        CType(DgvDatos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
     Friend WithEvents LblNombreLiga As Label
     Friend WithEvents LblIdLiga As Label
+    Friend WithEvents CmbSubliga As ComboBox
+    Friend WithEvents DgvDatos As DataGridView
+    Friend WithEvents BtnSeleccionar As Button
 End Class

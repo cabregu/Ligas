@@ -47,6 +47,8 @@ Public Class FrmLigaPpal
             .DisplayMember = "nombre"
             .ValueMember = "idequipo"
         End With
+
+        Return True
     End Function
 
     Private Sub BtnAñadir_Click(sender As Object, e As EventArgs) Handles BtnAñadir.Click
@@ -258,7 +260,9 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnSubliga_Click(sender As Object, e As EventArgs) Handles BtnSubliga.Click
-
+        FrmSubliga.LblIdLiga.Text = LblIdLiga.Text
+        FrmSubliga.LblNombreLiga.Text = LblNombreLiga.Text
+        FrmSubliga.Show()
     End Sub
 
     Private Sub ChkActivarSubliga_CheckedChanged(sender As Object, e As EventArgs) Handles ChkActivarSubliga.CheckedChanged
@@ -273,6 +277,7 @@ Public Class FrmLigaPpal
             BtnModificar.Visible = False
 
 
+
             LblSeleccionesubliga.Enabled = True
             CmbSubliga.Enabled = True
             LblNombresubliga.Enabled = True
@@ -280,8 +285,11 @@ Public Class FrmLigaPpal
             DgvSubliga.Enabled = True
             BtnCrearSubliga.Enabled = True
             BtnEliminarSubliga.Enabled = True
-
+            BtnBorrarJugadorDeLigaCreada.Enabled = True
             BtnAgregarASubliga.Visible = True
+            LblNombreJugadorSubliga.Enabled = True
+            BtnBorrarJugadorDeLigaCreada.Enabled = True
+
 
             CargarSubligas()
 
@@ -303,7 +311,8 @@ Public Class FrmLigaPpal
             DgvSubliga.Enabled = False
             BtnCrearSubliga.Enabled = False
             BtnEliminarSubliga.Enabled = False
-
+            LblNombreJugadorSubliga.Enabled = False
+            BtnBorrarJugadorDeLigaCreada.Enabled = False
             BtnAgregarASubliga.Visible = False
 
         End If
@@ -313,33 +322,29 @@ Public Class FrmLigaPpal
 
     Private Sub BtnAgregarASubliga_Click(sender As Object, e As EventArgs) Handles BtnAgregarASubliga.Click
 
-        If Not String.IsNullOrWhiteSpace(LblIdJugadorSeleccionado.Text) AndAlso
-           Not String.IsNullOrWhiteSpace(LblJugadorSeleccionado.Text) AndAlso
-           Not String.IsNullOrWhiteSpace(LblPosicion.Text) Then
+        If String.IsNullOrWhiteSpace(CmbSubliga.Text) AndAlso String.IsNullOrWhiteSpace(TxtNommbresubliga.Text) Then
 
-            DgvSubliga.Rows.Add(LblIdJugadorSeleccionado.Text, LblJugadorSeleccionado.Text, LblPosicion.Text)
-
+            MsgBox("Debe crear el nombre de la subliga o seleccionar una subliga existente")
         Else
 
-            MessageBox.Show("Por favor, asegúrate de que todos los campos estén completos antes de agregar.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            If Not String.IsNullOrWhiteSpace(LblIdJugadorSeleccionado.Text) AndAlso
+               Not String.IsNullOrWhiteSpace(LblJugadorSeleccionado.Text) AndAlso
+               Not String.IsNullOrWhiteSpace(LblPosicion.Text) Then
+
+                DgvSubliga.Rows.Add(LblIdJugadorSeleccionado.Text, LblJugadorSeleccionado.Text, LblPosicion.Text)
+
+            Else
+
+                MessageBox.Show("Por favor, asegúrate de que todos los campos estén completos antes de agregar.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
         End If
+
+
+
     End Sub
 
 
 
-    Private Sub DgvSubliga_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvSubliga.CellContentClick
-
-        If DgvSubliga.RowCount > 0 AndAlso e.RowIndex >= 0 Then
-            Dim idJugador = Convert.ToInt32(DgvSubliga.Rows(e.RowIndex).Cells("idjugador").Value)
-            Dim NombreJugador = Convert.ToString(DgvSubliga.Rows(e.RowIndex).Cells("Nombrejugador").Value)
-
-            LblNombreJugadorSubliga.Text = NombreJugador
-            LblIdJugadorSubliga.Text = idJugador.ToString
-
-
-        End If
-
-    End Sub
 
     Private Sub BtnCrearSubliga_Click(sender As Object, e As EventArgs) Handles BtnCrearSubliga.Click
 
@@ -348,14 +353,28 @@ Public Class FrmLigaPpal
             If DgvSubliga.RowCount > 0 Then
 
                 For Each drw As DataGridViewRow In DgvSubliga.Rows
-                    InsertarSubliga(TxtNommbresubliga.Text, drw.Cells("idjugador").Value, LblIdLiga.Text)
+                    AgregarJugadorASubliga(TxtNommbresubliga.Text, drw.Cells("idjugador").Value, LblIdLiga.Text)
                 Next
 
                 DgvSubliga.Rows.Clear()
                 TxtNommbresubliga.Text = ""
                 CargarSubligas()
+                TxtNommbresubliga.Text = ""
 
             End If
+
+        Else
+
+            MsgBox("Debe colocar el nombre de la liga o seleccionarlo")
+
+        End If
+
+        If CmbSubliga.Text <> "" Then
+
+            For Each drw As DataGridViewRow In DgvSubliga.Rows
+                AgregarJugadorASubliga(CmbSubliga.Text, drw.Cells("idjugador").Value, LblIdLiga.Text)
+            Next
+
         End If
 
     End Sub
@@ -371,36 +390,121 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnBorrarJugadorDeLigaCreada_Click(sender As Object, e As EventArgs) Handles BtnBorrarJugadorDeLigaCreada.Click
-
-        If LblIdJugadorSubliga.Text <> "0" Then
-
-            Dim result As DialogResult = MessageBox.Show("¿Estás seguro de que deseas borrar el jugador?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-
-            If result = DialogResult.Yes Then
-
-                Dim idJugador As Integer
-                If Integer.TryParse(LblIdJugadorSubliga.Text, idJugador) Then
-                    Dim eliminado As Boolean = EliminarDeSubligaPorIdJugador(idJugador)
+        If DgvSubliga.RowCount > 0 Then
 
 
-                    If eliminado Then
-                        MessageBox.Show("Jugador eliminado con éxito.")
+            If LblIdJugadorSubliga.Text <> "0" Then
+
+                Dim result As DialogResult = MessageBox.Show("¿Estás seguro de que deseas borrar el jugador?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+                If result = DialogResult.Yes Then
+
+                    Dim idJugador As Integer
+                    If Integer.TryParse(LblIdJugadorSubliga.Text, idJugador) Then
+                        Dim eliminado As Boolean = EliminarDeSubligaPorIdJugador(CmbSubliga.Text, idJugador, LblIdLiga.Text)
+
+                        If eliminado Then
+                            MessageBox.Show("Jugador eliminado con éxito.")
+
+                            If Not String.IsNullOrWhiteSpace(LblIdJugadorSubliga.Text) Then
+                                Dim idJugadorEliminar As Integer
+                                If Integer.TryParse(LblIdJugadorSubliga.Text, idJugadorEliminar) Then
+                                    For Each row As DataGridViewRow In DgvSubliga.Rows
+                                        If row.Cells("idjugador").Value IsNot Nothing AndAlso Convert.ToInt32(row.Cells("idjugador").Value) = idJugadorEliminar Then
+                                            DgvSubliga.Rows.Remove(row)
+                                            Exit Sub
+                                        End If
+                                    Next
+                                End If
+                            End If
+
+
+                        Else
+
+                            If Not String.IsNullOrWhiteSpace(LblIdJugadorSubliga.Text) Then
+                                Dim idJugadorEliminar As Integer
+                                If Integer.TryParse(LblIdJugadorSubliga.Text, idJugadorEliminar) Then
+                                    For Each row As DataGridViewRow In DgvSubliga.Rows
+                                        If row.Cells("idjugador").Value IsNot Nothing AndAlso Convert.ToInt32(row.Cells("idjugador").Value) = idJugadorEliminar Then
+                                            DgvSubliga.Rows.Remove(row)
+                                            Exit Sub
+                                        End If
+                                    Next
+                                End If
+                            End If
+
+
+                        End If
+
+                        LblNombreJugadorSubliga.Text = ""
+
                     Else
-                        MessageBox.Show("No se pudo eliminar el jugador. Puede que no exista o haya ocurrido un error.")
+                        MessageBox.Show("ID del jugador no es válido.")
                     End If
-                Else
-                    MessageBox.Show("ID del jugador no es válido.")
                 End If
+            Else
+                MessageBox.Show("ID del jugador no es válido o no está seleccionado.")
             End If
-        Else
-            MessageBox.Show("ID del jugador no es válido o no está seleccionado.")
         End If
+
     End Sub
 
     Private Sub CmbSubliga_SelectedValueChanged(sender As Object, e As EventArgs) Handles CmbSubliga.SelectedValueChanged
 
+        TxtNommbresubliga.Text = CmbSubliga.Text
+
+        Dim dtsubliga As New DataTable
+        dtsubliga = ObtenerJugadoresPorSubliga(CmbSubliga.Text)
+
+        DgvSubliga.Rows.Clear()
+
+        For Each drw As DataRow In dtsubliga.Rows
+            DgvSubliga.Rows.Add(drw("idjugador").ToString, drw("jugador").ToString, drw("posicion").ToString)
+        Next
+
+    End Sub
 
 
+    Private Sub DgvSubliga_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvSubliga.CellClick
+
+        If DgvSubliga.RowCount > 0 AndAlso e.RowIndex >= 0 Then
+            Dim idJugador = Convert.ToInt32(DgvSubliga.Rows(e.RowIndex).Cells("idjugador").Value)
+            Dim NombreJugador = Convert.ToString(DgvSubliga.Rows(e.RowIndex).Cells("Nombrejugador").Value)
+
+            LblNombreJugadorSubliga.Text = NombreJugador
+            LblIdJugadorSubliga.Text = idJugador.ToString
+
+
+        End If
+    End Sub
+
+    Private Sub BtnEliminarSubliga_Click(sender As Object, e As EventArgs) Handles BtnEliminarSubliga.Click
+        Dim nombreSubliga As String = CmbSubliga.Text
+
+
+        If String.IsNullOrWhiteSpace(nombreSubliga) Then
+            MessageBox.Show("Por favor, selecciona una subliga para eliminar.", "Subliga no seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+
+        Dim result As DialogResult = MessageBox.Show($"¿Estás seguro de que deseas eliminar la subliga '{nombreSubliga}'?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+
+        If result = DialogResult.Yes Then
+
+            Dim eliminado As Boolean = EliminarSubligaPorNombre(nombreSubliga)
+
+            If eliminado Then
+                MessageBox.Show("La subliga ha sido eliminada correctamente.", "Eliminación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                CargarSubligas()
+                DgvSubliga.Rows.Clear()
+
+
+            Else
+                MessageBox.Show("No se pudo eliminar la subliga. Verifica si el nombre es correcto o si hay errores.", "Error en Eliminación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End If
     End Sub
 
 

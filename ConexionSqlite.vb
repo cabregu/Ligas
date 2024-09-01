@@ -752,34 +752,6 @@ Public Class ConexionSqlite
         End Try
     End Function
 
-
-    Public Shared Function InsertarSubliga(subliga As String, idjugador As Integer, liga As Integer) As Boolean
-
-        Dim queryInsertar As String = "INSERT INTO subliga (subliga, idjugador, liga) VALUES (@subliga, @idjugador, @liga)"
-
-        Try
-
-            Using conn As New SQLiteConnection(ObtenerConexion())
-                conn.Open()
-
-
-                Using cmd As New SQLiteCommand(queryInsertar, conn)
-                    ' Añade los parámetros al comando
-                    cmd.Parameters.AddWithValue("@subliga", subliga)
-                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
-                    cmd.Parameters.AddWithValue("@liga", liga)
-
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-
-                    Return filasAfectadas > 0
-                End Using
-            End Using
-        Catch ex As Exception
-
-            Return False
-        End Try
-    End Function
-
     Public Shared Function ObtenerNombresSubligas() As List(Of String)
         Dim nombresSubligas As New List(Of String)()
         Dim query As String = "SELECT DISTINCT subliga FROM subliga"
@@ -810,28 +782,132 @@ Public Class ConexionSqlite
     End Function
 
 
-    Public Shared Function EliminarDeSubligaPorIdJugador(idjugador As Integer) As Boolean
-        Dim query As String = "DELETE FROM subliga WHERE idjugador = @idjugador"
+    Public Shared Function EliminarDeSubligaPorIdJugador(nombreSubliga As String, idJugador As Integer, liga As Integer) As Boolean
+        Dim query As String = "DELETE FROM subliga WHERE idjugador = @idjugador AND subliga = @nombreSubliga AND liga = @liga"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    ' Añade los parámetros al comando
+                    cmd.Parameters.AddWithValue("@idjugador", idJugador)
+                    cmd.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
+                    cmd.Parameters.AddWithValue("@liga", liga)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    ' Retorna True si se eliminó al menos una fila, False en caso contrario
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Manejo de errores: Puedes registrar el error o manejarlo de acuerdo a tus necesidades
+            Return False
+        End Try
+    End Function
+
+
+    Public Shared Function ObtenerJugadoresPorSubliga(nombreSubliga As String) As DataTable
+        Dim query As String = "SELECT s.idjugador, j.jugador, j.posicion " &
+                              "FROM subliga s " &
+                              "INNER JOIN jugadores j ON s.idjugador = j.idjugadores " &
+                              "WHERE s.subliga = @nombreSubliga " &
+                              "ORDER BY CASE j.posicion " &
+                              "             WHEN 'Por' THEN 1 " &
+                              "             WHEN 'Def' THEN 2 " &
+                              "             WHEN 'Med' THEN 3 " &
+                              "             WHEN 'Del' THEN 4 " &
+                              "          END"
+
+        Dim dt As New DataTable()
 
         Try
 
             Using conn As New SQLiteConnection(ObtenerConexion())
                 conn.Open()
 
-                Using cmd As New SQLiteCommand(query, conn)
-                    ' Añade el parámetro al comando
-                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Using cmd As New SQLiteCommand(query, conn)
+
+                    cmd.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
+
+
+                    Using adapter As New SQLiteDataAdapter(cmd)
+
+                        adapter.Fill(dt)
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+
+        End Try
+
+        Return dt
+    End Function
+
+    Public Shared Function AgregarJugadorASubliga(nombreSubliga As String, idJugador As Integer, liga As Integer) As Boolean
+        Dim queryVerificarExistencia As String = "SELECT COUNT(*) FROM subliga WHERE idjugador = @idjugador AND subliga = @nombreSubliga AND liga = @liga"
+        Dim queryInsertar As String = "INSERT INTO subliga (subliga, idjugador, liga) VALUES (@nombreSubliga, @idjugador, @liga)"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                ' Verificar si el jugador ya está en la subliga y liga
+                Using cmdVerificarExistencia As New SQLiteCommand(queryVerificarExistencia, conn)
+                    cmdVerificarExistencia.Parameters.AddWithValue("@idjugador", idJugador)
+                    cmdVerificarExistencia.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
+                    cmdVerificarExistencia.Parameters.AddWithValue("@liga", liga)
+                    Dim count As Integer = Convert.ToInt32(cmdVerificarExistencia.ExecuteScalar())
+
+                    ' Si el jugador ya está en la subliga y liga, no hacer nada
+                    If count > 0 Then
+                        Return False
+                    End If
+                End Using
+
+                ' Insertar el jugador en la subliga si no existe
+                Using cmdInsertar As New SQLiteCommand(queryInsertar, conn)
+                    cmdInsertar.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
+                    cmdInsertar.Parameters.AddWithValue("@idjugador", idJugador)
+                    cmdInsertar.Parameters.AddWithValue("@liga", liga)
+                    Dim filasAfectadas As Integer = cmdInsertar.ExecuteNonQuery()
 
                     Return filasAfectadas > 0
                 End Using
             End Using
         Catch ex As Exception
-
+            ' Manejo de errores: puedes registrar el error o manejarlo de acuerdo a tus necesidades
             Return False
         End Try
     End Function
+
+    Public Shared Function EliminarSubligaPorNombre(nombreSubliga As String) As Boolean
+        Dim queryEliminar As String = "DELETE FROM subliga WHERE subliga = @nombreSubliga"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(queryEliminar, conn)
+                    ' Añade el parámetro al comando
+                    cmd.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    ' Retorna True si se eliminaron filas, False en caso contrario
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Manejo de errores: puedes registrar el error o manejarlo de acuerdo a tus necesidades
+            Return False
+        End Try
+    End Function
+
+
+
 
 
 End Class
