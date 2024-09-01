@@ -32,13 +32,30 @@ Partial Class FrmLigaPpal
         BtnCrearNuevoEquipo = New Button()
         TxtEquipoingresar = New TextBox()
         GpbJugadores = New GroupBox()
+        BtnBorrarJugadorDeLigaCreada = New Button()
+        BtnBorrarJugador = New Button()
+        LblNombreJugadorSubliga = New Label()
+        LblIdJugadorSubliga = New Label()
+        LblPosicion = New Label()
+        BtnAgregarASubliga = New Button()
+        ChkActivarSubliga = New CheckBox()
+        LblSeleccionesubliga = New Label()
+        CmbSubliga = New ComboBox()
+        BtnEliminarSubliga = New Button()
+        BtnCrearSubliga = New Button()
+        DgvSubliga = New DataGridView()
+        IdJugador = New DataGridViewTextBoxColumn()
+        NombreJugador = New DataGridViewTextBoxColumn()
+        PosicionJugador = New DataGridViewTextBoxColumn()
+        LblNombresubliga = New Label()
+        TxtNommbresubliga = New TextBox()
         TxtNuevoNombre = New TextBox()
         BtnModificar = New Button()
         Label6 = New Label()
         Label5 = New Label()
         Label4 = New Label()
         Label3 = New Label()
-        Label1 = New Label()
+        LblO = New Label()
         BtnTransferirAl = New Label()
         CmbEquipoAtransferir = New ComboBox()
         LblJugadorSeleccionado = New Label()
@@ -67,6 +84,7 @@ Partial Class FrmLigaPpal
         BtnSubliga = New Button()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
+        CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvEditarJugadores, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -174,13 +192,27 @@ Partial Class FrmLigaPpal
         ' 
         GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
+        GpbJugadores.Controls.Add(BtnBorrarJugadorDeLigaCreada)
+        GpbJugadores.Controls.Add(BtnBorrarJugador)
+        GpbJugadores.Controls.Add(LblNombreJugadorSubliga)
+        GpbJugadores.Controls.Add(LblIdJugadorSubliga)
+        GpbJugadores.Controls.Add(LblPosicion)
+        GpbJugadores.Controls.Add(BtnAgregarASubliga)
+        GpbJugadores.Controls.Add(ChkActivarSubliga)
+        GpbJugadores.Controls.Add(LblSeleccionesubliga)
+        GpbJugadores.Controls.Add(CmbSubliga)
+        GpbJugadores.Controls.Add(BtnEliminarSubliga)
+        GpbJugadores.Controls.Add(BtnCrearSubliga)
+        GpbJugadores.Controls.Add(DgvSubliga)
+        GpbJugadores.Controls.Add(LblNombresubliga)
+        GpbJugadores.Controls.Add(TxtNommbresubliga)
         GpbJugadores.Controls.Add(TxtNuevoNombre)
         GpbJugadores.Controls.Add(BtnModificar)
         GpbJugadores.Controls.Add(Label6)
         GpbJugadores.Controls.Add(Label5)
         GpbJugadores.Controls.Add(Label4)
         GpbJugadores.Controls.Add(Label3)
-        GpbJugadores.Controls.Add(Label1)
+        GpbJugadores.Controls.Add(LblO)
         GpbJugadores.Controls.Add(BtnTransferirAl)
         GpbJugadores.Controls.Add(CmbEquipoAtransferir)
         GpbJugadores.Controls.Add(LblJugadorSeleccionado)
@@ -198,14 +230,207 @@ Partial Class FrmLigaPpal
         GpbJugadores.Enabled = False
         GpbJugadores.Location = New Point(25, 205)
         GpbJugadores.Name = "GpbJugadores"
-        GpbJugadores.Size = New Size(936, 488)
+        GpbJugadores.Size = New Size(1119, 488)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
+        ' 
+        ' BtnBorrarJugadorDeLigaCreada
+        ' 
+        BtnBorrarJugadorDeLigaCreada.BackColor = Color.SlateGray
+        BtnBorrarJugadorDeLigaCreada.FlatStyle = FlatStyle.Flat
+        BtnBorrarJugadorDeLigaCreada.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnBorrarJugadorDeLigaCreada.ForeColor = Color.Indigo
+        BtnBorrarJugadorDeLigaCreada.Location = New Point(1003, 205)
+        BtnBorrarJugadorDeLigaCreada.Name = "BtnBorrarJugadorDeLigaCreada"
+        BtnBorrarJugadorDeLigaCreada.Size = New Size(108, 35)
+        BtnBorrarJugadorDeLigaCreada.TabIndex = 50
+        BtnBorrarJugadorDeLigaCreada.Text = "Borrar"
+        BtnBorrarJugadorDeLigaCreada.UseVisualStyleBackColor = False
+        BtnBorrarJugadorDeLigaCreada.Visible = False
+        ' 
+        ' BtnBorrarJugador
+        ' 
+        BtnBorrarJugador.BackColor = Color.SlateGray
+        BtnBorrarJugador.FlatStyle = FlatStyle.Flat
+        BtnBorrarJugador.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnBorrarJugador.ForeColor = Color.Indigo
+        BtnBorrarJugador.Location = New Point(1003, 164)
+        BtnBorrarJugador.Name = "BtnBorrarJugador"
+        BtnBorrarJugador.Size = New Size(108, 35)
+        BtnBorrarJugador.TabIndex = 49
+        BtnBorrarJugador.Text = "Borrar"
+        BtnBorrarJugador.UseVisualStyleBackColor = False
+        ' 
+        ' LblNombreJugadorSubliga
+        ' 
+        LblNombreJugadorSubliga.AutoSize = True
+        LblNombreJugadorSubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
+        LblNombreJugadorSubliga.ForeColor = Color.Indigo
+        LblNombreJugadorSubliga.Location = New Point(1003, 128)
+        LblNombreJugadorSubliga.Name = "LblNombreJugadorSubliga"
+        LblNombreJugadorSubliga.Size = New Size(68, 25)
+        LblNombreJugadorSubliga.TabIndex = 48
+        LblNombreJugadorSubliga.Text = "Jugador"
+        ' 
+        ' LblIdJugadorSubliga
+        ' 
+        LblIdJugadorSubliga.AutoSize = True
+        LblIdJugadorSubliga.Location = New Point(1003, 113)
+        LblIdJugadorSubliga.Name = "LblIdJugadorSubliga"
+        LblIdJugadorSubliga.Size = New Size(13, 15)
+        LblIdJugadorSubliga.TabIndex = 47
+        LblIdJugadorSubliga.Text = "0"
+        LblIdJugadorSubliga.Visible = False
+        ' 
+        ' LblPosicion
+        ' 
+        LblPosicion.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        LblPosicion.AutoSize = True
+        LblPosicion.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
+        LblPosicion.ForeColor = Color.Indigo
+        LblPosicion.Location = New Point(675, 79)
+        LblPosicion.Name = "LblPosicion"
+        LblPosicion.Size = New Size(0, 25)
+        LblPosicion.TabIndex = 46
+        ' 
+        ' BtnAgregarASubliga
+        ' 
+        BtnAgregarASubliga.BackColor = Color.SlateGray
+        BtnAgregarASubliga.FlatStyle = FlatStyle.Flat
+        BtnAgregarASubliga.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnAgregarASubliga.ForeColor = Color.Indigo
+        BtnAgregarASubliga.Location = New Point(667, 107)
+        BtnAgregarASubliga.Name = "BtnAgregarASubliga"
+        BtnAgregarASubliga.Size = New Size(135, 35)
+        BtnAgregarASubliga.TabIndex = 45
+        BtnAgregarASubliga.Text = "Agregar a Subliga"
+        BtnAgregarASubliga.UseVisualStyleBackColor = False
+        BtnAgregarASubliga.Visible = False
+        ' 
+        ' ChkActivarSubliga
+        ' 
+        ChkActivarSubliga.AutoSize = True
+        ChkActivarSubliga.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        ChkActivarSubliga.ForeColor = Color.Indigo
+        ChkActivarSubliga.Location = New Point(723, 16)
+        ChkActivarSubliga.Name = "ChkActivarSubliga"
+        ChkActivarSubliga.Size = New Size(87, 25)
+        ChkActivarSubliga.TabIndex = 42
+        ChkActivarSubliga.Text = "Subliga"
+        ChkActivarSubliga.UseVisualStyleBackColor = True
+        ' 
+        ' LblSeleccionesubliga
+        ' 
+        LblSeleccionesubliga.AutoSize = True
+        LblSeleccionesubliga.Enabled = False
+        LblSeleccionesubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
+        LblSeleccionesubliga.ForeColor = Color.Indigo
+        LblSeleccionesubliga.Location = New Point(816, 10)
+        LblSeleccionesubliga.Name = "LblSeleccionesubliga"
+        LblSeleccionesubliga.Size = New Size(189, 25)
+        LblSeleccionesubliga.TabIndex = 41
+        LblSeleccionesubliga.Text = "Seleccione Subliga Editar"
+        ' 
+        ' CmbSubliga
+        ' 
+        CmbSubliga.DropDownStyle = ComboBoxStyle.DropDownList
+        CmbSubliga.Enabled = False
+        CmbSubliga.FormattingEnabled = True
+        CmbSubliga.Location = New Point(816, 38)
+        CmbSubliga.Name = "CmbSubliga"
+        CmbSubliga.Size = New Size(181, 23)
+        CmbSubliga.TabIndex = 40
+        ' 
+        ' BtnEliminarSubliga
+        ' 
+        BtnEliminarSubliga.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        BtnEliminarSubliga.BackColor = Color.SlateGray
+        BtnEliminarSubliga.Enabled = False
+        BtnEliminarSubliga.FlatStyle = FlatStyle.Flat
+        BtnEliminarSubliga.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnEliminarSubliga.ForeColor = Color.Indigo
+        BtnEliminarSubliga.Location = New Point(1003, 434)
+        BtnEliminarSubliga.Name = "BtnEliminarSubliga"
+        BtnEliminarSubliga.Size = New Size(108, 48)
+        BtnEliminarSubliga.TabIndex = 39
+        BtnEliminarSubliga.Text = "Eliminar Subliga"
+        BtnEliminarSubliga.UseVisualStyleBackColor = False
+        ' 
+        ' BtnCrearSubliga
+        ' 
+        BtnCrearSubliga.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        BtnCrearSubliga.BackColor = Color.SlateGray
+        BtnCrearSubliga.Enabled = False
+        BtnCrearSubliga.FlatStyle = FlatStyle.Flat
+        BtnCrearSubliga.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnCrearSubliga.ForeColor = Color.Indigo
+        BtnCrearSubliga.Location = New Point(1003, 368)
+        BtnCrearSubliga.Name = "BtnCrearSubliga"
+        BtnCrearSubliga.Size = New Size(108, 48)
+        BtnCrearSubliga.TabIndex = 38
+        BtnCrearSubliga.Text = "Crear Subliga"
+        BtnCrearSubliga.UseVisualStyleBackColor = False
+        ' 
+        ' DgvSubliga
+        ' 
+        DgvSubliga.AllowUserToAddRows = False
+        DgvSubliga.AllowUserToDeleteRows = False
+        DgvSubliga.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        DgvSubliga.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvSubliga.Columns.AddRange(New DataGridViewColumn() {IdJugador, NombreJugador, PosicionJugador})
+        DgvSubliga.Enabled = False
+        DgvSubliga.Location = New Point(816, 118)
+        DgvSubliga.Name = "DgvSubliga"
+        DgvSubliga.ReadOnly = True
+        DgvSubliga.RowHeadersVisible = False
+        DgvSubliga.RowTemplate.Height = 25
+        DgvSubliga.Size = New Size(181, 364)
+        DgvSubliga.TabIndex = 37
+        ' 
+        ' IdJugador
+        ' 
+        IdJugador.HeaderText = "IdJugador"
+        IdJugador.Name = "IdJugador"
+        IdJugador.ReadOnly = True
+        IdJugador.Visible = False
+        ' 
+        ' NombreJugador
+        ' 
+        NombreJugador.HeaderText = "Nombre"
+        NombreJugador.Name = "NombreJugador"
+        NombreJugador.ReadOnly = True
+        ' 
+        ' PosicionJugador
+        ' 
+        PosicionJugador.HeaderText = "posicion"
+        PosicionJugador.Name = "PosicionJugador"
+        PosicionJugador.ReadOnly = True
+        PosicionJugador.Width = 60
+        ' 
+        ' LblNombresubliga
+        ' 
+        LblNombresubliga.AutoSize = True
+        LblNombresubliga.Enabled = False
+        LblNombresubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
+        LblNombresubliga.ForeColor = Color.Indigo
+        LblNombresubliga.Location = New Point(816, 64)
+        LblNombresubliga.Name = "LblNombresubliga"
+        LblNombresubliga.Size = New Size(165, 25)
+        LblNombresubliga.TabIndex = 36
+        LblNombresubliga.Text = "Nombre Subliga Crear"
+        ' 
+        ' TxtNommbresubliga
+        ' 
+        TxtNommbresubliga.Enabled = False
+        TxtNommbresubliga.Location = New Point(816, 89)
+        TxtNommbresubliga.Name = "TxtNommbresubliga"
+        TxtNommbresubliga.Size = New Size(181, 23)
+        TxtNommbresubliga.TabIndex = 35
         ' 
         ' TxtNuevoNombre
         ' 
         TxtNuevoNombre.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        TxtNuevoNombre.Location = New Point(694, 392)
+        TxtNuevoNombre.Location = New Point(667, 392)
         TxtNuevoNombre.Name = "TxtNuevoNombre"
         TxtNuevoNombre.Size = New Size(136, 23)
         TxtNuevoNombre.TabIndex = 17
@@ -215,11 +440,11 @@ Partial Class FrmLigaPpal
         BtnModificar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         BtnModificar.BackColor = Color.SlateGray
         BtnModificar.FlatStyle = FlatStyle.Flat
-        BtnModificar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnModificar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnModificar.ForeColor = Color.Indigo
-        BtnModificar.Location = New Point(694, 421)
+        BtnModificar.Location = New Point(667, 421)
         BtnModificar.Name = "BtnModificar"
-        BtnModificar.Size = New Size(136, 60)
+        BtnModificar.Size = New Size(108, 60)
         BtnModificar.TabIndex = 34
         BtnModificar.Text = "Modificar Jugador"
         BtnModificar.UseVisualStyleBackColor = False
@@ -268,17 +493,17 @@ Partial Class FrmLigaPpal
         Label3.TabIndex = 30
         Label3.Text = "Equipo Para Añadir Jugador"
         ' 
-        ' Label1
+        ' LblO
         ' 
-        Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        Label1.AutoSize = True
-        Label1.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
-        Label1.ForeColor = Color.Indigo
-        Label1.Location = New Point(748, 264)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(20, 25)
-        Label1.TabIndex = 29
-        Label1.Text = "o"
+        LblO.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        LblO.AutoSize = True
+        LblO.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
+        LblO.ForeColor = Color.Indigo
+        LblO.Location = New Point(721, 264)
+        LblO.Name = "LblO"
+        LblO.Size = New Size(20, 25)
+        LblO.TabIndex = 29
+        LblO.Text = "o"
         ' 
         ' BtnTransferirAl
         ' 
@@ -286,7 +511,7 @@ Partial Class FrmLigaPpal
         BtnTransferirAl.AutoSize = True
         BtnTransferirAl.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnTransferirAl.ForeColor = Color.Indigo
-        BtnTransferirAl.Location = New Point(702, 125)
+        BtnTransferirAl.Location = New Point(675, 143)
         BtnTransferirAl.Name = "BtnTransferirAl"
         BtnTransferirAl.Size = New Size(100, 25)
         BtnTransferirAl.TabIndex = 28
@@ -295,7 +520,7 @@ Partial Class FrmLigaPpal
         ' CmbEquipoAtransferir
         ' 
         CmbEquipoAtransferir.FormattingEnabled = True
-        CmbEquipoAtransferir.Location = New Point(694, 172)
+        CmbEquipoAtransferir.Location = New Point(667, 172)
         CmbEquipoAtransferir.Name = "CmbEquipoAtransferir"
         CmbEquipoAtransferir.Size = New Size(136, 23)
         CmbEquipoAtransferir.TabIndex = 27
@@ -306,7 +531,7 @@ Partial Class FrmLigaPpal
         LblJugadorSeleccionado.AutoSize = True
         LblJugadorSeleccionado.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblJugadorSeleccionado.ForeColor = Color.Indigo
-        LblJugadorSeleccionado.Location = New Point(700, 79)
+        LblJugadorSeleccionado.Location = New Point(673, 56)
         LblJugadorSeleccionado.Name = "LblJugadorSeleccionado"
         LblJugadorSeleccionado.Size = New Size(68, 25)
         LblJugadorSeleccionado.TabIndex = 26
@@ -315,7 +540,7 @@ Partial Class FrmLigaPpal
         ' LblIdJugadorSeleccionado
         ' 
         LblIdJugadorSeleccionado.AutoSize = True
-        LblIdJugadorSeleccionado.Location = New Point(700, 41)
+        LblIdJugadorSeleccionado.Location = New Point(673, 41)
         LblIdJugadorSeleccionado.Name = "LblIdJugadorSeleccionado"
         LblIdJugadorSeleccionado.Size = New Size(13, 15)
         LblIdJugadorSeleccionado.TabIndex = 25
@@ -326,11 +551,11 @@ Partial Class FrmLigaPpal
         ' 
         BtnTransferir.BackColor = Color.SlateGray
         BtnTransferir.FlatStyle = FlatStyle.Flat
-        BtnTransferir.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnTransferir.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnTransferir.ForeColor = Color.Indigo
-        BtnTransferir.Location = New Point(694, 201)
+        BtnTransferir.Location = New Point(667, 201)
         BtnTransferir.Name = "BtnTransferir"
-        BtnTransferir.Size = New Size(136, 60)
+        BtnTransferir.Size = New Size(108, 60)
         BtnTransferir.TabIndex = 24
         BtnTransferir.Text = "Concretar transferencia"
         BtnTransferir.UseVisualStyleBackColor = False
@@ -339,11 +564,11 @@ Partial Class FrmLigaPpal
         ' 
         BtnEliminar.BackColor = Color.SlateGray
         BtnEliminar.FlatStyle = FlatStyle.Flat
-        BtnEliminar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnEliminar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnEliminar.ForeColor = Color.Indigo
-        BtnEliminar.Location = New Point(694, 292)
+        BtnEliminar.Location = New Point(667, 292)
         BtnEliminar.Name = "BtnEliminar"
-        BtnEliminar.Size = New Size(136, 48)
+        BtnEliminar.Size = New Size(108, 48)
         BtnEliminar.TabIndex = 23
         BtnEliminar.Text = "Eliminar"
         BtnEliminar.UseVisualStyleBackColor = False
@@ -353,7 +578,7 @@ Partial Class FrmLigaPpal
         CmbEquipoSeleccionado.FormattingEnabled = True
         CmbEquipoSeleccionado.Location = New Point(444, 85)
         CmbEquipoSeleccionado.Name = "CmbEquipoSeleccionado"
-        CmbEquipoSeleccionado.Size = New Size(191, 23)
+        CmbEquipoSeleccionado.Size = New Size(138, 23)
         CmbEquipoSeleccionado.TabIndex = 22
         ' 
         ' DgvEditarJugadores
@@ -366,18 +591,18 @@ Partial Class FrmLigaPpal
         DgvEditarJugadores.Name = "DgvEditarJugadores"
         DgvEditarJugadores.ReadOnly = True
         DgvEditarJugadores.RowTemplate.Height = 25
-        DgvEditarJugadores.Size = New Size(247, 364)
+        DgvEditarJugadores.Size = New Size(217, 364)
         DgvEditarJugadores.TabIndex = 21
         ' 
         ' BtnAñadir
         ' 
         BtnAñadir.BackColor = Color.SlateGray
         BtnAñadir.FlatStyle = FlatStyle.Flat
-        BtnAñadir.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnAñadir.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnAñadir.ForeColor = Color.Indigo
         BtnAñadir.Location = New Point(6, 118)
         BtnAñadir.Name = "BtnAñadir"
-        BtnAñadir.Size = New Size(310, 35)
+        BtnAñadir.Size = New Size(301, 35)
         BtnAñadir.TabIndex = 11
         BtnAñadir.Text = "Añadir"
         BtnAñadir.UseVisualStyleBackColor = False
@@ -403,7 +628,7 @@ Partial Class FrmLigaPpal
         CmbEquipoParaAgregar.FormattingEnabled = True
         CmbEquipoParaAgregar.Location = New Point(6, 41)
         CmbEquipoParaAgregar.Name = "CmbEquipoParaAgregar"
-        CmbEquipoParaAgregar.Size = New Size(168, 23)
+        CmbEquipoParaAgregar.Size = New Size(153, 23)
         CmbEquipoParaAgregar.TabIndex = 14
         ' 
         ' BtnGuardarJugadores
@@ -411,11 +636,11 @@ Partial Class FrmLigaPpal
         BtnGuardarJugadores.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         BtnGuardarJugadores.BackColor = Color.SlateGray
         BtnGuardarJugadores.FlatStyle = FlatStyle.Flat
-        BtnGuardarJugadores.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnGuardarJugadores.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnGuardarJugadores.ForeColor = Color.Indigo
         BtnGuardarJugadores.Location = New Point(322, 421)
         BtnGuardarJugadores.Name = "BtnGuardarJugadores"
-        BtnGuardarJugadores.Size = New Size(116, 60)
+        BtnGuardarJugadores.Size = New Size(107, 60)
         BtnGuardarJugadores.TabIndex = 14
         BtnGuardarJugadores.Text = "Guardar Datos"
         BtnGuardarJugadores.UseVisualStyleBackColor = False
@@ -556,7 +781,7 @@ Partial Class FrmLigaPpal
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(973, 705)
+        ClientSize = New Size(1156, 705)
         Controls.Add(LblSubliga)
         Controls.Add(BtnSubliga)
         Controls.Add(Label11)
@@ -582,6 +807,7 @@ Partial Class FrmLigaPpal
         GpbEquipos.PerformLayout()
         GpbJugadores.ResumeLayout(False)
         GpbJugadores.PerformLayout()
+        CType(DgvSubliga, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvEditarJugadores, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -616,7 +842,7 @@ Partial Class FrmLigaPpal
     Friend WithEvents LblIdJugadorSeleccionado As Label
     Friend WithEvents CmbEquipoAtransferir As ComboBox
     Friend WithEvents BtnTransferirAl As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents LblO As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label6 As Label
@@ -631,4 +857,21 @@ Partial Class FrmLigaPpal
     Friend WithEvents TxtNuevoNombre As TextBox
     Friend WithEvents LblSubliga As Label
     Friend WithEvents BtnSubliga As Button
+    Friend WithEvents BtnCrearSubliga As Button
+    Friend WithEvents DgvSubliga As DataGridView
+    Friend WithEvents LblNombresubliga As Label
+    Friend WithEvents TxtNommbresubliga As TextBox
+    Friend WithEvents BtnEliminarSubliga As Button
+    Friend WithEvents LblSeleccionesubliga As Label
+    Friend WithEvents CmbSubliga As ComboBox
+    Friend WithEvents ChkActivarSubliga As CheckBox
+    Friend WithEvents IdJugador As DataGridViewTextBoxColumn
+    Friend WithEvents NombreJugador As DataGridViewTextBoxColumn
+    Friend WithEvents PosicionJugador As DataGridViewTextBoxColumn
+    Friend WithEvents BtnAgregarASubliga As Button
+    Friend WithEvents LblPosicion As Label
+    Friend WithEvents LblNombreJugadorSubliga As Label
+    Friend WithEvents LblIdJugadorSubliga As Label
+    Friend WithEvents BtnBorrarJugador As Button
+    Friend WithEvents BtnBorrarJugadorDeLigaCreada As Button
 End Class

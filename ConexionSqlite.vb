@@ -753,5 +753,85 @@ Public Class ConexionSqlite
     End Function
 
 
+    Public Shared Function InsertarSubliga(subliga As String, idjugador As Integer, liga As Integer) As Boolean
+
+        Dim queryInsertar As String = "INSERT INTO subliga (subliga, idjugador, liga) VALUES (@subliga, @idjugador, @liga)"
+
+        Try
+
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+
+                Using cmd As New SQLiteCommand(queryInsertar, conn)
+                    ' Añade los parámetros al comando
+                    cmd.Parameters.AddWithValue("@subliga", subliga)
+                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
+                    cmd.Parameters.AddWithValue("@liga", liga)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+        Catch ex As Exception
+
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function ObtenerNombresSubligas() As List(Of String)
+        Dim nombresSubligas As New List(Of String)()
+        Dim query As String = "SELECT DISTINCT subliga FROM subliga"
+
+
+        Try
+
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+
+                Using cmd As New SQLiteCommand(query, conn)
+
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader()
+
+                        While reader.Read()
+                            Dim nombreSubliga As String = reader("subliga").ToString()
+                            nombresSubligas.Add(nombreSubliga)
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+
+        End Try
+
+        Return nombresSubligas
+    End Function
+
+
+    Public Shared Function EliminarDeSubligaPorIdJugador(idjugador As Integer) As Boolean
+        Dim query As String = "DELETE FROM subliga WHERE idjugador = @idjugador"
+
+        Try
+
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    ' Añade el parámetro al comando
+                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+        Catch ex As Exception
+
+            Return False
+        End Try
+    End Function
+
 
 End Class
