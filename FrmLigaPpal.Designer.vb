@@ -63,6 +63,8 @@ Partial Class FrmLigaPpal
         Label9 = New Label()
         Label10 = New Label()
         Label11 = New Label()
+        LblSubliga = New Label()
+        BtnSubliga = New Button()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvEditarJugadores, ComponentModel.ISupportInitialize).BeginInit()
@@ -85,7 +87,7 @@ Partial Class FrmLigaPpal
         BtnReporte.BackColor = Color.SlateGray
         BtnReporte.FlatStyle = FlatStyle.Flat
         BtnReporte.Image = My.Resources.Resources.SendXLS_32x32
-        BtnReporte.Location = New Point(386, 87)
+        BtnReporte.Location = New Point(311, 87)
         BtnReporte.Name = "BtnReporte"
         BtnReporte.Size = New Size(63, 61)
         BtnReporte.TabIndex = 5
@@ -96,7 +98,7 @@ Partial Class FrmLigaPpal
         BtnCrearJugadores.BackColor = Color.SlateGray
         BtnCrearJugadores.FlatStyle = FlatStyle.Flat
         BtnCrearJugadores.Image = My.Resources.Resources.Reviewers_32x32
-        BtnCrearJugadores.Location = New Point(267, 87)
+        BtnCrearJugadores.Location = New Point(220, 87)
         BtnCrearJugadores.Name = "BtnCrearJugadores"
         BtnCrearJugadores.Size = New Size(63, 61)
         BtnCrearJugadores.TabIndex = 6
@@ -107,7 +109,7 @@ Partial Class FrmLigaPpal
         BtnConfiguracion.BackColor = Color.SlateGray
         BtnConfiguracion.FlatStyle = FlatStyle.Flat
         BtnConfiguracion.Image = My.Resources.Resources.Properties_32x32
-        BtnConfiguracion.Location = New Point(500, 89)
+        BtnConfiguracion.Location = New Point(491, 87)
         BtnConfiguracion.Name = "BtnConfiguracion"
         BtnConfiguracion.Size = New Size(63, 61)
         BtnConfiguracion.TabIndex = 7
@@ -118,7 +120,7 @@ Partial Class FrmLigaPpal
         BtnCrearEquipo.BackColor = Color.SlateGray
         BtnCrearEquipo.FlatStyle = FlatStyle.Flat
         BtnCrearEquipo.Image = My.Resources.Resources.IconSetFlags3_32x32
-        BtnCrearEquipo.Location = New Point(145, 89)
+        BtnCrearEquipo.Location = New Point(121, 89)
         BtnCrearEquipo.Name = "BtnCrearEquipo"
         BtnCrearEquipo.Size = New Size(63, 61)
         BtnCrearEquipo.TabIndex = 8
@@ -488,7 +490,7 @@ Partial Class FrmLigaPpal
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         Label8.ForeColor = Color.Indigo
-        Label8.Location = New Point(136, 151)
+        Label8.Location = New Point(112, 151)
         Label8.Name = "Label8"
         Label8.Size = New Size(77, 15)
         Label8.TabIndex = 14
@@ -499,7 +501,7 @@ Partial Class FrmLigaPpal
         Label9.AutoSize = True
         Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         Label9.ForeColor = Color.Indigo
-        Label9.Location = New Point(249, 154)
+        Label9.Location = New Point(202, 154)
         Label9.Name = "Label9"
         Label9.Size = New Size(92, 15)
         Label9.TabIndex = 15
@@ -510,7 +512,7 @@ Partial Class FrmLigaPpal
         Label10.AutoSize = True
         Label10.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         Label10.ForeColor = Color.Indigo
-        Label10.Location = New Point(386, 153)
+        Label10.Location = New Point(311, 153)
         Label10.Name = "Label10"
         Label10.Size = New Size(58, 15)
         Label10.TabIndex = 16
@@ -521,11 +523,33 @@ Partial Class FrmLigaPpal
         Label11.AutoSize = True
         Label11.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         Label11.ForeColor = Color.Indigo
-        Label11.Location = New Point(491, 154)
+        Label11.Location = New Point(482, 152)
         Label11.Name = "Label11"
         Label11.Size = New Size(84, 15)
         Label11.TabIndex = 17
         Label11.Text = "Configuracion"
+        ' 
+        ' LblSubliga
+        ' 
+        LblSubliga.AutoSize = True
+        LblSubliga.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        LblSubliga.ForeColor = Color.Indigo
+        LblSubliga.Location = New Point(408, 151)
+        LblSubliga.Name = "LblSubliga"
+        LblSubliga.Size = New Size(50, 15)
+        LblSubliga.TabIndex = 19
+        LblSubliga.Text = "Sub liga"
+        ' 
+        ' BtnSubliga
+        ' 
+        BtnSubliga.BackColor = Color.SlateGray
+        BtnSubliga.FlatStyle = FlatStyle.Flat
+        BtnSubliga.Image = My.Resources.Resources.AddNewDataSource_32x32
+        BtnSubliga.Location = New Point(400, 87)
+        BtnSubliga.Name = "BtnSubliga"
+        BtnSubliga.Size = New Size(63, 61)
+        BtnSubliga.TabIndex = 18
+        BtnSubliga.UseVisualStyleBackColor = False
         ' 
         ' FrmLigaPpal
         ' 
@@ -533,6 +557,8 @@ Partial Class FrmLigaPpal
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(973, 705)
+        Controls.Add(LblSubliga)
+        Controls.Add(BtnSubliga)
         Controls.Add(Label11)
         Controls.Add(Label10)
         Controls.Add(Label9)
@@ -603,4 +629,6 @@ Partial Class FrmLigaPpal
     Friend WithEvents Label11 As Label
     Friend WithEvents BtnModificar As Button
     Friend WithEvents TxtNuevoNombre As TextBox
+    Friend WithEvents LblSubliga As Label
+    Friend WithEvents BtnSubliga As Button
 End Class

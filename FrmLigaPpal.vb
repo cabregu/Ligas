@@ -251,7 +251,9 @@ Public Class FrmLigaPpal
         End If
 
 
+    End Sub
 
+    Private Sub BtnSubliga_Click(sender As Object, e As EventArgs) Handles BtnSubliga.Click
 
     End Sub
 
