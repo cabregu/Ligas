@@ -784,7 +784,6 @@ Partial Class FrmLigaPpal
         Controls.Add(BtnCrearJugadores)
         Controls.Add(BtnReporte)
         Controls.Add(BtnCargarPuntos)
-        FormBorderStyle = FormBorderStyle.FixedDialog
         Name = "FrmLigaPpal"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Inicio"
