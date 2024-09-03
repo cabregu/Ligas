@@ -154,11 +154,13 @@ Public Class FrmLigaPpal
 
             LblJugadorSeleccionado.Text = ""
             LblIdJugadorSeleccionado.Text = ""
+            CmbPosicion.Text = ""
+
             LblJugadorSeleccionado.Text = NombreJugador
             LblIdJugadorSeleccionado.Text = idJugador.ToString
             LblPosicion.Text = posicion
-
             TxtNuevoNombre.Text = NombreJugador
+            CmbPosicion.Text = posicion
 
         End If
 
@@ -249,10 +251,11 @@ Public Class FrmLigaPpal
 
         Dim idJugador As Integer = Convert.ToInt32(LblIdJugadorSeleccionado.Text)
 
-        If ActualizarNombreJugador(idJugador, TxtNuevoNombre.Text) Then
+        If ActualizarNombreJugador(idJugador, TxtNuevoNombre.Text, CmbPosicion.Text) Then
             TxtNuevoNombre.Text = ""
             DgvEditarJugadores.DataSource = Nothing
             CmbEquipoSeleccionado.SelectedIndex = -1
+            CmbPosicion.Text = ""
 
         End If
 

@@ -81,6 +81,7 @@ Partial Class FrmLigaPpal
         Label11 = New Label()
         LblSubliga = New Label()
         BtnSubliga = New Button()
+        CmbPosicion = New ComboBox()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
@@ -191,6 +192,7 @@ Partial Class FrmLigaPpal
         ' 
         GpbJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         GpbJugadores.BackColor = Color.Teal
+        GpbJugadores.Controls.Add(CmbPosicion)
         GpbJugadores.Controls.Add(BtnBorrarJugadorDeLigaCreada)
         GpbJugadores.Controls.Add(LblNombreJugadorSubliga)
         GpbJugadores.Controls.Add(LblIdJugadorSubliga)
@@ -416,7 +418,7 @@ Partial Class FrmLigaPpal
         ' TxtNuevoNombre
         ' 
         TxtNuevoNombre.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        TxtNuevoNombre.Location = New Point(667, 392)
+        TxtNuevoNombre.Location = New Point(667, 363)
         TxtNuevoNombre.Name = "TxtNuevoNombre"
         TxtNuevoNombre.Size = New Size(136, 23)
         TxtNuevoNombre.TabIndex = 17
@@ -485,7 +487,7 @@ Partial Class FrmLigaPpal
         LblO.AutoSize = True
         LblO.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblO.ForeColor = Color.Indigo
-        LblO.Location = New Point(721, 264)
+        LblO.Location = New Point(706, 255)
         LblO.Name = "LblO"
         LblO.Size = New Size(20, 25)
         LblO.TabIndex = 29
@@ -541,7 +543,7 @@ Partial Class FrmLigaPpal
         BtnTransferir.ForeColor = Color.Indigo
         BtnTransferir.Location = New Point(667, 201)
         BtnTransferir.Name = "BtnTransferir"
-        BtnTransferir.Size = New Size(108, 60)
+        BtnTransferir.Size = New Size(108, 51)
         BtnTransferir.TabIndex = 24
         BtnTransferir.Text = "Concretar transferencia"
         BtnTransferir.UseVisualStyleBackColor = False
@@ -552,9 +554,9 @@ Partial Class FrmLigaPpal
         BtnEliminar.FlatStyle = FlatStyle.Flat
         BtnEliminar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnEliminar.ForeColor = Color.Indigo
-        BtnEliminar.Location = New Point(667, 292)
+        BtnEliminar.Location = New Point(667, 283)
         BtnEliminar.Name = "BtnEliminar"
-        BtnEliminar.Size = New Size(108, 48)
+        BtnEliminar.Size = New Size(108, 40)
         BtnEliminar.TabIndex = 23
         BtnEliminar.Text = "Eliminar"
         BtnEliminar.UseVisualStyleBackColor = False
@@ -762,6 +764,15 @@ Partial Class FrmLigaPpal
         BtnSubliga.TabIndex = 18
         BtnSubliga.UseVisualStyleBackColor = False
         ' 
+        ' CmbPosicion
+        ' 
+        CmbPosicion.FormattingEnabled = True
+        CmbPosicion.Items.AddRange(New Object() {"Por", "Def", "Med", "Del"})
+        CmbPosicion.Location = New Point(667, 392)
+        CmbPosicion.Name = "CmbPosicion"
+        CmbPosicion.Size = New Size(138, 23)
+        CmbPosicion.TabIndex = 51
+        ' 
         ' FrmLigaPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -858,4 +869,5 @@ Partial Class FrmLigaPpal
     Friend WithEvents LblNombreJugadorSubliga As Label
     Friend WithEvents LblIdJugadorSubliga As Label
     Friend WithEvents BtnBorrarJugadorDeLigaCreada As Button
+    Friend WithEvents CmbPosicion As ComboBox
 End Class

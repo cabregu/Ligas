@@ -728,8 +728,8 @@ Public Class ConexionSqlite
         End Using
     End Function
 
-    Public Shared Function ActualizarNombreJugador(idJugador As Integer, nuevoNombre As String) As Boolean
-        Dim query As String = "UPDATE jugadores SET jugador = @nuevoNombre WHERE idjugadores = @idJugador"
+    Public Shared Function ActualizarNombreJugador(idJugador As Integer, nuevoNombre As String, nuevaPosicion As String) As Boolean
+        Dim query As String = "UPDATE jugadores SET jugador = @nuevoNombre, posicion = @nuevaPosicion WHERE idjugadores = @idJugador"
 
         Try
             Using conn As New SQLiteConnection(ObtenerConexion())
@@ -738,6 +738,7 @@ Public Class ConexionSqlite
                 ' Actualizar tabla 'jugadores'
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@nuevoNombre", nuevoNombre)
+                    cmd.Parameters.AddWithValue("@nuevaPosicion", nuevaPosicion)
                     cmd.Parameters.AddWithValue("@idJugador", idJugador)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -747,10 +748,11 @@ Public Class ConexionSqlite
             Return True
 
         Catch ex As Exception
-        ' Si ocurrió un error, devolver False
-        Return False
+            ' Si ocurrió un error, devolver False
+            Return False
         End Try
     End Function
+
 
     Public Shared Function ObtenerNombresSubligas() As List(Of String)
         Dim nombresSubligas As New List(Of String)()
