@@ -7,15 +7,20 @@ Public Class FrmSubliga
 
 
     Private Sub CargarSubligas()
+        Dim idLiga As Integer
 
-        Dim nombresSubligas As List(Of String) = ObtenerNombresSubligas()
 
-        CmbSubliga.DataSource = nombresSubligas
-        CmbSubliga.SelectedIndex = -1
+        If Integer.TryParse(LblIdLiga.Text, idLiga) Then
 
+            Dim nombresSubligas As List(Of String) = ObtenerNombresSubligas(idLiga)
+
+
+            CmbSubliga.DataSource = nombresSubligas
+            CmbSubliga.SelectedIndex = -1
+        Else
+            MessageBox.Show("El ID de la liga no es válido.")
+        End If
     End Sub
-
-
 
     Private Sub BtnSeleccionar_Click(sender As Object, e As EventArgs) Handles BtnSeleccionar.Click
         If CmbSubliga.Text <> "" Then

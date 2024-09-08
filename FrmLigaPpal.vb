@@ -385,7 +385,7 @@ Public Class FrmLigaPpal
 
     Private Sub CargarSubligas()
 
-        Dim nombresSubligas As List(Of String) = ObtenerNombresSubligas()
+        Dim nombresSubligas As List(Of String) = ObtenerNombresSubligas(LblIdLiga.Text)
 
         CmbSubliga.DataSource = nombresSubligas
         CmbSubliga.SelectedIndex = -1

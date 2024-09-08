@@ -754,21 +754,19 @@ Public Class ConexionSqlite
     End Function
 
 
-    Public Shared Function ObtenerNombresSubligas() As List(Of String)
+    Public Shared Function ObtenerNombresSubligas(ByVal liga As Integer) As List(Of String)
         Dim nombresSubligas As New List(Of String)()
-        Dim query As String = "SELECT DISTINCT subliga FROM subliga"
-
+        Dim query As String = "SELECT DISTINCT subliga FROM subliga WHERE liga = @liga"
 
         Try
-
             Using conn As New SQLiteConnection(ObtenerConexion())
                 conn.Open()
 
-
                 Using cmd As New SQLiteCommand(query, conn)
+                    ' Agregar el parámetro a la consulta SQL
+                    cmd.Parameters.AddWithValue("@liga", liga)
 
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
-
                         While reader.Read()
                             Dim nombreSubliga As String = reader("subliga").ToString()
                             nombresSubligas.Add(nombreSubliga)
@@ -777,11 +775,15 @@ Public Class ConexionSqlite
                 End Using
             End Using
         Catch ex As Exception
-
+            ' Manejar excepciones según sea necesario
+            ' Puedes registrar el error o mostrar un mensaje al usuario
+            Console.WriteLine("Error: " & ex.Message)
         End Try
 
         Return nombresSubligas
     End Function
+
+
 
 
     Public Shared Function EliminarDeSubligaPorIdJugador(nombreSubliga As String, idJugador As Integer, liga As Integer) As Boolean

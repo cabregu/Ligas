@@ -32,6 +32,7 @@ Partial Class FrmLigaPpal
         BtnCrearNuevoEquipo = New Button()
         TxtEquipoingresar = New TextBox()
         GpbJugadores = New GroupBox()
+        CmbPosicion = New ComboBox()
         BtnBorrarJugadorDeLigaCreada = New Button()
         LblNombreJugadorSubliga = New Label()
         LblIdJugadorSubliga = New Label()
@@ -81,7 +82,6 @@ Partial Class FrmLigaPpal
         Label11 = New Label()
         LblSubliga = New Label()
         BtnSubliga = New Button()
-        CmbPosicion = New ComboBox()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
@@ -233,6 +233,16 @@ Partial Class FrmLigaPpal
         GpbJugadores.Size = New Size(1119, 488)
         GpbJugadores.TabIndex = 10
         GpbJugadores.TabStop = False
+        ' 
+        ' CmbPosicion
+        ' 
+        CmbPosicion.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        CmbPosicion.FormattingEnabled = True
+        CmbPosicion.Items.AddRange(New Object() {"Por", "Def", "Med", "Del"})
+        CmbPosicion.Location = New Point(667, 392)
+        CmbPosicion.Name = "CmbPosicion"
+        CmbPosicion.Size = New Size(138, 23)
+        CmbPosicion.TabIndex = 51
         ' 
         ' BtnBorrarJugadorDeLigaCreada
         ' 
@@ -763,15 +773,6 @@ Partial Class FrmLigaPpal
         BtnSubliga.Size = New Size(63, 61)
         BtnSubliga.TabIndex = 18
         BtnSubliga.UseVisualStyleBackColor = False
-        ' 
-        ' CmbPosicion
-        ' 
-        CmbPosicion.FormattingEnabled = True
-        CmbPosicion.Items.AddRange(New Object() {"Por", "Def", "Med", "Del"})
-        CmbPosicion.Location = New Point(667, 392)
-        CmbPosicion.Name = "CmbPosicion"
-        CmbPosicion.Size = New Size(138, 23)
-        CmbPosicion.TabIndex = 51
         ' 
         ' FrmLigaPpal
         ' 
