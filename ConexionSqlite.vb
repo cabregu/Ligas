@@ -915,6 +915,28 @@ Public Class ConexionSqlite
 
 
 
+    Public Shared Function ActualizarNombreLiga(idLiga As Integer, nuevoNombre As String) As Boolean
+        Dim query As String = "UPDATE liga SET nombreliga = @nuevoNombre WHERE idliga = @idLiga"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@nuevoNombre", nuevoNombre)
+                    cmd.Parameters.AddWithValue("@idLiga", idLiga)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+
+            Return False
+        End Try
+    End Function
+
 
 
 End Class

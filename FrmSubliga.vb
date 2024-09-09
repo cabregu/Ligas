@@ -24,64 +24,6 @@ Public Class FrmSubliga
         End If
     End Sub
 
-    'Private Sub BtnSeleccionar_Click(sender As Object, e As EventArgs) Handles BtnSeleccionar.Click
-    '    If CmbSubliga.Text <> "" Then
-
-    '        Dim dtSubliga As DataTable = ObtenerJugadoresPorSubliga(CmbSubliga.Text)
-    '        Dim dtTodosLosEquipos As DataTable = ObtenerRegistrosDeTodosLosEquipos(Convert.ToInt32(LblIdLiga.Text))
-
-
-    '        Dim dtFiltrado As DataTable = dtTodosLosEquipos.Clone()
-
-    '        Dim colOrden As New DataColumn("Orden", GetType(Integer))
-    '        dtFiltrado.Columns.Add(colOrden)
-
-
-    '        Dim idJugadoresSubliga As HashSet(Of Integer) = New HashSet(Of Integer)()
-    '        For Each row As DataRow In dtSubliga.Rows
-    '            idJugadoresSubliga.Add(Convert.ToInt32(row("idjugador")))
-    '        Next
-
-    '        For Each row As DataRow In dtTodosLosEquipos.Rows
-    '            Dim idJugador As Integer = Convert.ToInt32(row("ID Jugador"))
-    '            If idJugadoresSubliga.Contains(idJugador) Then
-
-    '                Dim nuevaFila As DataRow = dtFiltrado.NewRow()
-    '                nuevaFila.ItemArray = row.ItemArray.Clone()
-
-
-    '                Select Case row("Posición").ToString()
-    '                    Case "Por"
-    '                        nuevaFila("Orden") = 1
-    '                    Case "Def"
-    '                        nuevaFila("Orden") = 2
-    '                    Case "Med"
-    '                        nuevaFila("Orden") = 3
-    '                    Case "Del"
-    '                        nuevaFila("Orden") = 4
-    '                    Case Else
-    '                        nuevaFila("Orden") = 5
-    '                End Select
-
-    '                dtFiltrado.Rows.Add(nuevaFila)
-    '            End If
-    '        Next
-
-    '        dtFiltrado.DefaultView.Sort = "Orden ASC"
-    '        dtFiltrado = dtFiltrado.DefaultView.ToTable()
-
-
-    '        dtFiltrado.Columns.Remove("Orden")
-
-    '        DgvDatos.DataSource = dtFiltrado
-    '        DgvDatos.Columns("Equipo").Visible = False
-    '        DgvDatos.Columns("ID Jugador").Visible = False
-
-    '        DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-
-
-    '    End If
-    'End Sub
 
 
     Private Sub BtnSeleccionar_Click(sender As Object, e As EventArgs) Handles BtnSeleccionar.Click

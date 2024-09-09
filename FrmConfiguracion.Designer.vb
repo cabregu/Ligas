@@ -39,6 +39,8 @@ Partial Class FrmConfiguracion
         LblNombreLiga = New Label()
         ChkActivarFuncionEliminarEditar = New CheckBox()
         Chkfechas = New CheckBox()
+        TxtNombreLiga = New TextBox()
+        BtnCambiarNombreLiga = New Button()
         GpgFechas.SuspendLayout()
         GpbEquipos.SuspendLayout()
         SuspendLayout()
@@ -85,7 +87,7 @@ Partial Class FrmConfiguracion
         GpgFechas.Controls.Add(BtnCambiarCantidad)
         GpgFechas.Controls.Add(LblDescFechas)
         GpgFechas.Enabled = False
-        GpgFechas.Location = New Point(96, 114)
+        GpgFechas.Location = New Point(88, 195)
         GpgFechas.Name = "GpgFechas"
         GpgFechas.Size = New Size(277, 149)
         GpgFechas.TabIndex = 4
@@ -109,7 +111,7 @@ Partial Class FrmConfiguracion
         GpbEquipos.Controls.Add(TxtNuevoNombre)
         GpbEquipos.Controls.Add(CmbEquipo)
         GpbEquipos.Enabled = False
-        GpbEquipos.Location = New Point(96, 352)
+        GpbEquipos.Location = New Point(88, 409)
         GpbEquipos.Name = "GpbEquipos"
         GpbEquipos.Size = New Size(277, 255)
         GpbEquipos.TabIndex = 5
@@ -182,7 +184,7 @@ Partial Class FrmConfiguracion
         LblNombreLiga.AutoSize = True
         LblNombreLiga.Font = New Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point)
         LblNombreLiga.ForeColor = Color.DarkRed
-        LblNombreLiga.Location = New Point(106, 9)
+        LblNombreLiga.Location = New Point(31, 9)
         LblNombreLiga.Name = "LblNombreLiga"
         LblNombreLiga.Size = New Size(250, 45)
         LblNombreLiga.TabIndex = 14
@@ -191,7 +193,7 @@ Partial Class FrmConfiguracion
         ' ChkActivarFuncionEliminarEditar
         ' 
         ChkActivarFuncionEliminarEditar.AutoSize = True
-        ChkActivarFuncionEliminarEditar.Location = New Point(96, 317)
+        ChkActivarFuncionEliminarEditar.Location = New Point(88, 374)
         ChkActivarFuncionEliminarEditar.Name = "ChkActivarFuncionEliminarEditar"
         ChkActivarFuncionEliminarEditar.Size = New Size(227, 19)
         ChkActivarFuncionEliminarEditar.TabIndex = 15
@@ -201,19 +203,37 @@ Partial Class FrmConfiguracion
         ' Chkfechas
         ' 
         Chkfechas.AutoSize = True
-        Chkfechas.Location = New Point(96, 78)
+        Chkfechas.Location = New Point(88, 159)
         Chkfechas.Name = "Chkfechas"
         Chkfechas.Size = New Size(219, 19)
         Chkfechas.TabIndex = 16
         Chkfechas.Text = "Clic Para Activar la Edicion de fechas"
         Chkfechas.UseVisualStyleBackColor = True
         ' 
+        ' TxtNombreLiga
+        ' 
+        TxtNombreLiga.Location = New Point(41, 68)
+        TxtNombreLiga.Name = "TxtNombreLiga"
+        TxtNombreLiga.Size = New Size(240, 23)
+        TxtNombreLiga.TabIndex = 17
+        ' 
+        ' BtnCambiarNombreLiga
+        ' 
+        BtnCambiarNombreLiga.Location = New Point(290, 68)
+        BtnCambiarNombreLiga.Name = "BtnCambiarNombreLiga"
+        BtnCambiarNombreLiga.Size = New Size(158, 23)
+        BtnCambiarNombreLiga.TabIndex = 5
+        BtnCambiarNombreLiga.Text = "Cambiar Nombre de liga"
+        BtnCambiarNombreLiga.UseVisualStyleBackColor = True
+        ' 
         ' FrmConfiguracion
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(481, 665)
+        ClientSize = New Size(488, 751)
+        Controls.Add(BtnCambiarNombreLiga)
+        Controls.Add(TxtNombreLiga)
         Controls.Add(Chkfechas)
         Controls.Add(ChkActivarFuncionEliminarEditar)
         Controls.Add(LblNombreLiga)
@@ -249,4 +269,6 @@ Partial Class FrmConfiguracion
     Friend WithEvents Label2 As Label
     Friend WithEvents ChkActivarFuncionEliminarEditar As CheckBox
     Friend WithEvents Chkfechas As CheckBox
+    Friend WithEvents TxtNombreLiga As TextBox
+    Friend WithEvents BtnCambiarNombreLiga As Button
 End Class

@@ -5,9 +5,13 @@ Public Class FrmConfiguracion
     Private Sub FrmConfiguracion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim FechasInt As Integer = ObtenerValorEnteroConfiguracion()
         LblFechas.Text = FechasInt
-
-
         CargarEquipos()
+
+        TxtNombreLiga.Text = LblNombreLiga.Text
+
+
+
+
 
     End Sub
 
@@ -134,5 +138,13 @@ Public Class FrmConfiguracion
             GpgFechas.Enabled = False
         End If
 
+    End Sub
+
+    Private Sub BtnCambiarNombreLiga_Click(sender As Object, e As EventArgs) Handles BtnCambiarNombreLiga.Click
+        If LblNombreLiga.Text <> TxtNombreLiga.Text Then
+            If ConexionSqlite.ActualizarNombreLiga(LblIdliga.Text, TxtNombreLiga.Text) = True Then
+                MsgBox("Actualizaste el nombre de la liga deberias salir y volver a entrar")
+            End If
+        End If
     End Sub
 End Class

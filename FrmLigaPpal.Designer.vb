@@ -44,10 +44,6 @@ Partial Class FrmLigaPpal
         BtnEliminarSubliga = New Button()
         BtnCrearSubliga = New Button()
         DgvSubliga = New DataGridView()
-        IdJugador = New DataGridViewTextBoxColumn()
-        equi = New DataGridViewTextBoxColumn()
-        NombreJugador = New DataGridViewTextBoxColumn()
-        PosicionJugador = New DataGridViewTextBoxColumn()
         LblNombresubliga = New Label()
         TxtNommbresubliga = New TextBox()
         TxtNuevoNombre = New TextBox()
@@ -83,6 +79,9 @@ Partial Class FrmLigaPpal
         Label11 = New Label()
         LblSubliga = New Label()
         BtnSubliga = New Button()
+        IdJugador = New DataGridViewTextBoxColumn()
+        NombreJugador = New DataGridViewTextBoxColumn()
+        PosicionJugador = New DataGridViewTextBoxColumn()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
@@ -252,7 +251,7 @@ Partial Class FrmLigaPpal
         BtnBorrarJugadorDeLigaCreada.FlatStyle = FlatStyle.Flat
         BtnBorrarJugadorDeLigaCreada.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnBorrarJugadorDeLigaCreada.ForeColor = Color.Indigo
-        BtnBorrarJugadorDeLigaCreada.Location = New Point(1084, 209)
+        BtnBorrarJugadorDeLigaCreada.Location = New Point(1076, 200)
         BtnBorrarJugadorDeLigaCreada.Name = "BtnBorrarJugadorDeLigaCreada"
         BtnBorrarJugadorDeLigaCreada.Size = New Size(108, 35)
         BtnBorrarJugadorDeLigaCreada.TabIndex = 50
@@ -265,7 +264,7 @@ Partial Class FrmLigaPpal
         LblNombreJugadorSubliga.Enabled = False
         LblNombreJugadorSubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblNombreJugadorSubliga.ForeColor = Color.Indigo
-        LblNombreJugadorSubliga.Location = New Point(1084, 132)
+        LblNombreJugadorSubliga.Location = New Point(1076, 123)
         LblNombreJugadorSubliga.Name = "LblNombreJugadorSubliga"
         LblNombreJugadorSubliga.Size = New Size(68, 25)
         LblNombreJugadorSubliga.TabIndex = 48
@@ -274,7 +273,7 @@ Partial Class FrmLigaPpal
         ' LblIdJugadorSubliga
         ' 
         LblIdJugadorSubliga.AutoSize = True
-        LblIdJugadorSubliga.Location = New Point(1084, 117)
+        LblIdJugadorSubliga.Location = New Point(1076, 108)
         LblIdJugadorSubliga.Name = "LblIdJugadorSubliga"
         LblIdJugadorSubliga.Size = New Size(13, 15)
         LblIdJugadorSubliga.TabIndex = 47
@@ -311,7 +310,7 @@ Partial Class FrmLigaPpal
         ChkActivarSubliga.AutoSize = True
         ChkActivarSubliga.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
         ChkActivarSubliga.ForeColor = Color.Indigo
-        ChkActivarSubliga.Location = New Point(727, 16)
+        ChkActivarSubliga.Location = New Point(754, 22)
         ChkActivarSubliga.Name = "ChkActivarSubliga"
         ChkActivarSubliga.Size = New Size(87, 25)
         ChkActivarSubliga.TabIndex = 42
@@ -324,7 +323,7 @@ Partial Class FrmLigaPpal
         LblSeleccionesubliga.Enabled = False
         LblSeleccionesubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblSeleccionesubliga.ForeColor = Color.Indigo
-        LblSeleccionesubliga.Location = New Point(820, 13)
+        LblSeleccionesubliga.Location = New Point(847, 13)
         LblSeleccionesubliga.Name = "LblSeleccionesubliga"
         LblSeleccionesubliga.Size = New Size(189, 25)
         LblSeleccionesubliga.TabIndex = 41
@@ -335,7 +334,7 @@ Partial Class FrmLigaPpal
         CmbSubliga.DropDownStyle = ComboBoxStyle.DropDownList
         CmbSubliga.Enabled = False
         CmbSubliga.FormattingEnabled = True
-        CmbSubliga.Location = New Point(820, 41)
+        CmbSubliga.Location = New Point(847, 41)
         CmbSubliga.Name = "CmbSubliga"
         CmbSubliga.Size = New Size(181, 23)
         CmbSubliga.TabIndex = 40
@@ -348,7 +347,7 @@ Partial Class FrmLigaPpal
         BtnEliminarSubliga.FlatStyle = FlatStyle.Flat
         BtnEliminarSubliga.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnEliminarSubliga.ForeColor = Color.Indigo
-        BtnEliminarSubliga.Location = New Point(1084, 438)
+        BtnEliminarSubliga.Location = New Point(1076, 429)
         BtnEliminarSubliga.Name = "BtnEliminarSubliga"
         BtnEliminarSubliga.Size = New Size(108, 48)
         BtnEliminarSubliga.TabIndex = 39
@@ -363,7 +362,7 @@ Partial Class FrmLigaPpal
         BtnCrearSubliga.FlatStyle = FlatStyle.Flat
         BtnCrearSubliga.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         BtnCrearSubliga.ForeColor = Color.Indigo
-        BtnCrearSubliga.Location = New Point(1084, 372)
+        BtnCrearSubliga.Location = New Point(1076, 363)
         BtnCrearSubliga.Name = "BtnCrearSubliga"
         BtnCrearSubliga.Size = New Size(108, 48)
         BtnCrearSubliga.TabIndex = 38
@@ -376,42 +375,15 @@ Partial Class FrmLigaPpal
         DgvSubliga.AllowUserToDeleteRows = False
         DgvSubliga.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         DgvSubliga.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvSubliga.Columns.AddRange(New DataGridViewColumn() {IdJugador, equi, NombreJugador, PosicionJugador})
+        DgvSubliga.Columns.AddRange(New DataGridViewColumn() {IdJugador, NombreJugador, PosicionJugador})
         DgvSubliga.Enabled = False
-        DgvSubliga.Location = New Point(820, 118)
+        DgvSubliga.Location = New Point(847, 118)
         DgvSubliga.Name = "DgvSubliga"
         DgvSubliga.ReadOnly = True
         DgvSubliga.RowHeadersVisible = False
         DgvSubliga.RowTemplate.Height = 25
-        DgvSubliga.Size = New Size(258, 364)
+        DgvSubliga.Size = New Size(214, 364)
         DgvSubliga.TabIndex = 37
-        ' 
-        ' IdJugador
-        ' 
-        IdJugador.HeaderText = "IdJugador"
-        IdJugador.Name = "IdJugador"
-        IdJugador.ReadOnly = True
-        IdJugador.Visible = False
-        ' 
-        ' equi
-        ' 
-        equi.HeaderText = "Equipo"
-        equi.Name = "equi"
-        equi.ReadOnly = True
-        equi.Width = 70
-        ' 
-        ' NombreJugador
-        ' 
-        NombreJugador.HeaderText = "Nombre"
-        NombreJugador.Name = "NombreJugador"
-        NombreJugador.ReadOnly = True
-        ' 
-        ' PosicionJugador
-        ' 
-        PosicionJugador.HeaderText = "posicion"
-        PosicionJugador.Name = "PosicionJugador"
-        PosicionJugador.ReadOnly = True
-        PosicionJugador.Width = 70
         ' 
         ' LblNombresubliga
         ' 
@@ -419,7 +391,7 @@ Partial Class FrmLigaPpal
         LblNombresubliga.Enabled = False
         LblNombresubliga.Font = New Font("Bahnschrift Condensed", 15.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblNombresubliga.ForeColor = Color.Indigo
-        LblNombresubliga.Location = New Point(820, 67)
+        LblNombresubliga.Location = New Point(847, 67)
         LblNombresubliga.Name = "LblNombresubliga"
         LblNombresubliga.Size = New Size(165, 25)
         LblNombresubliga.TabIndex = 36
@@ -428,7 +400,7 @@ Partial Class FrmLigaPpal
         ' TxtNommbresubliga
         ' 
         TxtNommbresubliga.Enabled = False
-        TxtNommbresubliga.Location = New Point(820, 92)
+        TxtNommbresubliga.Location = New Point(847, 92)
         TxtNommbresubliga.Name = "TxtNommbresubliga"
         TxtNommbresubliga.Size = New Size(181, 23)
         TxtNommbresubliga.TabIndex = 35
@@ -782,6 +754,26 @@ Partial Class FrmLigaPpal
         BtnSubliga.TabIndex = 18
         BtnSubliga.UseVisualStyleBackColor = False
         ' 
+        ' IdJugador
+        ' 
+        IdJugador.HeaderText = "IdJugador"
+        IdJugador.Name = "IdJugador"
+        IdJugador.ReadOnly = True
+        IdJugador.Visible = False
+        ' 
+        ' NombreJugador
+        ' 
+        NombreJugador.HeaderText = "Nombre"
+        NombreJugador.Name = "NombreJugador"
+        NombreJugador.ReadOnly = True
+        ' 
+        ' PosicionJugador
+        ' 
+        PosicionJugador.HeaderText = "posicion"
+        PosicionJugador.Name = "PosicionJugador"
+        PosicionJugador.ReadOnly = True
+        PosicionJugador.Width = 70
+        ' 
         ' FrmLigaPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -877,7 +869,6 @@ Partial Class FrmLigaPpal
     Friend WithEvents BtnBorrarJugadorDeLigaCreada As Button
     Friend WithEvents CmbPosicion As ComboBox
     Friend WithEvents IdJugador As DataGridViewTextBoxColumn
-    Friend WithEvents equi As DataGridViewTextBoxColumn
     Friend WithEvents NombreJugador As DataGridViewTextBoxColumn
     Friend WithEvents PosicionJugador As DataGridViewTextBoxColumn
 End Class
