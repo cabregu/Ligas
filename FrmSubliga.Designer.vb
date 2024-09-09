@@ -27,6 +27,7 @@ Partial Class FrmSubliga
         CmbSubliga = New ComboBox()
         DgvDatos = New DataGridView()
         BtnSeleccionar = New Button()
+        Btnxls = New Button()
         CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -81,12 +82,25 @@ Partial Class FrmSubliga
         BtnSeleccionar.Text = "Seleccionar"
         BtnSeleccionar.UseVisualStyleBackColor = True
         ' 
+        ' Btnxls
+        ' 
+        Btnxls.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Btnxls.BackColor = Color.SlateGray
+        Btnxls.FlatStyle = FlatStyle.Flat
+        Btnxls.Image = My.Resources.Resources.SendXLS_32x32
+        Btnxls.Location = New Point(746, 17)
+        Btnxls.Name = "Btnxls"
+        Btnxls.Size = New Size(63, 44)
+        Btnxls.TabIndex = 18
+        Btnxls.UseVisualStyleBackColor = False
+        ' 
         ' FrmSubliga
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(821, 551)
+        Controls.Add(Btnxls)
         Controls.Add(BtnSeleccionar)
         Controls.Add(DgvDatos)
         Controls.Add(CmbSubliga)
@@ -106,4 +120,5 @@ Partial Class FrmSubliga
     Friend WithEvents CmbSubliga As ComboBox
     Friend WithEvents DgvDatos As DataGridView
     Friend WithEvents BtnSeleccionar As Button
+    Friend WithEvents Btnxls As Button
 End Class
