@@ -5,34 +5,94 @@ Imports Ligas.ConexionSqlite
 
 
 Public Class FrmReporte
-    Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
-        Dim idEquipo As Integer = Convert.ToInt32(CmbEquipos.SelectedValue)
+    'Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
+    '    Dim idEquipo As Integer = Convert.ToInt32(CmbEquipos.SelectedValue)
 
+    '    If CmbEquipos.Text = "Todos los equipos" Then
+    '        Dim dt As New DataTable
+    '        dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text)
+    '        DgvDatos.DataSource = Nothing
+    '        DgvDatos.DataSource = dt
+    '        DgvDatos.Columns("Equipo").Visible = False
+    '        DgvDatos.Columns("ID Jugador").Visible = False
+    '        DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+    '    Else
+
+    '        Dim dt As DataTable = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
+    '        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+    '            ' Solo asigna la fuente de datos y configura el DataGridView si hay datos
+    '            DgvDatos.DataSource = Nothing
+    '            DgvDatos.DataSource = dt
+    '            DgvDatos.Columns("Equipo").Visible = False
+    '            DgvDatos.Columns("ID Jugador").Visible = False
+    '            DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+    '        Else
+    '            dt = Nothing
+    '            DgvDatos.DataSource = dt
+    '        End If
+
+    '    End If
+
+    'End Sub
+    Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
+        Dim idEquipo As Integer
         If CmbEquipos.Text = "Todos los equipos" Then
-            Dim dt As New DataTable
+            idEquipo = -1 ' O un valor que indique que no se filtra por equipo específico
+        Else
+            idEquipo = Convert.ToInt32(CmbEquipos.SelectedValue)
+        End If
+
+        Dim dt As DataTable
+        If idEquipo = -1 Then
+            ' Obtener registros de todos los equipos
             dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text)
+        Else
+            ' Obtener registros para un equipo específico
+            dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
+        End If
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            ' Agregar una columna auxiliar para el orden de la posición
+            dt.Columns.Add("OrdenPosicion", GetType(Integer))
+
+            ' Asignar valores a la columna auxiliar basados en la posición
+            For Each row As DataRow In dt.Rows
+                Select Case row("Posición").ToString()
+                    Case "Por"
+                        row("OrdenPosicion") = 1
+                    Case "Def"
+                        row("OrdenPosicion") = 2
+                    Case "Med"
+                        row("OrdenPosicion") = 3
+                    Case "Del"
+                        row("OrdenPosicion") = 4
+                    Case Else
+                        row("OrdenPosicion") = 5 ' Para manejar casos inesperados
+                End Select
+            Next
+
+            ' Crear una vista del DataTable ordenado
+            Dim dataView As DataView = dt.DefaultView
+            dataView.Sort = "Equipo ASC, OrdenPosicion ASC, Promedio DESC"
+
+            ' Crear un nuevo DataTable ordenado
+            Dim sortedDataTable As DataTable = dataView.ToTable()
+
+            ' Eliminar la columna auxiliar
+            If sortedDataTable.Columns.Contains("OrdenPosicion") Then
+                sortedDataTable.Columns.Remove("OrdenPosicion")
+            End If
+
+            ' Configurar el DataGridView
             DgvDatos.DataSource = Nothing
-            DgvDatos.DataSource = dt
+            DgvDatos.DataSource = sortedDataTable
             DgvDatos.Columns("Equipo").Visible = False
             DgvDatos.Columns("ID Jugador").Visible = False
             DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         Else
-
-            Dim dt As DataTable = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-                ' Solo asigna la fuente de datos y configura el DataGridView si hay datos
-                DgvDatos.DataSource = Nothing
-                DgvDatos.DataSource = dt
-                DgvDatos.Columns("Equipo").Visible = False
-                DgvDatos.Columns("ID Jugador").Visible = False
-                DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-            Else
-                dt = Nothing
-                DgvDatos.DataSource = dt
-            End If
-
+            ' Si no hay datos, limpiar el DataGridView
+            DgvDatos.DataSource = Nothing
         End If
-
     End Sub
 
 

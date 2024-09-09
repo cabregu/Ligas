@@ -813,16 +813,19 @@ Public Class ConexionSqlite
 
 
     Public Shared Function ObtenerJugadoresPorSubliga(nombreSubliga As String) As DataTable
-        Dim query As String = "SELECT s.idjugador, j.jugador, j.posicion " &
-                              "FROM subliga s " &
-                              "INNER JOIN jugadores j ON s.idjugador = j.idjugadores " &
-                              "WHERE s.subliga = @nombreSubliga " &
-                              "ORDER BY CASE j.posicion " &
-                              "             WHEN 'Por' THEN 1 " &
-                              "             WHEN 'Def' THEN 2 " &
-                              "             WHEN 'Med' THEN 3 " &
-                              "             WHEN 'Del' THEN 4 " &
-                              "          END"
+
+        Dim query As String = "SELECT s.idjugador, j.jugador, j.posicion, e.nombre AS equipo " &
+                          "FROM subliga s " &
+                          "INNER JOIN jugadores j ON s.idjugador = j.idjugadores " &
+                          "INNER JOIN equipos e ON j.idequipo = e.idequipo " &
+                          "WHERE s.subliga = @nombreSubliga " &
+                          "ORDER BY e.nombre, " &
+                          "         CASE j.posicion " &
+                          "             WHEN 'Por' THEN 1 " &
+                          "             WHEN 'Def' THEN 2 " &
+                          "             WHEN 'Med' THEN 3 " &
+                          "             WHEN 'Del' THEN 4 " &
+                          "          END"
 
         Dim dt As New DataTable()
 

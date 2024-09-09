@@ -462,7 +462,7 @@ Public Class FrmLigaPpal
         DgvSubliga.Rows.Clear()
 
         For Each drw As DataRow In dtsubliga.Rows
-            DgvSubliga.Rows.Add(drw("idjugador").ToString, drw("jugador").ToString, drw("posicion").ToString)
+            DgvSubliga.Rows.Add(drw("idjugador").ToString, drw("equipo").ToString, drw("jugador").ToString, drw("posicion").ToString)
         Next
 
     End Sub
