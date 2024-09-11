@@ -44,6 +44,9 @@ Partial Class FrmLigaPpal
         BtnEliminarSubliga = New Button()
         BtnCrearSubliga = New Button()
         DgvSubliga = New DataGridView()
+        IdJugador = New DataGridViewTextBoxColumn()
+        NombreJugador = New DataGridViewTextBoxColumn()
+        PosicionJugador = New DataGridViewTextBoxColumn()
         LblNombresubliga = New Label()
         TxtNommbresubliga = New TextBox()
         TxtNuevoNombre = New TextBox()
@@ -79,9 +82,6 @@ Partial Class FrmLigaPpal
         Label11 = New Label()
         LblSubliga = New Label()
         BtnSubliga = New Button()
-        IdJugador = New DataGridViewTextBoxColumn()
-        NombreJugador = New DataGridViewTextBoxColumn()
-        PosicionJugador = New DataGridViewTextBoxColumn()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
@@ -384,6 +384,26 @@ Partial Class FrmLigaPpal
         DgvSubliga.RowTemplate.Height = 25
         DgvSubliga.Size = New Size(214, 364)
         DgvSubliga.TabIndex = 37
+        ' 
+        ' IdJugador
+        ' 
+        IdJugador.HeaderText = "IdJugador"
+        IdJugador.Name = "IdJugador"
+        IdJugador.ReadOnly = True
+        IdJugador.Visible = False
+        ' 
+        ' NombreJugador
+        ' 
+        NombreJugador.HeaderText = "Nombre"
+        NombreJugador.Name = "NombreJugador"
+        NombreJugador.ReadOnly = True
+        ' 
+        ' PosicionJugador
+        ' 
+        PosicionJugador.HeaderText = "posicion"
+        PosicionJugador.Name = "PosicionJugador"
+        PosicionJugador.ReadOnly = True
+        PosicionJugador.Width = 70
         ' 
         ' LblNombresubliga
         ' 
@@ -753,26 +773,6 @@ Partial Class FrmLigaPpal
         BtnSubliga.Size = New Size(63, 61)
         BtnSubliga.TabIndex = 18
         BtnSubliga.UseVisualStyleBackColor = False
-        ' 
-        ' IdJugador
-        ' 
-        IdJugador.HeaderText = "IdJugador"
-        IdJugador.Name = "IdJugador"
-        IdJugador.ReadOnly = True
-        IdJugador.Visible = False
-        ' 
-        ' NombreJugador
-        ' 
-        NombreJugador.HeaderText = "Nombre"
-        NombreJugador.Name = "NombreJugador"
-        NombreJugador.ReadOnly = True
-        ' 
-        ' PosicionJugador
-        ' 
-        PosicionJugador.HeaderText = "posicion"
-        PosicionJugador.Name = "PosicionJugador"
-        PosicionJugador.ReadOnly = True
-        PosicionJugador.Width = 70
         ' 
         ' FrmLigaPpal
         ' 

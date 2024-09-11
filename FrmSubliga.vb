@@ -66,7 +66,7 @@ Public Class FrmSubliga
 
             ' Crear una vista del DataTable para ordenar
             Dim dataView As DataView = dtFiltrado.DefaultView
-            dataView.Sort = "Nombre del Equipo ASC, Orden ASC, Promedio DESC"
+            dataView.Sort = "Orden ASC, Promedio DESC"
 
             ' Crear un nuevo DataTable ordenado
             Dim sortedDataTable As DataTable = dataView.ToTable()
@@ -83,6 +83,7 @@ Public Class FrmSubliga
             DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         End If
     End Sub
+
 
     Private Sub Btnxls_Click(sender As Object, e As EventArgs) Handles Btnxls.Click
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial

@@ -813,14 +813,13 @@ Public Class ConexionSqlite
 
 
     Public Shared Function ObtenerJugadoresPorSubliga(nombreSubliga As String) As DataTable
-
+        ' Modifica la consulta para eliminar el ordenamiento por el nombre del equipo
         Dim query As String = "SELECT s.idjugador, j.jugador, j.posicion, e.nombre AS equipo " &
                           "FROM subliga s " &
                           "INNER JOIN jugadores j ON s.idjugador = j.idjugadores " &
                           "INNER JOIN equipos e ON j.idequipo = e.idequipo " &
                           "WHERE s.subliga = @nombreSubliga " &
-                          "ORDER BY e.nombre, " &
-                          "         CASE j.posicion " &
+                          "ORDER BY CASE j.posicion " &
                           "             WHEN 'Por' THEN 1 " &
                           "             WHEN 'Def' THEN 2 " &
                           "             WHEN 'Med' THEN 3 " &
@@ -830,28 +829,25 @@ Public Class ConexionSqlite
         Dim dt As New DataTable()
 
         Try
-
             Using conn As New SQLiteConnection(ObtenerConexion())
                 conn.Open()
 
-
                 Using cmd As New SQLiteCommand(query, conn)
-
                     cmd.Parameters.AddWithValue("@nombreSubliga", nombreSubliga)
 
-
                     Using adapter As New SQLiteDataAdapter(cmd)
-
                         adapter.Fill(dt)
                     End Using
                 End Using
             End Using
         Catch ex As Exception
-
+            ' Manejo de errores (se recomienda registrar el error en un log o mostrar un mensaje)
+            Console.WriteLine("Error al obtener jugadores por subliga: " & ex.Message)
         End Try
 
         Return dt
     End Function
+
 
     Public Shared Function AgregarJugadorASubliga(nombreSubliga As String, idJugador As Integer, liga As Integer) As Boolean
         Dim queryVerificarExistencia As String = "SELECT COUNT(*) FROM subliga WHERE idjugador = @idjugador AND subliga = @nombreSubliga AND liga = @liga"
