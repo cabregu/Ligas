@@ -933,6 +933,67 @@ Public Class ConexionSqlite
         End Try
     End Function
 
+    Public Shared Function EliminarRegistrosPorFechaYLiga(nrofecha As Integer, idliga As Integer) As Boolean
+        Dim queryEliminar As String = "
+        DELETE FROM registro
+        WHERE nrofecha = @nrofecha 
+        AND idjugador IN (
+            SELECT j.idjugadores 
+            FROM jugadores j
+            JOIN equipos e ON j.idequipo = e.idequipo
+            WHERE e.idliga = @idliga
+        )"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(queryEliminar, conn)
+                    ' Añade los parámetros al comando
+                    cmd.Parameters.AddWithValue("@nrofecha", nrofecha)
+                    cmd.Parameters.AddWithValue("@idliga", idliga)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    ' Retorna True si se eliminaron filas, False en caso contrario
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+
+        Catch ex As Exception
+            ' Manejo de errores: puedes registrar el error o manejarlo de acuerdo a tus necesidades
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function ActualizarPuntosJugador(idjugador As Integer, nrofecha As Integer, nuevosPuntos As Decimal) As Boolean
+        Dim queryActualizar As String = "
+    UPDATE registro
+    SET puntosfecha = @nuevosPuntos
+    WHERE idjugador = @idjugador AND nrofecha = @nrofecha"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(queryActualizar, conn)
+                    ' Añade los parámetros al comando
+                    cmd.Parameters.AddWithValue("@nuevosPuntos", nuevosPuntos)
+                    cmd.Parameters.AddWithValue("@idjugador", idjugador)
+                    cmd.Parameters.AddWithValue("@nrofecha", nrofecha)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    ' Retorna True si se actualizaron filas, False en caso contrario
+                    Return filasAfectadas > 0
+                End Using
+            End Using
+
+        Catch ex As Exception
+            ' Manejo de errores: puedes registrar el error o manejarlo de acuerdo a tus necesidades
+            Return False
+        End Try
+    End Function
 
 
 End Class

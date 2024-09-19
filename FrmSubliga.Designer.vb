@@ -28,6 +28,8 @@ Partial Class FrmSubliga
         DgvDatos = New DataGridView()
         BtnSeleccionar = New Button()
         Btnxls = New Button()
+        BtnEliminarFecha = New Button()
+        TxtFechaNro = New TextBox()
         CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -94,12 +96,30 @@ Partial Class FrmSubliga
         Btnxls.TabIndex = 18
         Btnxls.UseVisualStyleBackColor = False
         ' 
+        ' BtnEliminarFecha
+        ' 
+        BtnEliminarFecha.Location = New Point(450, 38)
+        BtnEliminarFecha.Name = "BtnEliminarFecha"
+        BtnEliminarFecha.Size = New Size(169, 23)
+        BtnEliminarFecha.TabIndex = 19
+        BtnEliminarFecha.Text = "Eliminar datos de Fecha"
+        BtnEliminarFecha.UseVisualStyleBackColor = True
+        ' 
+        ' TxtFechaNro
+        ' 
+        TxtFechaNro.Location = New Point(625, 38)
+        TxtFechaNro.Name = "TxtFechaNro"
+        TxtFechaNro.Size = New Size(38, 23)
+        TxtFechaNro.TabIndex = 20
+        ' 
         ' FrmSubliga
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(821, 551)
+        Controls.Add(TxtFechaNro)
+        Controls.Add(BtnEliminarFecha)
         Controls.Add(Btnxls)
         Controls.Add(BtnSeleccionar)
         Controls.Add(DgvDatos)
@@ -121,4 +141,6 @@ Partial Class FrmSubliga
     Friend WithEvents DgvDatos As DataGridView
     Friend WithEvents BtnSeleccionar As Button
     Friend WithEvents Btnxls As Button
+    Friend WithEvents BtnEliminarFecha As Button
+    Friend WithEvents TxtFechaNro As TextBox
 End Class

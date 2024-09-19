@@ -261,7 +261,9 @@ Public Class FrmCargarPuntos
 
     End Sub
 
+    Private Sub BtnLimpiarFecha_Click(sender As Object, e As EventArgs)
 
+    End Sub
 End Class
 
 Public Class JugadorModificado

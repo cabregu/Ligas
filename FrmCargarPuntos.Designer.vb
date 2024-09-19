@@ -103,7 +103,7 @@ Partial Class FrmCargarPuntos
         LblNombreLiga.AutoSize = True
         LblNombreLiga.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point)
         LblNombreLiga.ForeColor = Color.Maroon
-        LblNombreLiga.Location = New Point(297, 9)
+        LblNombreLiga.Location = New Point(448, 9)
         LblNombreLiga.Name = "LblNombreLiga"
         LblNombreLiga.Size = New Size(127, 30)
         LblNombreLiga.TabIndex = 6

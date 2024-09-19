@@ -5,36 +5,12 @@ Imports Ligas.ConexionSqlite
 
 
 Public Class FrmReporte
-    'Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
-    '    Dim idEquipo As Integer = Convert.ToInt32(CmbEquipos.SelectedValue)
 
-    '    If CmbEquipos.Text = "Todos los equipos" Then
-    '        Dim dt As New DataTable
-    '        dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text)
-    '        DgvDatos.DataSource = Nothing
-    '        DgvDatos.DataSource = dt
-    '        DgvDatos.Columns("Equipo").Visible = False
-    '        DgvDatos.Columns("ID Jugador").Visible = False
-    '        DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-    '    Else
-
-    '        Dim dt As DataTable = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
-    '        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-    '            ' Solo asigna la fuente de datos y configura el DataGridView si hay datos
-    '            DgvDatos.DataSource = Nothing
-    '            DgvDatos.DataSource = dt
-    '            DgvDatos.Columns("Equipo").Visible = False
-    '            DgvDatos.Columns("ID Jugador").Visible = False
-    '            DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-    '        Else
-    '            dt = Nothing
-    '            DgvDatos.DataSource = dt
-    '        End If
-
-    '    End If
-
-    'End Sub
     Private Sub BtnObtenerDatos_Click(sender As Object, e As EventArgs) Handles BtnObtenerDatos.Click
+        CargarDatosNuevos()
+    End Sub
+
+    Public Sub CargarDatosNuevos()
         Dim idEquipo As Integer
         If CmbEquipos.Text = "Todos los equipos" Then
             idEquipo = -1 ' O un valor que indique que no se filtra por equipo específico
@@ -94,8 +70,6 @@ Public Class FrmReporte
             DgvDatos.DataSource = Nothing
         End If
     End Sub
-
-
 
 
     Public Sub ExportarDataGridViewAExcel(dgv As DataGridView)
@@ -172,5 +146,35 @@ Public Class FrmReporte
             cmb.SelectedIndex = 0
         End If
     End Sub
+
+
+    Private Sub DgvDatos_DoubleClick(sender As Object, e As EventArgs) Handles DgvDatos.DoubleClick
+        If DgvDatos.CurrentCell IsNot Nothing Then
+            Dim filaSeleccionada As Integer = DgvDatos.CurrentCell.RowIndex
+            Dim columnaSeleccionada As Integer = DgvDatos.CurrentCell.ColumnIndex
+
+            Dim idJugador As Integer = Convert.ToInt32(DgvDatos.Rows(filaSeleccionada).Cells("ID Jugador").Value)
+            Dim jugador As String = DgvDatos.Rows(filaSeleccionada).Cells("Jugador").Value.ToString()
+
+            Dim puntos As String = Nothing
+            Dim nombreColumna As String = DgvDatos.Columns(columnaSeleccionada).Name
+
+            If nombreColumna.StartsWith("Fecha") Then
+                puntos = DgvDatos.Rows(filaSeleccionada).Cells(columnaSeleccionada).Value.ToString()
+                Dim numeroFecha As String = nombreColumna.Substring(6)
+
+                Dim otroFormulario As New FrmEditarPuntos()
+                otroFormulario.LblIdJugador.Text = idJugador.ToString()
+                otroFormulario.LblNombreJugador.Text = jugador
+                otroFormulario.LblFecha.Text = numeroFecha
+                otroFormulario.LblPuntos.Text = puntos
+
+                otroFormulario.ShowDialog()
+            End If
+        End If
+    End Sub
+
+
+
 
 End Class

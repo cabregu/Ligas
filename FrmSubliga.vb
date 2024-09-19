@@ -79,7 +79,9 @@ Public Class FrmSubliga
             ' Configurar el DataGridView
             DgvDatos.DataSource = sortedDataTable
             DgvDatos.Columns("Equipo").Visible = False
-            DgvDatos.Columns("ID Jugador").Visible = False
+
+            'DgvDatos.Columns("ID Jugador").Visible = False
+
             DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         End If
     End Sub
@@ -134,4 +136,73 @@ Public Class FrmSubliga
             MsgBox("Error al exportar a Excel: " & ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
     End Sub
+
+    Private Sub BtnEliminarFecha_Click(sender As Object, e As EventArgs) Handles BtnEliminarFecha.Click
+
+
+        If String.IsNullOrWhiteSpace(TxtFechaNro.Text) Then
+            MessageBox.Show("Por favor, ingresa un número en el campo de fecha.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        If DgvDatos.Rows.Count = 0 Then
+            MessageBox.Show("No hay datos disponibles para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim result As DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar los registros de la fecha " & TxtFechaNro.Text & "?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+        If result = DialogResult.Yes Then
+            Dim fecha As Integer
+            Dim idLiga As Integer
+
+            RealizarCopiaDeSeguridad()
+
+            If Integer.TryParse(TxtFechaNro.Text, fecha) AndAlso Integer.TryParse(LblIdLiga.Text, idLiga) Then
+
+                If EliminarRegistrosPorFechaYLiga(fecha, idLiga) Then
+                    MessageBox.Show("Registros eliminados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Me.Close()
+                Else
+                    MessageBox.Show("No se eliminaron registros o ocurrió un error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Else
+                MessageBox.Show("Por favor, ingresa un número válido para la fecha y la liga.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        End If
+    End Sub
+
+
+
+    Public Function RealizarCopiaDeSeguridad() As String
+        Dim rutaArchivoOriginal As String = "C:\baseligas\liga.db"
+        Dim rutaArchivoCopia As String = String.Empty
+
+
+        If System.IO.File.Exists(rutaArchivoOriginal) Then
+
+            Dim timestamp As String = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+            Dim nombreArchivoCopia As String = $"liga_EliminoFecha_{timestamp}.db"
+            rutaArchivoCopia = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rutaArchivoOriginal), nombreArchivoCopia)
+
+            Try
+                System.IO.File.Copy(rutaArchivoOriginal, rutaArchivoCopia)
+                Return rutaArchivoCopia
+            Catch ex As Exception
+                Return "Error: " & ex.Message
+            End Try
+        Else
+            Return "El archivo original no existe."
+        End If
+    End Function
+
+
+    Private Sub TxtFechaNro_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtFechaNro.KeyPress
+
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+
 End Class
