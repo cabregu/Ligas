@@ -70,6 +70,7 @@ Public Class ConexionSqlite
             End Using
         End Using
     End Function
+
     Public Shared Sub GuardarRegistro(idequipo As Integer, idjugador As Integer, nrofecha As Integer, puntosfecha As Decimal?, b As Integer, t As Integer, s As Integer, l As Integer)
         Dim queryExistencia As String = "SELECT COUNT(*) FROM registro WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
         Dim queryObtenerValores As String = "SELECT puntosfecha, b, t, s, l FROM registro WHERE idequipo = @idequipo AND idjugador = @idjugador AND nrofecha = @nrofecha"
@@ -143,6 +144,7 @@ Public Class ConexionSqlite
             End Using
         End Using
     End Sub
+
     Public Shared Function ObtenerRegistrosExistentes(idequipo As Long, nrofecha As Integer) As DataTable
         Dim query As String = "SELECT idjugador, puntosfecha, b, t, s, l FROM registro WHERE idequipo = @idequipo AND nrofecha = @nrofecha"
         Dim DtRegistros As New DataTable
@@ -180,6 +182,7 @@ Public Class ConexionSqlite
             Return False
         End Try
     End Function
+
     Public Shared Function ObtenerLigasParaCombo() As DataTable
         Dim query As String = "SELECT idliga, nombreliga FROM liga"
         Dim dt As New DataTable()
@@ -347,135 +350,6 @@ Public Class ConexionSqlite
         End Try
     End Function
 
-    'Public Shared Function ObtenerRegistrosDeTodosLosEquipos() As DataTable
-    '    Dim dt As New DataTable()
-
-    '    ' Consulta para obtener jugadores junto con el nombre del equipo
-    '    Dim queryJugadores As String = "SELECT jugadores.idequipo, equipos.nombre AS nombreEquipo, jugadores.idjugadores, jugadores.jugador, jugadores.posicion " &
-    '                               "FROM jugadores " &
-    '                               "INNER JOIN equipos ON jugadores.idequipo = equipos.idequipo"
-
-    '    ' Consulta para obtener el número máximo de fechas por equipo
-    '    Dim queryMaxFechas As String = "SELECT idequipo, MAX(nrofecha) AS maxFecha FROM registro GROUP BY idequipo"
-
-    '    ' Diccionario para almacenar el número máximo de fechas por equipo
-    '    Dim maxFechasPorEquipo As New Dictionary(Of Integer, Integer)()
-
-    '    Using conn As New SQLiteConnection(ObtenerConexion())
-    '        conn.Open()
-
-    '        ' Ejecutar consulta para obtener el máximo de fechas por equipo
-    '        Using cmdMaxFechas As New SQLiteCommand(queryMaxFechas, conn)
-    '            Using reader As SQLiteDataReader = cmdMaxFechas.ExecuteReader()
-    '                While reader.Read()
-    '                    maxFechasPorEquipo.Add(reader.GetInt32(0), reader.GetInt32(1))
-    '                End While
-    '            End Using
-    '        End Using
-
-    '        ' Definir columnas del DataTable
-    '        dt.Columns.Add("Equipo")
-    '        dt.Columns.Add("Nombre del Equipo")
-    '        dt.Columns.Add("ID Jugador")
-    '        dt.Columns.Add("Jugador")
-    '        dt.Columns.Add("Posición")
-
-    '        Dim maxFechasGlobal As Integer = maxFechasPorEquipo.Values.Max()
-
-    '        ' Añadir columnas para las fechas
-    '        For i As Integer = 1 To maxFechasGlobal
-    '            dt.Columns.Add($"Fecha {i}", GetType(Decimal))
-    '        Next
-
-    '        ' Añadir columnas para S, T, B, L
-    '        dt.Columns.Add("S", GetType(Integer))
-    '        dt.Columns.Add("T", GetType(Integer))
-    '        dt.Columns.Add("B", GetType(Integer))
-    '        dt.Columns.Add("L", GetType(Integer))
-
-    '        ' Añadir columnas para la suma total de puntos y el promedio
-    '        dt.Columns.Add("Total Puntos", GetType(Decimal))
-    '        dt.Columns.Add("Promedio", GetType(Decimal))
-
-    '        ' Ejecutar consulta para obtener jugadores
-    '        Using cmdJugadores As New SQLiteCommand(queryJugadores, conn)
-    '            Using readerJugadores As SQLiteDataReader = cmdJugadores.ExecuteReader()
-    '                While readerJugadores.Read()
-    '                    Dim idequipo As Integer = readerJugadores.GetInt32(0)
-    '                    Dim nombreEquipo As String = readerJugadores.GetString(1)
-    '                    Dim idjugador As Integer = readerJugadores.GetInt32(2)
-    '                    Dim jugador As String = readerJugadores.GetString(3)
-    '                    Dim posicion As String = readerJugadores.GetString(4)
-
-    '                    ' Crear una nueva fila en el DataTable
-    '                    Dim nuevaFila As DataRow = dt.NewRow()
-    '                    nuevaFila("Equipo") = idequipo
-    '                    nuevaFila("Nombre del Equipo") = nombreEquipo
-    '                    nuevaFila("ID Jugador") = idjugador
-    '                    nuevaFila("Jugador") = jugador
-    '                    nuevaFila("Posición") = posicion
-
-    '                    Dim totalPuntos As Decimal = 0D
-    '                    Dim conteoFechasConPuntos As Integer = 0
-    '                    Dim conteoS As Integer = 0
-    '                    Dim conteoT As Integer = 0
-    '                    Dim conteoB As Integer = 0
-    '                    Dim conteoL As Integer = 0
-
-    '                    ' Consulta para obtener los registros de puntos, S, T, B, L
-    '                    Dim queryRegistros As String = "SELECT nrofecha, puntosfecha, b, t, s, l FROM registro " &
-    '                                               "WHERE idequipo = @idequipo AND idjugador = @idjugador"
-
-    '                    Using cmdRegistros As New SQLiteCommand(queryRegistros, conn)
-    '                        cmdRegistros.Parameters.AddWithValue("@idequipo", idequipo)
-    '                        cmdRegistros.Parameters.AddWithValue("@idjugador", idjugador)
-
-    '                        Using readerRegistros As SQLiteDataReader = cmdRegistros.ExecuteReader()
-    '                            While readerRegistros.Read()
-    '                                Dim nroFecha As Integer = readerRegistros.GetInt32(0)
-    '                                Dim puntosFechaValor As Decimal = If(IsDBNull(readerRegistros(1)), 0D, Convert.ToDecimal(readerRegistros(1)))
-    '                                Dim b As Integer = If(IsDBNull(readerRegistros(2)), 0, readerRegistros.GetInt32(2))
-    '                                Dim t As Integer = If(IsDBNull(readerRegistros(3)), 0, readerRegistros.GetInt32(3))
-    '                                Dim s As Integer = If(IsDBNull(readerRegistros(4)), 0, readerRegistros.GetInt32(4))
-    '                                Dim l As Integer = If(IsDBNull(readerRegistros(5)), 0, readerRegistros.GetInt32(5))
-
-    '                                ' Asignar los puntos a la columna correspondiente
-    '                                nuevaFila($"Fecha {nroFecha}") = puntosFechaValor
-
-    '                                ' Sumar los puntos y contar las fechas en las que el jugador obtuvo puntos
-    '                                totalPuntos += puntosFechaValor
-    '                                If puntosFechaValor > 0 Then conteoFechasConPuntos += 1
-
-    '                                ' Contar las ocurrencias de S, T, B, L
-    '                                conteoS += s
-    '                                conteoT += t
-    '                                conteoB += b
-    '                                conteoL += l
-    '                            End While
-    '                        End Using
-    '                    End Using
-
-    '                    ' Asignar los conteos de S, T, B, L a las columnas correspondientes
-    '                    nuevaFila("S") = conteoS
-    '                    nuevaFila("T") = conteoT
-    '                    nuevaFila("B") = conteoB
-    '                    nuevaFila("L") = conteoL
-
-    '                    ' Asignar la suma total de puntos y calcular el promedio
-    '                    nuevaFila("Total Puntos") = totalPuntos
-    '                    nuevaFila("Promedio") = If(conteoFechasConPuntos > 0, Math.Truncate(totalPuntos / conteoFechasConPuntos), 0)
-
-
-
-    '                    ' Añadir la fila al DataTable
-    '                    dt.Rows.Add(nuevaFila)
-    '                End While
-    '            End Using
-    '        End Using
-    '    End Using
-
-    '    Return dt
-    'End Function
 
     Public Shared Function ObtenerRegistrosDeTodosLosEquipos(idliga As Integer, Optional idequipo As Integer? = Nothing) As DataTable
 
@@ -993,6 +867,63 @@ Public Class ConexionSqlite
             ' Manejo de errores: puedes registrar el error o manejarlo de acuerdo a tus necesidades
             Return False
         End Try
+    End Function
+
+
+    Public Shared Function InsertarEquipoParaTransferirDeLiga(nombreEquipo As String, idLiga As Integer) As Integer
+        Dim queryExistencia As String = "SELECT COUNT(*) FROM Equipos WHERE nombre = @nombre AND idliga = @idliga"
+        Dim queryInsercion As String = "INSERT INTO Equipos (nombre, idliga) VALUES (@nombre, @idliga); SELECT last_insert_rowid();"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+
+                Using cmdExistencia As New SQLiteCommand(queryExistencia, conn)
+                    cmdExistencia.Parameters.AddWithValue("@nombre", nombreEquipo)
+                    cmdExistencia.Parameters.AddWithValue("@idliga", idLiga)
+
+                    Dim existe As Integer = Convert.ToInt32(cmdExistencia.ExecuteScalar())
+                    If existe > 0 Then
+                        Return 0 ' 0
+                    End If
+                End Using
+
+                Using cmdInsercion As New SQLiteCommand(queryInsercion, conn)
+                    cmdInsercion.Parameters.AddWithValue("@nombre", nombreEquipo)
+                    cmdInsercion.Parameters.AddWithValue("@idliga", idLiga)
+
+                    Dim idEquipo As Integer = Convert.ToInt32(cmdInsercion.ExecuteScalar())
+                    Return idEquipo
+                End Using
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error al insertar el equipo: " & ex.Message)
+            Return -1
+        End Try
+    End Function
+
+
+    Public Shared Function InsertarJugadorPraTransferirdeliga(jugador As String, posicion As String, idequipo As Integer) As Boolean
+        Dim query As String = "INSERT INTO jugadores (jugador, posicion, idequipo) VALUES (@jugador, @posicion, @idequipo)"
+
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            Try
+                conn.Open()
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@jugador", jugador)
+                    cmd.Parameters.AddWithValue("@posicion", posicion)
+                    cmd.Parameters.AddWithValue("@idequipo", idequipo)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0
+                End Using
+            Catch ex As Exception
+
+                MessageBox.Show("Error al insertar el jugador: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
+        End Using
     End Function
 
 

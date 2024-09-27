@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.3.0" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.39" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 

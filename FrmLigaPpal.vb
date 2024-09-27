@@ -242,7 +242,7 @@ Public Class FrmLigaPpal
     Private Sub BtnConfiguracion_Click(sender As Object, e As EventArgs) Handles BtnConfiguracion.Click
         FrmConfiguracion.LblIdliga.Text = LblIdLiga.Text
         FrmConfiguracion.LblNombreLiga.Text = LblNombreLiga.Text
-        FrmConfiguracion.Show()
+        FrmConfiguracion.Show
 
     End Sub
 
@@ -510,5 +510,8 @@ Public Class FrmLigaPpal
         End If
     End Sub
 
+    Private Sub BtnListado_Click(sender As Object, e As EventArgs) Handles BtnListado.Click
+        FrmListado.Show()
 
+    End Sub
 End Class

@@ -151,16 +151,31 @@
   <data name="Properties_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Properties_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IconSetFlags3_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconSetFlags3_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EditDataSource_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EditDataSource_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Reviewers_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reviewers_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExportModelDifferences_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExportModelDifferences_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconSetFlags3_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconSetFlags3_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CheckBox_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CheckBox_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Reviewers_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reviewers_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IconSetArrows3_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconSetArrows3_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HighlightCellsRules_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HighlightCellsRules_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bar_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bar_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BOTask_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BOTask_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

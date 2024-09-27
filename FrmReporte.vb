@@ -13,25 +13,24 @@ Public Class FrmReporte
     Public Sub CargarDatosNuevos()
         Dim idEquipo As Integer
         If CmbEquipos.Text = "Todos los equipos" Then
-            idEquipo = -1 ' O un valor que indique que no se filtra por equipo específico
+            idEquipo = -1
         Else
             idEquipo = Convert.ToInt32(CmbEquipos.SelectedValue)
         End If
 
         Dim dt As DataTable
         If idEquipo = -1 Then
-            ' Obtener registros de todos los equipos
+
             dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text)
         Else
-            ' Obtener registros para un equipo específico
+
             dt = ObtenerRegistrosDeTodosLosEquipos(LblIdLiga.Text, idEquipo)
         End If
 
         If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-            ' Agregar una columna auxiliar para el orden de la posición
+
             dt.Columns.Add("OrdenPosicion", GetType(Integer))
 
-            ' Asignar valores a la columna auxiliar basados en la posición
             For Each row As DataRow In dt.Rows
                 Select Case row("Posición").ToString()
                     Case "Por"
@@ -43,30 +42,30 @@ Public Class FrmReporte
                     Case "Del"
                         row("OrdenPosicion") = 4
                     Case Else
-                        row("OrdenPosicion") = 5 ' Para manejar casos inesperados
+                        row("OrdenPosicion") = 5
                 End Select
             Next
 
-            ' Crear una vista del DataTable ordenado
             Dim dataView As DataView = dt.DefaultView
             dataView.Sort = "Equipo ASC, OrdenPosicion ASC, Promedio DESC"
 
-            ' Crear un nuevo DataTable ordenado
+
             Dim sortedDataTable As DataTable = dataView.ToTable()
 
-            ' Eliminar la columna auxiliar
+
             If sortedDataTable.Columns.Contains("OrdenPosicion") Then
                 sortedDataTable.Columns.Remove("OrdenPosicion")
             End If
 
-            ' Configurar el DataGridView
+
             DgvDatos.DataSource = Nothing
             DgvDatos.DataSource = sortedDataTable
             DgvDatos.Columns("Equipo").Visible = False
             DgvDatos.Columns("ID Jugador").Visible = False
             DgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            TxtNombreDeEquipo.Text = CmbEquipos.Text
+
         Else
-            ' Si no hay datos, limpiar el DataGridView
             DgvDatos.DataSource = Nothing
         End If
     End Sub
@@ -74,27 +73,25 @@ Public Class FrmReporte
 
     Public Sub ExportarDataGridViewAExcel(dgv As DataGridView)
         Try
-            ' Crear una instancia del cuadro de diálogo para guardar archivos
+
             Dim saveFileDialog As New SaveFileDialog()
             saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx"
             saveFileDialog.Title = "Guardar archivo Excel"
-            saveFileDialog.FileName = "Datos.xlsx" ' Nombre predeterminado del archivo
+            saveFileDialog.FileName = "Datos.xlsx"
 
-            ' Mostrar el cuadro de diálogo y verificar si el usuario hace clic en "Guardar"
+
             If saveFileDialog.ShowDialog() = DialogResult.OK Then
                 Dim filePath As String = saveFileDialog.FileName
 
-                ' Crear un nuevo paquete Excel
+
                 Using package As New ExcelPackage()
-                    ' Crear una nueva hoja en el paquete
+
                     Dim worksheet As ExcelWorksheet = package.Workbook.Worksheets.Add("Sheet1")
 
-                    ' Agregar encabezados de columna
                     For colIndex As Integer = 0 To dgv.Columns.Count - 1
                         worksheet.Cells(1, colIndex + 1).Value = dgv.Columns(colIndex).HeaderText
                     Next
 
-                    ' Agregar datos de filas
                     For rowIndex As Integer = 0 To dgv.Rows.Count - 1
                         Dim row As DataGridViewRow = dgv.Rows(rowIndex)
                         For colIndex As Integer = 0 To dgv.Columns.Count - 1
@@ -103,7 +100,6 @@ Public Class FrmReporte
                         Next
                     Next
 
-                    ' Guardar el archivo Excel
                     Using stream As New FileStream(filePath, FileMode.Create, FileAccess.Write)
                         package.SaveAs(stream)
                     End Using
@@ -124,6 +120,7 @@ Public Class FrmReporte
 
     Private Sub FrmReporte_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cargarcmb(CmbEquipos)
+        LlenarComboBoxLigas(CmbLiga)
     End Sub
     Private Sub cargarcmb(ByVal cmb As ComboBox)
 
@@ -174,6 +171,71 @@ Public Class FrmReporte
         End If
     End Sub
 
+    Public Sub LlenarComboBoxLigas(combo As ComboBox)
+        combo.DataSource = Nothing
+        combo.Items.Clear()
+        Dim dtLigas As DataTable = ObtenerLigasParaCombo()
+        combo.DisplayMember = "nombreliga"
+        combo.ValueMember = "idliga"
+        combo.DataSource = dtLigas
+    End Sub
+
+    Private Sub BtnCopiar_Click(sender As Object, e As EventArgs) Handles BtnCopiar.Click
+        If TxtNombreDeEquipo.Text <> "" Then
+            Dim NroLigaNueva As Integer = CmbLiga.SelectedValue
+            Dim NombreEquipo As String = TxtNombreDeEquipo.Text
+
+            ' Llamar a la función para insertar el equipo y obtener el id
+            Dim idEquipo As Integer = InsertarEquipoParaTransferirDeLiga(NombreEquipo, NroLigaNueva)
+
+            ' Comprobar el resultado de la inserción
+            If idEquipo = 0 Then
+                MessageBox.Show("El equipo ya existe en esta liga.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return ' Cancela la operación
+            ElseIf idEquipo < 0 Then
+                MessageBox.Show("Error al insertar el equipo. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return ' Cancela la operación
+            End If
+
+            ' Inicializar y mostrar el ProgressBar
+            PgbCopiando.Minimum = 0
+            PgbCopiando.Maximum = DgvDatos.Rows.Count
+            PgbCopiando.Value = 0
+            PgbCopiando.Visible = True
+
+            ' Insertar los jugadores en el DataGridView
+            For Each fila As DataGridViewRow In DgvDatos.Rows
+                If Not fila.IsNewRow Then ' Asegúrate de no intentar insertar la fila nueva
+                    Dim jugador As String = fila.Cells("Jugador").Value.ToString()
+                    Dim posicion As String = fila.Cells("Posición").Value.ToString()
+
+
+                    Dim resultado As Boolean = InsertarJugadorPraTransferirdeliga(jugador, posicion, idEquipo)
+
+                    If Not resultado Then
+                        MessageBox.Show("Error al insertar el jugador: " & jugador, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+
+
+                    PgbCopiando.Value += 1
+                End If
+            Next
+
+            MessageBox.Show("Todos los jugadores han sido insertados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Reiniciar el ProgressBar
+            PgbCopiando.Value = 0
+            PgbCopiando.Visible = False
+
+            ' Ajustar ComboBox a -1
+            CmbLiga.SelectedIndex = -1
+            TxtNombreDeEquipo.Text = ""
+
+
+        Else
+            MessageBox.Show("Por favor, ingrese un nombre para el equipo.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
 
 
 
