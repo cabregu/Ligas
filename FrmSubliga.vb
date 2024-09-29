@@ -204,5 +204,61 @@ Public Class FrmSubliga
         End If
     End Sub
 
+    Private Sub BtnConfirmar_Click(sender As Object, e As EventArgs) Handles BtnConfirmar.Click
+        If DgvDatos.RowCount > 0 Then
+            If CmbPosicion.Text <> "" Then
+                ' Crear un nuevo DataTable
+                Dim Dt As New DataTable()
+
+                ' Definir las columnas del DataTable
+                Dt.Columns.Add("Nombre del Equipo", GetType(String))
+                Dt.Columns.Add("Jugador", GetType(String))
+                Dt.Columns.Add("Posición", GetType(String))
+                Dt.Columns.Add("S", GetType(Integer))
+                Dt.Columns.Add("T", GetType(Integer))
+                Dt.Columns.Add("Total Puntos", GetType(Integer))
+                Dt.Columns.Add("Promedio", GetType(Double))
+
+                ' Variable para verificar si se encontraron filas válidas
+                Dim filasEncontradas As Boolean = False
+
+                ' Recorrer las filas del DataGridView y agregar los datos al DataTable
+                For Each row As DataGridViewRow In DgvDatos.Rows
+                    If Not row.IsNewRow Then ' Ignorar la fila nueva si existe
+                        ' Verificar si la posición coincide con la seleccionada en el ComboBox
+                        If row.Cells("Posición").Value.ToString() = CmbPosicion.Text Then
+                            Dt.Rows.Add(
+                            row.Cells("Nombre del Equipo").Value,
+                            row.Cells("Jugador").Value,
+                            row.Cells("Posición").Value,
+                            row.Cells("S").Value,
+                            row.Cells("T").Value,
+                            row.Cells("Total Puntos").Value,
+                            row.Cells("Promedio").Value
+                        )
+                            filasEncontradas = True ' Se encontró al menos una fila válida
+                        End If
+                    End If
+                Next
+
+                ' Verificar si se encontraron filas válidas
+                If filasEncontradas Then
+                    ' Asignar el DataTable y la posición a FrmListado
+                    FrmListado.Dt = Dt
+                    FrmListado.Pos = CmbPosicion.Text
+
+                    ' Aquí puedes abrir el formulario o realizar otras acciones necesarias
+                    FrmListado.Show()
+                Else
+                    MessageBox.Show("No se encontraron jugadores con la posición seleccionada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            Else
+                MessageBox.Show("Por favor, seleccione una posición en el ComboBox.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Else
+            MessageBox.Show("No hay datos en el DataGridView para procesar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
 
 End Class

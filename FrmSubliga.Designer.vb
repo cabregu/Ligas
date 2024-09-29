@@ -30,6 +30,8 @@ Partial Class FrmSubliga
         Btnxls = New Button()
         BtnEliminarFecha = New Button()
         TxtFechaNro = New TextBox()
+        BtnConfirmar = New Button()
+        CmbPosicion = New ComboBox()
         CType(DgvDatos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -72,7 +74,7 @@ Partial Class FrmSubliga
         DgvDatos.Name = "DgvDatos"
         DgvDatos.ReadOnly = True
         DgvDatos.RowTemplate.Height = 25
-        DgvDatos.Size = New Size(797, 471)
+        DgvDatos.Size = New Size(845, 471)
         DgvDatos.TabIndex = 16
         ' 
         ' BtnSeleccionar
@@ -90,7 +92,7 @@ Partial Class FrmSubliga
         Btnxls.BackColor = Color.SlateGray
         Btnxls.FlatStyle = FlatStyle.Flat
         Btnxls.Image = My.Resources.Resources.SendXLS_32x32
-        Btnxls.Location = New Point(746, 17)
+        Btnxls.Location = New Point(794, 17)
         Btnxls.Name = "Btnxls"
         Btnxls.Size = New Size(63, 44)
         Btnxls.TabIndex = 18
@@ -98,7 +100,7 @@ Partial Class FrmSubliga
         ' 
         ' BtnEliminarFecha
         ' 
-        BtnEliminarFecha.Location = New Point(450, 38)
+        BtnEliminarFecha.Location = New Point(366, 38)
         BtnEliminarFecha.Name = "BtnEliminarFecha"
         BtnEliminarFecha.Size = New Size(169, 23)
         BtnEliminarFecha.TabIndex = 19
@@ -107,17 +109,41 @@ Partial Class FrmSubliga
         ' 
         ' TxtFechaNro
         ' 
-        TxtFechaNro.Location = New Point(625, 38)
+        TxtFechaNro.Location = New Point(541, 38)
         TxtFechaNro.Name = "TxtFechaNro"
         TxtFechaNro.Size = New Size(38, 23)
         TxtFechaNro.TabIndex = 20
+        ' 
+        ' BtnConfirmar
+        ' 
+        BtnConfirmar.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        BtnConfirmar.BackColor = Color.SlateGray
+        BtnConfirmar.FlatStyle = FlatStyle.Flat
+        BtnConfirmar.Image = My.Resources.Resources.Bar_32x32
+        BtnConfirmar.Location = New Point(732, 17)
+        BtnConfirmar.Name = "BtnConfirmar"
+        BtnConfirmar.Size = New Size(56, 44)
+        BtnConfirmar.TabIndex = 21
+        BtnConfirmar.UseVisualStyleBackColor = False
+        ' 
+        ' CmbPosicion
+        ' 
+        CmbPosicion.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        CmbPosicion.FormattingEnabled = True
+        CmbPosicion.Items.AddRange(New Object() {"", "Por", "Def", "Med", "Del"})
+        CmbPosicion.Location = New Point(633, 38)
+        CmbPosicion.Name = "CmbPosicion"
+        CmbPosicion.Size = New Size(93, 23)
+        CmbPosicion.TabIndex = 22
         ' 
         ' FrmSubliga
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(821, 551)
+        ClientSize = New Size(869, 551)
+        Controls.Add(CmbPosicion)
+        Controls.Add(BtnConfirmar)
         Controls.Add(TxtFechaNro)
         Controls.Add(BtnEliminarFecha)
         Controls.Add(Btnxls)
@@ -143,4 +169,6 @@ Partial Class FrmSubliga
     Friend WithEvents Btnxls As Button
     Friend WithEvents BtnEliminarFecha As Button
     Friend WithEvents TxtFechaNro As TextBox
+    Friend WithEvents BtnConfirmar As Button
+    Friend WithEvents CmbPosicion As ComboBox
 End Class
