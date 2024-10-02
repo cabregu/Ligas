@@ -21,6 +21,7 @@ Partial Class FrmListado
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         FileSystemWatcher1 = New IO.FileSystemWatcher()
+        Panel = New Panel()
         CType(FileSystemWatcher1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -29,12 +30,23 @@ Partial Class FrmListado
         FileSystemWatcher1.EnableRaisingEvents = True
         FileSystemWatcher1.SynchronizingObject = Me
         ' 
+        ' Panel
+        ' 
+        Panel.AutoScroll = True
+        Panel.BackColor = SystemColors.Control
+        Panel.Dock = DockStyle.Fill
+        Panel.Location = New Point(0, 0)
+        Panel.Name = "Panel"
+        Panel.Size = New Size(851, 501)
+        Panel.TabIndex = 0
+        ' 
         ' FrmListado
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.Teal
+        BackColor = Color.WhiteSmoke
         ClientSize = New Size(851, 501)
+        Controls.Add(Panel)
         Name = "FrmListado"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Listado"
@@ -43,6 +55,7 @@ Partial Class FrmListado
         ResumeLayout(False)
     End Sub
     Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
+    Friend WithEvents Panel As Panel
 
 
 End Class

@@ -35,8 +35,8 @@ Public Class FrmListado
             Dim y As Integer = (i \ 4) * (plotHeight + spacing) + 10 ' 10 es el margen superior
             formsPlots(i).Location = New Point(x, y)
 
-            ' Añadir el gráfico al formulario
-            Me.Controls.Add(formsPlots(i))
+            ' Añadir el gráfico al panel
+            Me.Panel.Controls.Add(formsPlots(i)) ' Asegúrate de que el nombre del panel es Panel1
 
             ' Obtener los datos del jugador
             Dim valores() As Double = {
@@ -83,6 +83,21 @@ Public Class FrmListado
     End Sub
 
 
+    Private Sub Panel_DoubleClick(sender As Object, e As EventArgs) Handles Panel.DoubleClick
+        ' Crear un bitmap del tamaño del panel
+        Dim bmp As New Bitmap(Panel.Width, Panel.Height)
 
+        ' Dibujar el panel en el bitmap
+        Panel.DrawToBitmap(bmp, New Rectangle(0, 0, Panel.Width, Panel.Height))
+
+        ' Guardar el bitmap como un archivo JPG
+        Dim saveFileDialog As New SaveFileDialog()
+        saveFileDialog.Filter = "JPEG Image|*.jpg"
+        saveFileDialog.Title = "Guardar imagen como"
+
+        If saveFileDialog.ShowDialog() = DialogResult.OK Then
+            bmp.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg)
+        End If
+    End Sub
 
 End Class

@@ -510,8 +510,8 @@ Public Class FrmLigaPpal
         End If
     End Sub
 
-    Private Sub BtnListado_Click(sender As Object, e As EventArgs) Handles BtnListado.Click
-        FrmListado.Show()
+    Private Sub BtnListado_Click(sender As Object, e As EventArgs)
+        FrmListado.Show
 
     End Sub
 End Class
