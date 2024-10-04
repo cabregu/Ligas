@@ -37,7 +37,7 @@ Partial Class FrmListado
         Panel.Dock = DockStyle.Fill
         Panel.Location = New Point(0, 0)
         Panel.Name = "Panel"
-        Panel.Size = New Size(851, 501)
+        Panel.Size = New Size(1184, 411)
         Panel.TabIndex = 0
         ' 
         ' FrmListado
@@ -45,12 +45,11 @@ Partial Class FrmListado
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
-        ClientSize = New Size(851, 501)
+        ClientSize = New Size(1184, 411)
         Controls.Add(Panel)
         Name = "FrmListado"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Listado"
-        WindowState = FormWindowState.Maximized
         CType(FileSystemWatcher1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub

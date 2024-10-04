@@ -7,90 +7,108 @@ Public Class FrmListado
 
     Public Dt As New DataTable
     Public Pos As String = ""
+
+
     Private Sub FrmListado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CrearGraficos(Dt, Pos)
+        Panel.BackColor = ColorTranslator.FromHtml("#0b3049")
+
+        Dim dv As New DataView(Dt)
+        dv.Sort = "Total Puntos DESC"
+        Dim sortedDt As DataTable = dv.ToTable()
+
+        CrearGraficos(sortedDt, Pos)
     End Sub
 
+
     Private Sub CrearGraficos(dt As DataTable, PosicionActual As String)
-        ' Crear instancias de FormsPlot
+
         Dim cantidad As Integer = dt.Rows.Count
-        Dim formsPlots(cantidad - 1) As FormsPlot ' Crear un array para los plots
+        Dim formsPlots(cantidad - 1) As FormsPlot
 
-        ' Establecer el tamaño de los gráficos
-        Dim plotWidth As Integer = 300
-        Dim plotHeight As Integer = 300
-        Dim spacing As Integer = 5 ' Espacio entre gráficos
+        Dim plotWidth As Integer = 250
+        Dim plotHeight As Integer = 250
+        Dim spacing As Integer = 5
 
-        ' Datos para los gráficos de barras
         Dim posiciones() As Integer = {1, 2, 3, 4}
         Dim etiquetas() As String = {"S", "T", "Total", "Prom"}
 
-        ' Crear y configurar cada FormsPlot
         For i As Integer = 0 To cantidad - 1
             formsPlots(i) = New FormsPlot()
             formsPlots(i).Size = New Size(plotWidth, plotHeight)
 
-            ' Calcular la ubicación de cada gráfico
-            Dim x As Integer = (i Mod 4) * (plotWidth + spacing) + 10 ' 10 es el margen izquierdo
-            Dim y As Integer = (i \ 4) * (plotHeight + spacing) + 10 ' 10 es el margen superior
+            ' Calculate the x and y positions based on grouping of 6
+            Dim x As Integer = (i Mod 6) * (plotWidth + spacing) + 10
+            Dim y As Integer = (i \ 6) * (plotHeight + spacing) + 10
             formsPlots(i).Location = New Point(x, y)
 
-            ' Añadir el gráfico al panel
-            Me.Panel.Controls.Add(formsPlots(i)) ' Asegúrate de que el nombre del panel es Panel1
+            Me.Panel.Controls.Add(formsPlots(i))
 
-            ' Obtener los datos del jugador
             Dim valores() As Double = {
-                Convert.ToDouble(dt.Rows(i)("S")),
-                Convert.ToDouble(dt.Rows(i)("T")),
-                Convert.ToDouble(dt.Rows(i)("Total Puntos")),
-                Convert.ToDouble(dt.Rows(i)("Promedio"))
-            }
+            Convert.ToDouble(dt.Rows(i)("S")),
+            Convert.ToDouble(dt.Rows(i)("T")),
+            Convert.ToDouble(dt.Rows(i)("Total Puntos")),
+            Convert.ToDouble(dt.Rows(i)("Promedio"))
+        }
 
-            ' Crear el gráfico de barras
             CrearGraficoBarras(formsPlots(i).Plot, posiciones, valores, etiquetas, dt.Rows(i)("Jugador").ToString(), PosicionActual, dt.Rows(i)("Nombre del Equipo").ToString())
+
+
         Next
 
-        ' Refrescar todos los gráficos para mostrarlos
         For Each plot In formsPlots
             plot.Refresh()
         Next
     End Sub
 
+
     Private Sub CrearGraficoBarras(plot As ScottPlot.Plot, posiciones() As Integer, valores() As Double, etiquetas() As String, titulo As String, etiquetaX As String, etiquetaY As String)
-        ' Añadir barras al gráfico
+
+
+
+        Dim palette As New ScottPlot.Palettes.Frost()
+
         For i As Integer = 0 To posiciones.Length - 1
-            plot.Add.Bar(position:=posiciones(i), value:=valores(i), error:=0)
-            ' Añadir el valor encima de cada barra
-            plot.Add.Text(valores(i).ToString(), posiciones(i), valores(i) + 45) ' Ajustar la posición del texto
+            Dim bar As New ScottPlot.Bar() With {
+            .Position = posiciones(i),
+            .Value = valores(i),
+            .Error = 0,
+            .FillColor = palette.GetColor(i Mod palette.Colors.Count)
+        }
+            plot.Add.Bars(New ScottPlot.Bar() {bar})
+
+            plot.Add.Text(valores(i).ToString(), posiciones(i), valores(i) + 45)
         Next
 
-        ' Establecer ticks personalizados para el eje x
         Dim ticks(posiciones.Length - 1) As ScottPlot.Tick
         For i As Integer = 0 To posiciones.Length - 1
             ticks(i) = New ScottPlot.Tick(posiciones(i), etiquetas(i))
         Next
 
+
+        plot.FigureBackground.Color = ScottPlot.Color.FromHex("#0b3049")
+        plot.DataBackground.Color = ScottPlot.Color.FromHex("#0b3049")
+        plot.Axes.Color(ScottPlot.Color.FromHex("#ffffff"))
+
         plot.Axes.Bottom.TickGenerator = New ScottPlot.TickGenerators.NumericManual(ticks)
         plot.Axes.Bottom.MajorTickStyle.Length = 0
-        plot.HideGrid()
 
+        plot.HideGrid()
         plot.Axes.Margins(bottom:=0)
 
-        ' Establecer títulos y etiquetas
         plot.Title(titulo)
         plot.YLabel(etiquetaY)
         plot.XLabel(etiquetaX)
+
+
     End Sub
 
 
-    Private Sub Panel_DoubleClick(sender As Object, e As EventArgs) Handles Panel.DoubleClick
-        ' Crear un bitmap del tamaño del panel
-        Dim bmp As New Bitmap(Panel.Width, Panel.Height)
 
-        ' Dibujar el panel en el bitmap
+    Private Sub Panel_DoubleClick(sender As Object, e As EventArgs) Handles Panel.DoubleClick
+
+        Dim bmp As New Bitmap(Panel.Width, Panel.Height)
         Panel.DrawToBitmap(bmp, New Rectangle(0, 0, Panel.Width, Panel.Height))
 
-        ' Guardar el bitmap como un archivo JPG
         Dim saveFileDialog As New SaveFileDialog()
         saveFileDialog.Filter = "JPEG Image|*.jpg"
         saveFileDialog.Title = "Guardar imagen como"
