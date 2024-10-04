@@ -85,6 +85,8 @@ Public Class FrmListado
         Next
 
 
+
+
         plot.FigureBackground.Color = ScottPlot.Color.FromHex("#0b3049")
         plot.DataBackground.Color = ScottPlot.Color.FromHex("#0b3049")
         plot.Axes.Color(ScottPlot.Color.FromHex("#ffffff"))
