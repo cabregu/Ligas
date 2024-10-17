@@ -50,6 +50,7 @@ Partial Class FrmListado
         Name = "FrmListado"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Listado"
+        WindowState = FormWindowState.Maximized
         CType(FileSystemWatcher1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub

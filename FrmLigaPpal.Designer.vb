@@ -82,6 +82,8 @@ Partial Class FrmLigaPpal
         Label11 = New Label()
         LblSubliga = New Label()
         BtnSubliga = New Button()
+        LblFechas = New Label()
+        BtnFechas = New Button()
         GpbEquipos.SuspendLayout()
         GpbJugadores.SuspendLayout()
         CType(DgvSubliga, ComponentModel.ISupportInitialize).BeginInit()
@@ -127,7 +129,7 @@ Partial Class FrmLigaPpal
         BtnConfiguracion.BackColor = Color.SlateGray
         BtnConfiguracion.FlatStyle = FlatStyle.Flat
         BtnConfiguracion.Image = My.Resources.Resources.Properties_32x32
-        BtnConfiguracion.Location = New Point(481, 87)
+        BtnConfiguracion.Location = New Point(581, 87)
         BtnConfiguracion.Name = "BtnConfiguracion"
         BtnConfiguracion.Size = New Size(63, 61)
         BtnConfiguracion.TabIndex = 7
@@ -746,7 +748,7 @@ Partial Class FrmLigaPpal
         Label11.AutoSize = True
         Label11.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         Label11.ForeColor = Color.Indigo
-        Label11.Location = New Point(477, 152)
+        Label11.Location = New Point(577, 152)
         Label11.Name = "Label11"
         Label11.Size = New Size(84, 15)
         Label11.TabIndex = 17
@@ -774,12 +776,36 @@ Partial Class FrmLigaPpal
         BtnSubliga.TabIndex = 18
         BtnSubliga.UseVisualStyleBackColor = False
         ' 
+        ' LblFechas
+        ' 
+        LblFechas.AutoSize = True
+        LblFechas.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        LblFechas.ForeColor = Color.Indigo
+        LblFechas.Location = New Point(469, 152)
+        LblFechas.Name = "LblFechas"
+        LblFechas.Size = New Size(103, 15)
+        LblFechas.TabIndex = 21
+        LblFechas.Text = "Usados Por Fecha"
+        ' 
+        ' BtnFechas
+        ' 
+        BtnFechas.BackColor = Color.SlateGray
+        BtnFechas.FlatStyle = FlatStyle.Flat
+        BtnFechas.Image = My.Resources.Resources.BOTask_32x32
+        BtnFechas.Location = New Point(491, 87)
+        BtnFechas.Name = "BtnFechas"
+        BtnFechas.Size = New Size(63, 61)
+        BtnFechas.TabIndex = 20
+        BtnFechas.UseVisualStyleBackColor = False
+        ' 
         ' FrmLigaPpal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(1235, 705)
+        Controls.Add(LblFechas)
+        Controls.Add(BtnFechas)
         Controls.Add(LblSubliga)
         Controls.Add(BtnSubliga)
         Controls.Add(Label11)
@@ -871,4 +897,6 @@ Partial Class FrmLigaPpal
     Friend WithEvents IdJugador As DataGridViewTextBoxColumn
     Friend WithEvents NombreJugador As DataGridViewTextBoxColumn
     Friend WithEvents PosicionJugador As DataGridViewTextBoxColumn
+    Friend WithEvents LblFechas As Label
+    Friend WithEvents BtnFechas As Button
 End Class

@@ -25,8 +25,8 @@ Public Class FrmListado
         Dim cantidad As Integer = dt.Rows.Count
         Dim formsPlots(cantidad - 1) As FormsPlot
 
-        Dim plotWidth As Integer = 250
-        Dim plotHeight As Integer = 250
+        Dim plotWidth As Integer = 300
+        Dim plotHeight As Integer = 300
         Dim spacing As Integer = 5
 
         Dim posiciones() As Integer = {1, 2, 3, 4}
@@ -50,7 +50,7 @@ Public Class FrmListado
             Convert.ToDouble(dt.Rows(i)("Promedio"))
         }
 
-            CrearGraficoBarras(formsPlots(i).Plot, posiciones, valores, etiquetas, dt.Rows(i)("Jugador").ToString(), PosicionActual, dt.Rows(i)("Nombre del Equipo").ToString())
+            CrearGraficoBarras(formsPlots(i).Plot, posiciones, valores, etiquetas, "", dt.Rows(i)("Jugador").ToString(), "")
 
 
         Next
@@ -76,8 +76,10 @@ Public Class FrmListado
         }
             plot.Add.Bars(New ScottPlot.Bar() {bar})
 
-            plot.Add.Text(valores(i).ToString(), posiciones(i), valores(i) + 45)
+            plot.Add.Text(valores(i).ToString(), posiciones(i), valores(i) + 45).Color = ScottPlot.Color.FromHex("#ffffff")
+
         Next
+
 
         Dim ticks(posiciones.Length - 1) As ScottPlot.Tick
         For i As Integer = 0 To posiciones.Length - 1
@@ -90,6 +92,8 @@ Public Class FrmListado
         plot.FigureBackground.Color = ScottPlot.Color.FromHex("#0b3049")
         plot.DataBackground.Color = ScottPlot.Color.FromHex("#0b3049")
         plot.Axes.Color(ScottPlot.Color.FromHex("#ffffff"))
+
+        plot.Grid.MajorLineColor = ScottPlot.Color.FromHex("#FFFFFF")
 
         plot.Axes.Bottom.TickGenerator = New ScottPlot.TickGenerators.NumericManual(ticks)
         plot.Axes.Bottom.MajorTickStyle.Length = 0

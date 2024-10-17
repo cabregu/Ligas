@@ -514,4 +514,10 @@ Public Class FrmLigaPpal
         FrmListado.Show
 
     End Sub
+
+    Private Sub BtnFechas_Click(sender As Object, e As EventArgs) Handles BtnFechas.Click
+        FrmFechas.LblIdLiga.Text = LblIdLiga.Text
+        FrmFechas.LblNombreLiga.Text = LblNombreLiga.Text
+        FrmFechas.Show()
+    End Sub
 End Class
