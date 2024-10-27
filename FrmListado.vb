@@ -110,17 +110,17 @@ Public Class FrmListado
 
 
 
-    Private Sub Panel_DoubleClick(sender As Object, e As EventArgs) Handles Panel.DoubleClick
+    Private Sub Panel_DoubleClick(sender As Object, e As EventArgs)
 
-        Dim bmp As New Bitmap(Panel.Width, Panel.Height)
-        Panel.DrawToBitmap(bmp, New Rectangle(0, 0, Panel.Width, Panel.Height))
+        Dim bmp As New Bitmap(Width, Height)
+        Panel.DrawToBitmap(bmp, New Rectangle(0, 0, Width, Panel.Height))
 
-        Dim saveFileDialog As New SaveFileDialog()
+        Dim saveFileDialog As New SaveFileDialog
         saveFileDialog.Filter = "JPEG Image|*.jpg"
         saveFileDialog.Title = "Guardar imagen como"
 
-        If saveFileDialog.ShowDialog() = DialogResult.OK Then
-            bmp.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg)
+        If saveFileDialog.ShowDialog = DialogResult.OK Then
+            bmp.Save(saveFileDialog.FileName, Imaging.ImageFormat.Jpeg)
         End If
     End Sub
 

@@ -24,11 +24,12 @@ Partial Class FrmFechas
     Private Sub InitializeComponent()
         LblNombreLiga = New Label()
         LblIdLiga = New Label()
-        CmbFechas = New ComboBox()
-        DgvEquipos = New DataGridView()
+        CmbSubliga = New ComboBox()
+        DgvFechas = New DataGridView()
         DgvJugadores = New DataGridView()
         lblIdequipo = New Label()
-        CType(DgvEquipos, ComponentModel.ISupportInitialize).BeginInit()
+        BtnLista = New Button()
+        CType(DgvFechas, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -53,26 +54,26 @@ Partial Class FrmFechas
         LblIdLiga.Text = "0"
         LblIdLiga.Visible = False
         ' 
-        ' CmbFechas
+        ' CmbSubliga
         ' 
-        CmbFechas.FormattingEnabled = True
-        CmbFechas.Location = New Point(19, 41)
-        CmbFechas.Name = "CmbFechas"
-        CmbFechas.Size = New Size(198, 23)
-        CmbFechas.TabIndex = 11
+        CmbSubliga.FormattingEnabled = True
+        CmbSubliga.Location = New Point(19, 41)
+        CmbSubliga.Name = "CmbSubliga"
+        CmbSubliga.Size = New Size(157, 23)
+        CmbSubliga.TabIndex = 11
         ' 
-        ' DgvEquipos
+        ' DgvFechas
         ' 
-        DgvEquipos.AllowUserToAddRows = False
-        DgvEquipos.AllowUserToDeleteRows = False
-        DgvEquipos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
-        DgvEquipos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvEquipos.Location = New Point(19, 85)
-        DgvEquipos.Name = "DgvEquipos"
-        DgvEquipos.ReadOnly = True
-        DgvEquipos.RowTemplate.Height = 25
-        DgvEquipos.Size = New Size(198, 447)
-        DgvEquipos.TabIndex = 10
+        DgvFechas.AllowUserToAddRows = False
+        DgvFechas.AllowUserToDeleteRows = False
+        DgvFechas.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
+        DgvFechas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvFechas.Location = New Point(19, 85)
+        DgvFechas.Name = "DgvFechas"
+        DgvFechas.ReadOnly = True
+        DgvFechas.RowTemplate.Height = 25
+        DgvFechas.Size = New Size(157, 447)
+        DgvFechas.TabIndex = 10
         ' 
         ' DgvJugadores
         ' 
@@ -80,10 +81,10 @@ Partial Class FrmFechas
         DgvJugadores.AllowUserToDeleteRows = False
         DgvJugadores.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvJugadores.Location = New Point(229, 85)
+        DgvJugadores.Location = New Point(182, 85)
         DgvJugadores.Name = "DgvJugadores"
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(401, 447)
+        DgvJugadores.Size = New Size(448, 447)
         DgvJugadores.TabIndex = 9
         ' 
         ' lblIdequipo
@@ -96,22 +97,32 @@ Partial Class FrmFechas
         lblIdequipo.Text = "0"
         lblIdequipo.Visible = False
         ' 
+        ' BtnLista
+        ' 
+        BtnLista.Location = New Point(523, 40)
+        BtnLista.Name = "BtnLista"
+        BtnLista.Size = New Size(107, 23)
+        BtnLista.TabIndex = 13
+        BtnLista.Text = "Crear Lista"
+        BtnLista.UseVisualStyleBackColor = True
+        ' 
         ' FrmFechas
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(642, 544)
+        Controls.Add(BtnLista)
         Controls.Add(lblIdequipo)
-        Controls.Add(CmbFechas)
-        Controls.Add(DgvEquipos)
+        Controls.Add(CmbSubliga)
+        Controls.Add(DgvFechas)
         Controls.Add(DgvJugadores)
         Controls.Add(LblNombreLiga)
         Controls.Add(LblIdLiga)
         Name = "FrmFechas"
         Text = "Usados Por Fecha"
         WindowState = FormWindowState.Maximized
-        CType(DgvEquipos, ComponentModel.ISupportInitialize).EndInit()
+        CType(DgvFechas, ComponentModel.ISupportInitialize).EndInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -119,8 +130,9 @@ Partial Class FrmFechas
 
     Friend WithEvents LblNombreLiga As Label
     Friend WithEvents LblIdLiga As Label
-    Friend WithEvents CmbFechas As ComboBox
-    Friend WithEvents DgvEquipos As DataGridView
+    Friend WithEvents CmbSubliga As ComboBox
+    Friend WithEvents DgvFechas As DataGridView
     Friend WithEvents DgvJugadores As DataGridView
     Friend WithEvents lblIdequipo As Label
+    Friend WithEvents BtnLista As Button
 End Class

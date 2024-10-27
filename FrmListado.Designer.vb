@@ -14,21 +14,16 @@ Partial Class FrmListado
         End Try
     End Sub
 
-
+    'Requerido por el Diseñador de Windows Forms
     Private components As System.ComponentModel.IContainer
 
-
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        FileSystemWatcher1 = New IO.FileSystemWatcher()
         Panel = New Panel()
-        CType(FileSystemWatcher1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
-        ' 
-        ' FileSystemWatcher1
-        ' 
-        FileSystemWatcher1.EnableRaisingEvents = True
-        FileSystemWatcher1.SynchronizingObject = Me
         ' 
         ' Panel
         ' 
@@ -37,25 +32,19 @@ Partial Class FrmListado
         Panel.Dock = DockStyle.Fill
         Panel.Location = New Point(0, 0)
         Panel.Name = "Panel"
-        Panel.Size = New Size(1184, 411)
-        Panel.TabIndex = 0
+        Panel.Size = New Size(800, 450)
+        Panel.TabIndex = 1
         ' 
         ' FrmListado
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.WhiteSmoke
-        ClientSize = New Size(1184, 411)
+        ClientSize = New Size(800, 450)
         Controls.Add(Panel)
         Name = "FrmListado"
-        StartPosition = FormStartPosition.CenterScreen
-        Text = "Listado"
-        WindowState = FormWindowState.Maximized
-        CType(FileSystemWatcher1, ComponentModel.ISupportInitialize).EndInit()
+        Text = "FrmListado"
         ResumeLayout(False)
     End Sub
-    Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
+
     Friend WithEvents Panel As Panel
-
-
 End Class

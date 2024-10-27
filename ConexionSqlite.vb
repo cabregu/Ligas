@@ -927,4 +927,75 @@ Public Class ConexionSqlite
     End Function
 
 
+
+
+
+    Public Shared Sub AgregarLista(nombreLista As String, idJugador As Integer)
+        ' Verificar si la tabla existe y crearla si no existe
+        VerificarYCrearTabla()
+
+        Dim query As String = "INSERT INTO listas (nombre_lista, idjugador) VALUES (@nombreLista, @idJugador)"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@nombreLista", nombreLista)
+                cmd.Parameters.AddWithValue("@idJugador", idJugador)
+                cmd.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
+
+    Public Shared Function ObtenerNombresListas() As DataTable
+        Dim dt As New DataTable()
+
+        ' Verificar si la tabla existe
+        VerificarYCrearTabla()
+
+        Dim query As String = "SELECT DISTINCT nombre_lista FROM listas"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                Using da As New SQLiteDataAdapter(cmd)
+                    da.Fill(dt)
+                End Using
+            End Using
+        End Using
+
+        Return dt
+    End Function
+
+    Public Shared Function ObtenerJugadoresPorLista(nombreLista As String) As DataTable
+        Dim dt As New DataTable()
+
+        ' Verificar si la tabla existe
+        VerificarYCrearTabla()
+
+        Dim query As String = "SELECT idjugador FROM listas WHERE nombre_lista = @nombreLista"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.Parameters.AddWithValue("@nombreLista", nombreLista)
+                Using da As New SQLiteDataAdapter(cmd)
+                    da.Fill(dt)
+                End Using
+            End Using
+        End Using
+
+        Return dt
+    End Function
+
+    Private Shared Sub VerificarYCrearTabla()
+        Dim query As String = "CREATE TABLE IF NOT EXISTS listas (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_lista TEXT, idjugador INTEGER)"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmd As New SQLiteCommand(query, conn)
+                cmd.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
+
+
+
 End Class

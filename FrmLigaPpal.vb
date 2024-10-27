@@ -511,7 +511,7 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnListado_Click(sender As Object, e As EventArgs)
-        FrmListado.Show
+        'FrmListado.Show
 
     End Sub
 
