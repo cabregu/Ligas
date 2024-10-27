@@ -89,15 +89,16 @@ Partial Class FrmCrearLista
         DgvJugadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DgvJugadores.Location = New Point(162, 67)
         DgvJugadores.Name = "DgvJugadores"
+        DgvJugadores.ReadOnly = True
         DgvJugadores.RowTemplate.Height = 25
-        DgvJugadores.Size = New Size(238, 443)
+        DgvJugadores.Size = New Size(254, 443)
         DgvJugadores.TabIndex = 7
         ' 
         ' BtnCrearLista
         ' 
-        BtnCrearLista.Location = New Point(621, 96)
+        BtnCrearLista.Location = New Point(684, 97)
         BtnCrearLista.Name = "BtnCrearLista"
-        BtnCrearLista.Size = New Size(110, 23)
+        BtnCrearLista.Size = New Size(155, 23)
         BtnCrearLista.TabIndex = 14
         BtnCrearLista.Text = "Crear una Lista"
         BtnCrearLista.UseVisualStyleBackColor = True
@@ -108,23 +109,23 @@ Partial Class FrmCrearLista
         DgvLista.AllowUserToDeleteRows = False
         DgvLista.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DgvLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DgvLista.Location = New Point(406, 67)
+        DgvLista.Location = New Point(422, 67)
         DgvLista.Name = "DgvLista"
         DgvLista.RowTemplate.Height = 25
-        DgvLista.Size = New Size(209, 443)
+        DgvLista.Size = New Size(256, 443)
         DgvLista.TabIndex = 15
         ' 
         ' TxtNombreLista
         ' 
-        TxtNombreLista.Location = New Point(621, 67)
+        TxtNombreLista.Location = New Point(684, 68)
         TxtNombreLista.Name = "TxtNombreLista"
-        TxtNombreLista.Size = New Size(110, 23)
+        TxtNombreLista.Size = New Size(155, 23)
         TxtNombreLista.TabIndex = 16
         ' 
         ' LblNombre
         ' 
         LblNombre.AutoSize = True
-        LblNombre.Location = New Point(621, 49)
+        LblNombre.Location = New Point(684, 50)
         LblNombre.Name = "LblNombre"
         LblNombre.Size = New Size(92, 15)
         LblNombre.TabIndex = 17
@@ -135,7 +136,7 @@ Partial Class FrmCrearLista
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
-        ClientSize = New Size(734, 551)
+        ClientSize = New Size(851, 551)
         Controls.Add(LblNombre)
         Controls.Add(TxtNombreLista)
         Controls.Add(DgvLista)

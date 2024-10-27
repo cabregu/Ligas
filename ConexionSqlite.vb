@@ -659,7 +659,6 @@ Public Class ConexionSqlite
 
 
 
-
     Public Shared Function EliminarDeSubligaPorIdJugador(nombreSubliga As String, idJugador As Integer, liga As Integer) As Boolean
         Dim query As String = "DELETE FROM subliga WHERE idjugador = @idjugador AND subliga = @nombreSubliga AND liga = @liga"
 
@@ -782,7 +781,6 @@ Public Class ConexionSqlite
             Return False
         End Try
     End Function
-
 
 
     Public Shared Function ActualizarNombreLiga(idLiga As Integer, nuevoNombre As String) As Boolean
@@ -926,24 +924,37 @@ Public Class ConexionSqlite
         End Using
     End Function
 
-
-
-
-
     Public Shared Sub AgregarLista(nombreLista As String, idJugador As Integer)
         ' Verificar si la tabla existe y crearla si no existe
         VerificarYCrearTabla()
 
-        Dim query As String = "INSERT INTO listas (nombre_lista, idjugador) VALUES (@nombreLista, @idJugador)"
+        ' Inserta el nuevo registro directamente sin verificar si la lista ya existe
+        Dim queryInsert As String = "INSERT INTO listas (nombre_lista, idjugador) VALUES (@nombreLista, @idJugador)"
         Using conn As New SQLiteConnection(ObtenerConexion())
             conn.Open()
-            Using cmd As New SQLiteCommand(query, conn)
-                cmd.Parameters.AddWithValue("@nombreLista", nombreLista)
-                cmd.Parameters.AddWithValue("@idJugador", idJugador)
-                cmd.ExecuteNonQuery()
+            Using cmdInsert As New SQLiteCommand(queryInsert, conn)
+                cmdInsert.Parameters.AddWithValue("@nombreLista", nombreLista)
+                cmdInsert.Parameters.AddWithValue("@idJugador", idJugador)
+                cmdInsert.ExecuteNonQuery()
             End Using
         End Using
     End Sub
+
+    Public Shared Sub EliminarLista(nombreLista As String)
+
+        ' Verificar si la tabla existe y crearla si no existe
+        VerificarYCrearTabla()
+
+        Dim queryDelete As String = "DELETE FROM listas WHERE nombre_lista = @nombreLista"
+        Using conn As New SQLiteConnection(ObtenerConexion())
+            conn.Open()
+            Using cmdDelete As New SQLiteCommand(queryDelete, conn)
+                cmdDelete.Parameters.AddWithValue("@nombreLista", nombreLista)
+                cmdDelete.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
 
 
     Public Shared Function ObtenerNombresListas() As DataTable
@@ -965,25 +976,63 @@ Public Class ConexionSqlite
         Return dt
     End Function
 
-    Public Shared Function ObtenerJugadoresPorLista(nombreLista As String) As DataTable
+    Public Shared Function ObtenerJugadoresPorListaYFecha(nombreLista As String, nroFecha As Integer) As DataTable
         Dim dt As New DataTable()
 
         ' Verificar si la tabla existe
         VerificarYCrearTabla()
 
-        Dim query As String = "SELECT idjugador FROM listas WHERE nombre_lista = @nombreLista"
+        Dim query As String = "
+SELECT 
+    j.idequipo AS Equipo,
+    j.idjugadores AS 'ID Jugador',
+    e.nombre AS 'Nombre del Equipo',
+    j.jugador AS Jugador,
+    j.posicion AS Posicion,
+    r.puntosfecha AS PuntosFecha
+FROM 
+    listas l
+JOIN 
+    jugadores j ON l.idjugador = j.idjugadores
+JOIN 
+    registro r ON j.idjugadores = r.idjugador AND j.idequipo = r.idequipo
+JOIN 
+    equipos e ON j.idequipo = e.idequipo
+WHERE 
+    l.nombre_lista = @nombreLista 
+    AND r.nrofecha = @nroFecha
+ORDER BY 
+    CASE j.posicion 
+        WHEN 'Por' THEN 1
+        WHEN 'Def' THEN 2
+        WHEN 'Med' THEN 3
+        WHEN 'Del' THEN 4
+        ELSE 5
+    END,
+    r.puntosfecha DESC;"
+
         Using conn As New SQLiteConnection(ObtenerConexion())
             conn.Open()
             Using cmd As New SQLiteCommand(query, conn)
                 cmd.Parameters.AddWithValue("@nombreLista", nombreLista)
+                cmd.Parameters.AddWithValue("@nroFecha", nroFecha)
                 Using da As New SQLiteDataAdapter(cmd)
                     da.Fill(dt)
                 End Using
             End Using
         End Using
 
+        ' Cambia el nombre de la columna a "Fecha {nroFecha}" después de que se carga el DataTable
+        If dt.Columns.Contains("PuntosFecha") Then
+            dt.Columns("PuntosFecha").ColumnName = "Fecha " & nroFecha.ToString()
+        End If
+
         Return dt
     End Function
+
+
+
+
 
     Private Shared Sub VerificarYCrearTabla()
         Dim query As String = "CREATE TABLE IF NOT EXISTS listas (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre_lista TEXT, idjugador INTEGER)"
@@ -994,7 +1043,6 @@ Public Class ConexionSqlite
             End Using
         End Using
     End Sub
-
 
 
 

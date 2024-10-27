@@ -516,8 +516,8 @@ Public Class FrmLigaPpal
     End Sub
 
     Private Sub BtnFechas_Click(sender As Object, e As EventArgs) Handles BtnFechas.Click
-        FrmFechas.LblIdLiga.Text = LblIdLiga.Text
-        FrmFechas.LblNombreLiga.Text = LblNombreLiga.Text
-        FrmFechas.Show()
+        FrmUsadosPorFechas.LblIdLiga.Text = LblIdLiga.Text
+        FrmUsadosPorFechas.LblNombreLiga.Text = LblNombreLiga.Text
+        FrmUsadosPorFechas.Show()
     End Sub
 End Class

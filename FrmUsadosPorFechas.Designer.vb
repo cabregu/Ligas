@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmFechas
+Partial Class FrmUsadosPorFechas
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -24,11 +24,13 @@ Partial Class FrmFechas
     Private Sub InitializeComponent()
         LblNombreLiga = New Label()
         LblIdLiga = New Label()
-        CmbSubliga = New ComboBox()
+        CmbLista = New ComboBox()
         DgvFechas = New DataGridView()
+        Fechas = New DataGridViewTextBoxColumn()
         DgvJugadores = New DataGridView()
         lblIdequipo = New Label()
         BtnLista = New Button()
+        BtnEliminarlista = New Button()
         CType(DgvFechas, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -54,13 +56,13 @@ Partial Class FrmFechas
         LblIdLiga.Text = "0"
         LblIdLiga.Visible = False
         ' 
-        ' CmbSubliga
+        ' CmbLista
         ' 
-        CmbSubliga.FormattingEnabled = True
-        CmbSubliga.Location = New Point(19, 41)
-        CmbSubliga.Name = "CmbSubliga"
-        CmbSubliga.Size = New Size(157, 23)
-        CmbSubliga.TabIndex = 11
+        CmbLista.FormattingEnabled = True
+        CmbLista.Location = New Point(19, 41)
+        CmbLista.Name = "CmbLista"
+        CmbLista.Size = New Size(157, 23)
+        CmbLista.TabIndex = 11
         ' 
         ' DgvFechas
         ' 
@@ -68,12 +70,19 @@ Partial Class FrmFechas
         DgvFechas.AllowUserToDeleteRows = False
         DgvFechas.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left
         DgvFechas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DgvFechas.Columns.AddRange(New DataGridViewColumn() {Fechas})
         DgvFechas.Location = New Point(19, 85)
         DgvFechas.Name = "DgvFechas"
         DgvFechas.ReadOnly = True
         DgvFechas.RowTemplate.Height = 25
         DgvFechas.Size = New Size(157, 447)
         DgvFechas.TabIndex = 10
+        ' 
+        ' Fechas
+        ' 
+        Fechas.HeaderText = "Fechas"
+        Fechas.Name = "Fechas"
+        Fechas.ReadOnly = True
         ' 
         ' DgvJugadores
         ' 
@@ -99,27 +108,37 @@ Partial Class FrmFechas
         ' 
         ' BtnLista
         ' 
-        BtnLista.Location = New Point(523, 40)
+        BtnLista.Location = New Point(182, 40)
         BtnLista.Name = "BtnLista"
         BtnLista.Size = New Size(107, 23)
         BtnLista.TabIndex = 13
         BtnLista.Text = "Crear Lista"
         BtnLista.UseVisualStyleBackColor = True
         ' 
-        ' FrmFechas
+        ' BtnEliminarlista
+        ' 
+        BtnEliminarlista.Location = New Point(295, 40)
+        BtnEliminarlista.Name = "BtnEliminarlista"
+        BtnEliminarlista.Size = New Size(107, 23)
+        BtnEliminarlista.TabIndex = 14
+        BtnEliminarlista.Text = "Eliminar Lista"
+        BtnEliminarlista.UseVisualStyleBackColor = True
+        ' 
+        ' FrmUsadosPorFechas
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(642, 544)
+        Controls.Add(BtnEliminarlista)
         Controls.Add(BtnLista)
         Controls.Add(lblIdequipo)
-        Controls.Add(CmbSubliga)
+        Controls.Add(CmbLista)
         Controls.Add(DgvFechas)
         Controls.Add(DgvJugadores)
         Controls.Add(LblNombreLiga)
         Controls.Add(LblIdLiga)
-        Name = "FrmFechas"
+        Name = "FrmUsadosPorFechas"
         Text = "Usados Por Fecha"
         WindowState = FormWindowState.Maximized
         CType(DgvFechas, ComponentModel.ISupportInitialize).EndInit()
@@ -130,9 +149,11 @@ Partial Class FrmFechas
 
     Friend WithEvents LblNombreLiga As Label
     Friend WithEvents LblIdLiga As Label
-    Friend WithEvents CmbSubliga As ComboBox
+    Friend WithEvents CmbLista As ComboBox
     Friend WithEvents DgvFechas As DataGridView
     Friend WithEvents DgvJugadores As DataGridView
     Friend WithEvents lblIdequipo As Label
     Friend WithEvents BtnLista As Button
+    Friend WithEvents Fechas As DataGridViewTextBoxColumn
+    Friend WithEvents BtnEliminarlista As Button
 End Class
