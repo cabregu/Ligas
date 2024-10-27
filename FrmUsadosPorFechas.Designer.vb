@@ -31,6 +31,7 @@ Partial Class FrmUsadosPorFechas
         lblIdequipo = New Label()
         BtnLista = New Button()
         BtnEliminarlista = New Button()
+        Btnxls = New Button()
         CType(DgvFechas, ComponentModel.ISupportInitialize).BeginInit()
         CType(DgvJugadores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -124,12 +125,25 @@ Partial Class FrmUsadosPorFechas
         BtnEliminarlista.Text = "Eliminar Lista"
         BtnEliminarlista.UseVisualStyleBackColor = True
         ' 
+        ' Btnxls
+        ' 
+        Btnxls.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Btnxls.BackColor = Color.SlateGray
+        Btnxls.FlatStyle = FlatStyle.Flat
+        Btnxls.Image = My.Resources.Resources.SendXLS_32x32
+        Btnxls.Location = New Point(567, 29)
+        Btnxls.Name = "Btnxls"
+        Btnxls.Size = New Size(63, 44)
+        Btnxls.TabIndex = 19
+        Btnxls.UseVisualStyleBackColor = False
+        ' 
         ' FrmUsadosPorFechas
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Teal
         ClientSize = New Size(642, 544)
+        Controls.Add(Btnxls)
         Controls.Add(BtnEliminarlista)
         Controls.Add(BtnLista)
         Controls.Add(lblIdequipo)
@@ -156,4 +170,5 @@ Partial Class FrmUsadosPorFechas
     Friend WithEvents BtnLista As Button
     Friend WithEvents Fechas As DataGridViewTextBoxColumn
     Friend WithEvents BtnEliminarlista As Button
+    Friend WithEvents Btnxls As Button
 End Class
