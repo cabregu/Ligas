@@ -10,10 +10,65 @@ Public Class FrmCargarPuntos
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         cargarcmb(CmbFechas)
-
     End Sub
+
+    Private Sub cargarcmb(ByVal cmb As ComboBox)
+        ' Quitar cualquier manejador de eventos anterior de DrawItem
+        RemoveHandler cmb.DrawItem, AddressOf cmb_DrawItem
+
+        ' Obtener las fechas cargadas desde la base de datos
+        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas()
+        Dim CantidadFechas As Integer = ObtenerDatoFechas()
+
+        ' Configurar el ComboBox para dibujar los elementos
+        cmb.DrawMode = DrawMode.OwnerDrawFixed
+        cmb.Items.Clear()
+        cmb.Items.Add("")
+
+        ' Agregar los elementos al ComboBox
+        For i As Integer = 1 To CantidadFechas
+            cmb.Items.Add("Fecha " & i)
+        Next
+
+        ' Seleccionar el primer ítem
+        If cmb.Items.Count > 0 Then
+            cmb.SelectedIndex = 0
+        End If
+
+        ' Evento para dibujar cada elemento
+        AddHandler cmb.DrawItem, AddressOf cmb_DrawItem
+    End Sub
+
+    ' Evento que dibuja cada elemento del ComboBox
+    Private Sub cmb_DrawItem(ByVal sender As Object, ByVal e As DrawItemEventArgs)
+        Dim cmb As ComboBox = CType(sender, ComboBox)
+
+        ' Verificar que el índice es válido
+        If e.Index < 0 Then Return
+
+        ' Extraer el número de la fecha de cada elemento
+        Dim itemText As String = cmb.Items(e.Index).ToString()
+        Dim fechaNumero As String = itemText.Replace("Fecha ", "")
+
+        ' Obtener la lista de fechas cargadas cada vez que se dibuja (por si cambian)
+        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas()
+        Dim esFechaCargada As Boolean = fechasCargadas.Contains(fechaNumero)
+
+        ' Establecer los colores de fondo y de texto
+        If esFechaCargada Then
+            e.Graphics.FillRectangle(Brushes.LightGreen, e.Bounds) ' Fondo verde claro para fechas cargadas
+        Else
+            e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds) ' Fondo normal
+        End If
+
+        ' Dibujar el texto
+        TextRenderer.DrawText(e.Graphics, itemText, cmb.Font, e.Bounds, cmb.ForeColor, TextFormatFlags.Left)
+    End Sub
+
+
+
+
 
     Private Sub DgvEquipos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvEquipos.CellClick
         If e.RowIndex >= 0 Then
@@ -127,19 +182,6 @@ Public Class FrmCargarPuntos
         End If
     End Sub
 
-    Private Sub cargarcmb(ByVal cmb As ComboBox)
-        Dim CantidadFechas As Integer = ObtenerDatoFechas()
-        cmb.Items.Clear()
-        cmb.Items.Add("")
-        For i As Integer = 1 To CantidadFechas
-            cmb.Items.Add("Fecha " & i)
-
-        Next
-        If cmb.Items.Count > 0 Then
-            cmb.SelectedIndex = 0
-        End If
-
-    End Sub
 
     Private Sub cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbFechas.SelectedIndexChanged
 

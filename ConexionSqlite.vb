@@ -902,6 +902,34 @@ Public Class ConexionSqlite
     End Function
 
 
+    Public Shared Function ObtenerFechasCargadas() As List(Of String)
+        Dim nombresSubligas As New List(Of String)()
+        Dim query As String = "SELECT DISTINCT nrofecha FROM registro"
+
+        Try
+            Using conn As New SQLiteConnection(ObtenerConexion())
+                conn.Open()
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim nombreSubliga As String = reader("nrofecha").ToString()
+                            nombresSubligas.Add(nombreSubliga)
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Manejar excepciones según sea necesario
+            Console.WriteLine("Error: " & ex.Message)
+        End Try
+
+        Return nombresSubligas
+    End Function
+
+
+
+
     Public Shared Function InsertarJugadorPraTransferirdeliga(jugador As String, posicion As String, idequipo As Integer) As Boolean
         Dim query As String = "INSERT INTO jugadores (jugador, posicion, idequipo) VALUES (@jugador, @posicion, @idequipo)"
 
@@ -954,7 +982,6 @@ Public Class ConexionSqlite
             End Using
         End Using
     End Sub
-
 
 
     Public Shared Function ObtenerNombresListas() As DataTable
