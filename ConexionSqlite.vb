@@ -902,19 +902,26 @@ Public Class ConexionSqlite
     End Function
 
 
-    Public Shared Function ObtenerFechasCargadas() As List(Of String)
-        Dim nombresSubligas As New List(Of String)()
-        Dim query As String = "SELECT DISTINCT nrofecha FROM registro"
+    Public Shared Function ObtenerFechasCargadas(idliga As Integer) As List(Of String)
+        Dim fechasCargadas As New List(Of String)()
+        Dim query As String = "
+        SELECT DISTINCT r.nrofecha
+        FROM registro r
+        INNER JOIN equipos e ON r.idequipo = e.idequipo
+        WHERE e.idliga = @idliga"
 
         Try
             Using conn As New SQLiteConnection(ObtenerConexion())
                 conn.Open()
 
                 Using cmd As New SQLiteCommand(query, conn)
+                    ' Agregar el parámetro idliga a la consulta
+                    cmd.Parameters.AddWithValue("@idliga", idliga)
+
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Dim nombreSubliga As String = reader("nrofecha").ToString()
-                            nombresSubligas.Add(nombreSubliga)
+                            Dim nrofecha As String = reader("nrofecha").ToString()
+                            fechasCargadas.Add(nrofecha)
                         End While
                     End Using
                 End Using
@@ -924,8 +931,9 @@ Public Class ConexionSqlite
             Console.WriteLine("Error: " & ex.Message)
         End Try
 
-        Return nombresSubligas
+        Return fechasCargadas
     End Function
+
 
 
 

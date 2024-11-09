@@ -14,11 +14,11 @@ Public Class FrmCargarPuntos
     End Sub
 
     Private Sub cargarcmb(ByVal cmb As ComboBox)
-        ' Quitar cualquier manejador de eventos anterior de DrawItem
+
         RemoveHandler cmb.DrawItem, AddressOf cmb_DrawItem
 
-        ' Obtener las fechas cargadas desde la base de datos
-        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas()
+
+        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas(LblIdLiga.Text)
         Dim CantidadFechas As Integer = ObtenerDatoFechas()
 
         ' Configurar el ComboBox para dibujar los elementos
@@ -52,7 +52,7 @@ Public Class FrmCargarPuntos
         Dim fechaNumero As String = itemText.Replace("Fecha ", "")
 
         ' Obtener la lista de fechas cargadas cada vez que se dibuja (por si cambian)
-        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas()
+        Dim fechasCargadas As List(Of String) = ObtenerFechasCargadas(LblIdLiga.Text)
         Dim esFechaCargada As Boolean = fechasCargadas.Contains(fechaNumero)
 
         ' Establecer los colores de fondo y de texto
